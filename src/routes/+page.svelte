@@ -35,6 +35,14 @@
     {
         if (!startDatePickerVisible)
             visible = !visible;
+        else if (startDatePickerVisible)
+        {
+            startButtonColor = startButtonColor === "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)" ? "#912338" : "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
+            startDatePickerVisible = !startDatePickerVisible;
+            setTimeout(() => {
+                visible = !visible;
+            }, 500)
+        }
     }
 
     function selectAssignmentType(event)
@@ -68,6 +76,14 @@
         {
             startButtonColor = startButtonColor === "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)" ? "#912338" : "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
             startDatePickerVisible = !startDatePickerVisible;
+        }
+        else if (visible)
+        {
+            visible = !visible;
+            startButtonColor = startButtonColor === "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)" ? "#912338" : "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
+            setTimeout(() => {
+                startDatePickerVisible = !startDatePickerVisible;
+            }, 500)
         }
     }
 
