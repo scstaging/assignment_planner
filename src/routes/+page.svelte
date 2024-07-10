@@ -54,7 +54,7 @@
                 plannerinfo.atype = "researchreport";
                 break;
             case "res-pres":
-                assignmentChoice = "Research Presentation";
+                assignmentChoice = "AP Analytical Essay";
                 plannerinfo.atype = "researchpresentation";
                 break;
             case "ann-bib":
@@ -163,7 +163,7 @@
                 <img on:click={selectAssignmentType} id="res-rep" class="grid-item" alt="research-report" src="/research-report-06.webp">
             </div>
             <div class="grid-assign">
-                <h2>Research Presentation</h2>
+                <h2>AP Analytical Essay</h2>
                 <img on:click={selectAssignmentType} id="res-pres" class="grid-item" alt="research-pres" src="/research-presentation-06.webp">
             </div>
             <div class="grid-assign">
