@@ -90,7 +90,6 @@
     <div class="fp-left">
         <div style="display: flex;flex-direction:row;">
             <img class="fp-logo" alt="fp-logo" src="/concordia-logo.webp">
-            <h2 style="position:absolute;left: 30%;top:9%;font-size:2.2em;font-weight:700;" class="fp-title">Assignment Planner</h2>
         </div>
         <!-- DIVIDER -->
         <div class="divider" style="margin-bottom: 10%;"></div>
