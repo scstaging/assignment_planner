@@ -16,6 +16,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"gapi-client": "^0.0.3",
+		"gapi-script": "^1.2.0",
 		"svelty-picker": "^5.2.9"
 	}
 }

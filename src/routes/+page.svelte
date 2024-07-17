@@ -34,11 +34,17 @@
     function openAssignments()
     {
         if (!startDatePickerVisible)
-            visible = !visible;
+        {
+            leftHidden = !leftHidden;
+            setTimeout(() => {
+                visible = !visible;
+            }, 500)
+        }
         else if (startDatePickerVisible)
         {
             startButtonColor = startButtonColor === "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)" ? "#912338" : "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
             startDatePickerVisible = !startDatePickerVisible;
+            leftHidden = !leftHidden;
             setTimeout(() => {
                 visible = !visible;
             }, 500)
@@ -52,18 +58,34 @@
             case "res-rep":
                 assignmentChoice = "Discussion Post";
                 plannerinfo.atype = "researchreport";
+                setTimeout(() => {
+                    leftHidden = !leftHidden;
+                }, 500)
+                visible = !visible;
                 break;
             case "res-pres":
-                assignmentChoice = "AP Analytical Essay";
+                assignmentChoice = "Analytical Essay";
                 plannerinfo.atype = "researchpresentation";
+                setTimeout(() => {
+                    leftHidden = !leftHidden;
+                }, 500)
+                visible = !visible;
                 break;
             case "ann-bib":
                 assignmentChoice = "Annotated Bibliography";
                 plannerinfo.atype = "annotatedbibliography";
+                setTimeout(() => {
+                    leftHidden = !leftHidden;
+                }, 500)
+                visible = !visible;
                 break;
             case "pos-pres":
                 assignmentChoice = "Poster Presentation";
                 plannerinfo.atype = "posterpresentation";
+                setTimeout(() => {
+                    leftHidden = !leftHidden;
+                }, 500)
+                visible = !visible;
                 break;
             default:
                 break;
@@ -100,10 +122,13 @@
         goto(`/${atype}?${params}`);
     }
 
+    let leftHidden = false;
+
 </script>
 
 <div class="fp-container">
-    <div class="fp-left">
+    {#if !leftHidden}
+    <div transition:fade class="fp-left">
         <div style="display: flex;flex-direction:row;">
             <img class="fp-logo" alt="fp-logo" src="/concordia-logo.webp">
         </div>
@@ -155,6 +180,7 @@
             {/if}
         </div>
     </div>
+    {/if}
     <div class="fp-right">
         {#if visible}
         <div class="grid-container" transition:fade>
@@ -163,7 +189,7 @@
                 <img on:click={selectAssignmentType} id="res-rep" class="grid-item" alt="research-report" src="/research-report-06.webp">
             </div>
             <div class="grid-assign">
-                <h2>AP Analytical Essay</h2>
+                <h2>Analytical Essay</h2>
                 <img on:click={selectAssignmentType} id="res-pres" class="grid-item" alt="research-pres" src="/research-presentation-06.webp">
             </div>
             <div class="grid-assign">
@@ -191,6 +217,9 @@
 * {
     margin: none;
     padding: none;
+}
+:global(body) {
+    margin: 0;
 }
 .fp-container {
     width: 100%;
