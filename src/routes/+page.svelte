@@ -23,11 +23,14 @@
     }
 
     let delim;
+    let simpleStartDate, simpleEndDate;
 
     // Update assignment state on change
     $: delim = String(selectedStartDate).split(",");
     $: plannerinfo.startDate = delim[0];
     $: plannerinfo.endDate = delim[1];
+    $: simpleStartDate = convertDate(plannerinfo.startDate);
+    $: if (plannerinfo.endDate) simpleEndDate = convertDate(plannerinfo.endDate);
 
     let startButtonColor = "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
 
@@ -124,6 +127,31 @@
 
     let leftHidden = false;
 
+    function convertDate(dateString) {
+        const months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const suffixes = ["th", "st", "nd", "rd"];
+        
+        function getDayWithSuffix(day) {
+            if (day > 3 && day < 21) return day + suffixes[0];
+            switch (day % 10) {
+                case 1:  return day + suffixes[1];
+                case 2:  return day + suffixes[2];
+                case 3:  return day + suffixes[3];
+                default: return day + suffixes[0];
+            }
+        }
+
+        const [year, month, day] = dateString.split('-');
+        const monthName = months[parseInt(month, 10) - 1];
+        const dayWithSuffix = getDayWithSuffix(parseInt(day, 10));
+
+        return `${monthName} ${dayWithSuffix}`;
+    }
+
 </script>
 
 <div class="fp-container">
@@ -164,7 +192,7 @@
                     <h2 class="fp-start-date-text">Select Date</h2>
                 {/if}
                 {#if selectedStartDate}
-                    <h2 class="fp-start-date-text">{plannerinfo.startDate + " - " + plannerinfo.endDate}</h2>
+                    <h2 class="fp-start-date-text">{simpleStartDate + " - " + simpleEndDate}</h2>
                 {/if}
             </div>
         </div>

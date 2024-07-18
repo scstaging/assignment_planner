@@ -63,6 +63,7 @@
     let atype;
     let startDate;
     let endDate;
+    let formattedEndDate;
 
     function calculateDaysBetweenDates(date1, date2) {
         const dateObj1 = new Date(date1);
@@ -104,6 +105,7 @@
             let days = Math.floor((goal.percent / 100) * totalDays);
             goal.dueDate = addDaysToDate(temp, days);
             temp = goal.dueDate;
+            goal.dueDate = convertDate(goal.dueDate);
         }
     }
 
@@ -125,10 +127,36 @@
 
     let totalDays;
 
+    function convertDate(dateString) {
+        const months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const suffixes = ["th", "st", "nd", "rd"];
+        
+        function getDayWithSuffix(day) {
+            if (day > 3 && day < 21) return day + suffixes[0];
+            switch (day % 10) {
+                case 1:  return day + suffixes[1];
+                case 2:  return day + suffixes[2];
+                case 3:  return day + suffixes[3];
+                default: return day + suffixes[0];
+            }
+        }
+
+        const [year, month, day] = dateString.split('-');
+        const monthName = months[parseInt(month, 10) - 1];
+        const dayWithSuffix = getDayWithSuffix(parseInt(day, 10));
+
+        return `${monthName} ${dayWithSuffix}`;
+    }
+
   $: {
     atype = $page.url.searchParams.get('atype');
     startDate = $page.url.searchParams.get('startDate');
     endDate = $page.url.searchParams.get('endDate');
+    formattedEndDate = convertDate(endDate);
     totalDays = calculateDaysBetweenDates(startDate, endDate);
     allocateDays(goals, startDate);
   }
@@ -212,7 +240,7 @@
             <div style="display: flex;flex-direction:row;">
                 {#if selectedGoal === null}
                     <p class="gp-p-text">Due Date: &nbsp;</p>
-                    <p style="color: rgba(255,85,0,1);" class="gp-p-text">{endDate}</p>
+                    <p style="color: rgba(255,85,0,1);" class="gp-p-text">{formattedEndDate}</p>
                 {:else}
                     {#each goals as goal}
                         {#if selectedGoal?.id === goal.id}
@@ -238,7 +266,7 @@
             {#if selectedGoal === null}
             <div class="goal-list" transition:fade>
                 {#each goals as goal}
-                    <div style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;margin-bottom:5px;" class="gp-goal" on:click={() => selectGoal(goal)}>
+                    <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;" class="gp-goal" on:click={() => selectGoal(goal)}>
                         <input id={goal.id} type="checkbox" class="checkbox"
                         on:click={(e) => e.stopPropagation()}
                         on:change={(e) => {
