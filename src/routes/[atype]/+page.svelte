@@ -77,12 +77,17 @@
         if (currentGoal) {
         goals.push(currentGoal);
         }
+
+        // Push State
+        goals = goals;
+        console.log(goals)
   }
 
     onMount(async () => {
         try {
             const data = await fetchGoogleDoc();
             docContent = parseGoogleDocContent(data);
+            console.log(goals)
         } catch (error) {
             console.error('Error loading document:', error);
         }
