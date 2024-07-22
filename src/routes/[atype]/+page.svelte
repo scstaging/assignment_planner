@@ -62,8 +62,10 @@
           currentGoal = {
             title: match[1],
             percent: parseInt(match[2], 10),
-            description: match[3],
-            links: []
+            goalDescript: match[3],
+            links: [],
+            completed: false,
+            dueDate: "XXXXXX"
           };
         }
       } else if (line.startsWith('-') && currentGoal) {
@@ -71,7 +73,7 @@
         if (linkMatch) {
           currentGoal.links.push({
             title: linkMatch[1],
-            url: linkMatch[2]
+            descript: linkMatch[2]
           });
         }
       } else if (currentGoal) {
