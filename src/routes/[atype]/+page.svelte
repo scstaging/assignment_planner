@@ -29,7 +29,8 @@
         return response.json();
     }
 
-    function parseGoogleDocContent(data) {
+    async function parseGoogleDocContent() {
+        const data = await fetchGoogleDoc();
         const content = data.body.content;
         let text = '';
         content.forEach(element => {
@@ -82,16 +83,6 @@
         goals = goals;
         console.log(goals)
   }
-
-    onMount(async () => {
-        try {
-            const data = await fetchGoogleDoc();
-            docContent = parseGoogleDocContent(data);
-            console.log(goals)
-        } catch (error) {
-            console.error('Error loading document:', error);
-        }
-    });
 
     let atype;
     let startDate;
@@ -287,13 +278,16 @@
         {#if selectedGoal === null}
         <p class="gp-descript" in:fade={{delay: 500}} out:fade>An analytical essay is the cornerstone style of writing in most university-level Humanities courses. Your professor wants you to go beyond a basic description of your topic; you need to critically examine and interpret the subject and provide a deeper understanding of the material. In other words, you are not simply asked to state the who, what, where and when of a topic; you are asked to explain why. This type of essay is thesis-driven, meaning that it revolves around a central argument or claim that you will support with evidence and analysis throughout your paper. Begin by creating a working thesis statement, do your research, lay out a plan and this paper will write itself!</p>
         {/if}
-        {#each goals as goal}
-            {#if selectedGoal?.id === goal.id}
-                <p class="gp-descript" out:fade in:fade={{
-                    delay: 1000
-                }}>{goal.goalDescript}</p>
-            {/if}
-        {/each}
+        {#await parseGoogleDocContent()}
+            <p>Awaiting goals...</p>
+        {:then goals}
+            {#each goals as goal}
+                {#if selectedGoal?.id === goal.id}
+                    <p class="gp-descript" out:fade in:fade={{
+                        delay: 1000
+                    }}>{goal.goalDescript}</p>
+                {/if}
+            {/each}
         <div class="goal-list-container" transition:fade>
             <h2 class="gp-goals-title" transition:fade>{selectedGoal === null ? "Goals" : "Helpful Links"}</h2>
             {#if selectedGoal === null}
@@ -342,6 +336,7 @@
             </div>
             <img class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
         </div>
+        {/await}
     </div>
 </div>
 
