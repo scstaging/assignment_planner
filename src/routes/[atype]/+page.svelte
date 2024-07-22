@@ -32,56 +32,61 @@
     async function parseGoogleDocContent() {
         const data = await fetchGoogleDoc();
         const content = data.body.content;
-        let text = '';
-        content.forEach(element => {
-        if (element.paragraph) {
-            element.paragraph.elements.forEach(el => {
-            if (el.textRun) {
-                text += el.textRun.content;
-            }
-            });
-        }
+    let text = '';
+    
+    // Extract text from the content
+    content.forEach(element => {
+      if (element.paragraph) {
+        element.paragraph.elements.forEach(el => {
+          if (el.textRun) {
+            text += el.textRun.content;
+          }
         });
+      }
+    });
 
-        const lines = text.split('\n');
-        let currentGoal = null;
+    // Split text into lines
+    const lines = text.split('\n');
+    let currentGoal = null;
 
-        lines.forEach(line => {
-        if (line.startsWith('&')) {
-            introBlurb = line.slice(1).trim();
-        } else if (line.startsWith('#')) {
-            if (currentGoal) {
-            goals.push(currentGoal);
-            }
-            const match = line.match(/#\s*(.*?)\s*\((\d+)%\)\s*(.*)/);
-            if (match) {
-            currentGoal = {
-                title: match[1],
-                percent: parseInt(match[2], 10),
-                description: match[3],
-                links: []
-            };
-            }
-        } else if (line.startsWith('-') && currentGoal) {
-            const linkMatch = line.match(/-\s*\[(.*?)\]\((.*?)\)/);
-            if (linkMatch) {
-            currentGoal.links.push({
-                title: linkMatch[1],
-                url: linkMatch[2]
-            });
-            }
-        } else if (currentGoal) {
-            currentGoal.description += ' ' + line.trim();
-        }
-        });
-
+    // Parse lines
+    lines.forEach(line => {
+      if (line.startsWith('&')) {
+        introBlurb = line.slice(1).trim();
+      } else if (line.startsWith('#')) {
         if (currentGoal) {
-        goals.push(currentGoal);
+          goals.push(currentGoal);
         }
+        const match = line.match(/#\s*(.*?)\s*\((\d+)%\)\s*(.*)/);
+        if (match) {
+          currentGoal = {
+            title: match[1],
+            percent: parseInt(match[2], 10),
+            description: match[3],
+            links: []
+          };
+        }
+      } else if (line.startsWith('-') && currentGoal) {
+        const linkMatch = line.match(/-\s*\[(.*?)\]\((.*?)\)/);
+        if (linkMatch) {
+          currentGoal.links.push({
+            title: linkMatch[1],
+            url: linkMatch[2]
+          });
+        }
+      } else if (currentGoal) {
+        currentGoal.description += ' ' + line.trim();
+      }
+    });
 
-        // Push State
-        goals = goals;
-        console.log(goals)
+    if (currentGoal) {
+      goals.push(currentGoal);
+    }
+
+    // Log parsed goals for debugging
+    console.log(goals);
+
+    goals = goals;
   }
 
     let atype;
