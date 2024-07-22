@@ -263,9 +263,9 @@
 </script>
 
 {#await parseGoogleDocContent()}
-    <p>Awaiting goals...</p>
+    <h2 class="gp-title-text">Awaiting goals</h2>
 {:then g}
-<div class="gp-container">
+<div transition:fade class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
             <div>
@@ -328,7 +328,7 @@
                             <a style="text-decoration: none;" target="_blank" class="link-descript" href={link.descript}><h2 class="link-title">{link.title}</h2></a>
                         </div>
                     {/each}
-                    <h2 class="back-button" on:click={() => {nullSelectedGoal(goal)}}>&lt; Back</h2>
+                    <h2 class="back-button" on:click={() => {nullSelectedGoal(goal)}}>Back</h2>
                 {/if}
             {/each}
         </div>
