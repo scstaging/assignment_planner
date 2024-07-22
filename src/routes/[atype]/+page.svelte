@@ -190,6 +190,7 @@
     formattedEndDate = convertDate(endDate);
     totalDays = calculateDaysBetweenDates(startDate, endDate);
     allocateDays(goals, startDate);
+    goals = goals;
   }
 
   let selectedGoal = null;
@@ -260,6 +261,7 @@
 {#await parseGoogleDocContent()}
     <p>Awaiting goals...</p>
 {:then goals}
+{console.log("Here: " + goals)}
 <div class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
