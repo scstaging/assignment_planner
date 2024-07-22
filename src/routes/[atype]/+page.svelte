@@ -49,6 +49,9 @@
     const lines = text.split('\n');
     let currentGoal = null;
 
+    // ID index
+    let IDindex = -1;
+
     // Parse lines
     lines.forEach(line => {
       if (line.startsWith('&')) {
@@ -56,10 +59,12 @@
       } else if (line.startsWith('#')) {
         if (currentGoal) {
           goals.push(currentGoal);
+          IDindex++;
         }
         const match = line.match(/#\s*(.*?)\s*\((\d+)%\)\s*(.*)/);
         if (match) {
           currentGoal = {
+            id: IDindex,
             title: match[1],
             percent: parseInt(match[2], 10),
             goalDescript: match[3],
@@ -260,7 +265,6 @@
 {#await parseGoogleDocContent()}
     <p>Awaiting goals...</p>
 {:then g}
-{selectedGoal = null}
 <div class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
