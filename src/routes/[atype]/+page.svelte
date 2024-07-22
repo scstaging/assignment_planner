@@ -1,6 +1,6 @@
 <svelte:head>
-    <script async defer src="https://apis.google.com/js/api.js"></script>
-    <script async defer src="https://accounts.google.com/gsi/client"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
 </svelte:head>
 
 <script>
@@ -9,56 +9,18 @@
     import { fade, fly } from 'svelte/transition';
     import { expoOut } from 'svelte/easing';
     import { onMount } from 'svelte';
-    import { writable } from 'svelte/store';
 
     //******** DOCS INTEGRATION ********//
     const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyDHf06lXDDPVFoqdlfhGr3G7CcyHNwsZNw';
     const DISCOVERY_DOC = 'https://docs.googleapis.com/$discovery/rest?version=v1';
     const SCOPES = 'https://www.googleapis.com/auth/documents.readonly';
-    const docContent = writable(null);
     let docID = '1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM';
 
-    function loadGoogleDoc(docID) {
-        return new Promise((resolve, reject) => {
-            gapi.load('client:auth2', async () => {
-            try {
-                await gapi.client.init({
-                apiKey: API_KEY,
-                clientId: CLIENT_ID,
-                discoveryDocs: [DISCOVERY_DOC],
-                scope: SCOPES,
-                });
-
-                await gapi.auth2.getAuthInstance().signIn();
-
-                const response = await gapi.client.docs.documents.get({
-                documentId: docID,
-                });
-
-                docContent.set(response.result);
-                resolve(response.result);
-            } catch (error) {
-                reject(error);
-            }
-            });
-        });
-    }
-
+    let docContent = "";
     let testGoals = [];
 
-    onMount(async () => {
-        try {
-        await loadGoogleDoc(docID);
-        $docContent.subscribe(content => {
-            if (content) {
-                console.log(content);
-            }
-        });
-        } catch (error) {
-        console.error("Error loading document:", error);
-        }
-  });
+    
 
     let atype;
     let startDate;
