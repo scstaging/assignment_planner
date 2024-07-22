@@ -18,7 +18,7 @@
     let docID = '1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM';
 
     let docContent = "";
-    let testGoals = [];
+    let goals = [];
 
     async function fetchGoogleDoc() {
         const response = await fetch(`/api/get-google-doc?docID=${docID}`);
@@ -40,8 +40,43 @@
             });
         }
         });
-        return text;
-    }
+
+        const lines = text.split('\n');
+        let currentGoal = null;
+
+        lines.forEach(line => {
+        if (line.startsWith('&')) {
+            introBlurb = line.slice(1).trim();
+        } else if (line.startsWith('#')) {
+            if (currentGoal) {
+            goals.push(currentGoal);
+            }
+            const match = line.match(/#\s*(.*?)\s*\((\d+)%\)\s*(.*)/);
+            if (match) {
+            currentGoal = {
+                title: match[1],
+                percent: parseInt(match[2], 10),
+                description: match[3],
+                links: []
+            };
+            }
+        } else if (line.startsWith('-') && currentGoal) {
+            const linkMatch = line.match(/-\s*\[(.*?)\]\((.*?)\)/);
+            if (linkMatch) {
+            currentGoal.links.push({
+                title: linkMatch[1],
+                url: linkMatch[2]
+            });
+            }
+        } else if (currentGoal) {
+            currentGoal.description += ' ' + line.trim();
+        }
+        });
+
+        if (currentGoal) {
+        goals.push(currentGoal);
+        }
+  }
 
     onMount(async () => {
         try {
@@ -163,7 +198,7 @@
     {id: 5, title: "Submit", dueDate: "XXXXXX", percent: 9, goalDescript: "Try not to leave the submission to the last minute as technical errors can happen when posting.", completed: false, links: []}
   ];
 
-  let goals = [
+  let goals2 = [
     {id: 1, title: "Get started", percent: 15, dueDate: "XXXXXX", completed: false, goalDescript: "Exploring your topic can involve brainstorming to understand the scope of your topic, gathering background information, and thinking about how to develop your ideas.", links: [
         {title: "Understanding the assignment", descript: "https://www.concordia.ca/content/dam/concordia/offices/cdev/docs/AssigCalc/start_research_paper.pdf"},
         {title: "Understanding Key Words in Writing Assignments", descript: "https://www.concordia.ca/content/dam/concordia/offices/cdev/docs/AssigCalc/key_words_assignments.pdf"},
