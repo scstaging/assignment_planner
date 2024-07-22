@@ -82,7 +82,7 @@
           });
         }
       } else if (currentGoal) {
-        currentGoal.description += ' ' + line.trim();
+        currentGoal.goalDescript += ' ' + line.trim();
       }
     });
 
