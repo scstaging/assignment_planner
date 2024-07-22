@@ -263,7 +263,7 @@
 </script>
 
 {#await parseGoogleDocContent()}
-    <h2 class="gp-title-text">Awaiting goals</h2>
+    <h2 style="padding: 20px;" class="gp-p-text">Awaiting goals...</h2>
 {:then g}
 <div transition:fade class="gp-container">
     <div class="gp-inner-container">
