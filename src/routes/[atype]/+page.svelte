@@ -260,7 +260,7 @@
 {#await parseGoogleDocContent()}
     <p>Awaiting goals...</p>
 {:then g}
-{console.log("Here: " + goals)}
+{selectedGoal = null}
 <div class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
