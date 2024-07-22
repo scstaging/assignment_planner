@@ -18,6 +18,7 @@
     let docID = '1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM';
 
     let docContent = "";
+    let introBlurb = "";
     let goals = [];
 
     async function fetchGoogleDoc() {
