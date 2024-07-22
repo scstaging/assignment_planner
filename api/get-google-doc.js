@@ -1,7 +1,7 @@
 // api/get-google-doc.js
-const { google } = require('googleapis');
-const { GoogleAuth } = require('google-auth-library');
-const fetch = require('node-fetch');
+import { google } from 'googleapis';
+import { GoogleAuth } from 'google-auth-library';
+import fetch from 'node-fetch';
 
 const SCOPES = 'https://www.googleapis.com/auth/documents.readonly';
 

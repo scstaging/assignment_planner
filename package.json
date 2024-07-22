@@ -21,6 +21,7 @@
 		"gapi-script": "^1.2.0",
 		"google-auth-library": "^9.11.0",
 		"googleapis": "^140.0.1",
+		"node-fetch": "^3.3.2",
 		"svelty-picker": "^5.2.9"
 	}
 }
