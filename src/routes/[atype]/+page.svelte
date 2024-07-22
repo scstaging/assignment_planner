@@ -20,7 +20,37 @@
     let docContent = "";
     let testGoals = [];
 
-    
+    async function fetchGoogleDoc() {
+        const response = await fetch(`/api/get-google-doc?docID=${docID}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    }
+
+    function parseGoogleDocContent(data) {
+        const content = data.body.content;
+        let text = '';
+        content.forEach(element => {
+        if (element.paragraph) {
+            element.paragraph.elements.forEach(el => {
+            if (el.textRun) {
+                text += el.textRun.content;
+            }
+            });
+        }
+        });
+        return text;
+    }
+
+    onMount(async () => {
+        try {
+            const data = await fetchGoogleDoc();
+            docContent = parseGoogleDocContent(data);
+        } catch (error) {
+            console.error('Error loading document:', error);
+        }
+    });
 
     let atype;
     let startDate;
