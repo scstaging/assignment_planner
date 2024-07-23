@@ -25,9 +25,9 @@
     };
 
     // Testing state variable
-    let testing = false;
+    let testing = true;
 
-    let introBlurbContent;
+    let introBlurbContent = "test" + "<br>" + "test";
     let introBlurb;
     let goals = [];
 
@@ -36,8 +36,14 @@
         introBlurb.innerHTML = introBlurbContent;
     }
 
+    onMount(() => {
+        setTimeout(() => {
+            setIntroBlurb();
+        }, 500)
+    });
+
     async function fetchGoogleDoc() {
-        const response = await fetch(`/api/get-google-doc?docID=${docIDs['Math or PS assignments']}`);
+        const response = await fetch(`/api/get-google-doc?docID=${docIDs['Annotated Bibliography']}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
@@ -45,73 +51,75 @@
     }
 
     async function parseGoogleDocContent() {
-    const data = await fetchGoogleDoc();
-    const content = data.body.content;
+        // Testing
+        if (testing)
+            return;
+
+        const data = await fetchGoogleDoc();
+        const content = data.body.content;
     let text = '';
     
     // Extract text from the content
     content.forEach(element => {
-        if (element.paragraph) {
-            element.paragraph.elements.forEach(el => {
-                if (el.textRun) {
-                    text += el.textRun.content;
-                }
-            });
-        }
+      if (element.paragraph) {
+        element.paragraph.elements.forEach(el => {
+          if (el.textRun) {
+            text += el.textRun.content;
+          }
+        });
+      }
     });
 
     // Split text into lines
     const lines = text.split('\n');
     let currentGoal = null;
-    let introBlurb = '';
 
     // ID index
     let IDindex = -1;
 
     // Parse lines
     lines.forEach(line => {
-        if (line.startsWith('&')) {
-            introBlurb = line.slice(1).trim().replace(/\+/g, '<br>');
-        } else if (line.startsWith('#')) {
-            if (currentGoal) {
-                goals.push(currentGoal);
-                IDindex++;
-            }
-            const match = line.match(/#\s*(.*?)\s*\((\d+)%\)\s*(.*)/);
-            if (match) {
-                currentGoal = {
-                    id: IDindex,
-                    title: match[1],
-                    percent: parseInt(match[2], 10),
-                    goalDescript: match[3],
-                    links: [],
-                    completed: false,
-                    dueDate: "XXXXXX"
-                };
-            }
-        } else if (line.startsWith('-') && currentGoal) {
-            const linkMatch = line.match(/-\s*\[(.*?)\]\((.*?)\)/);
-            if (linkMatch) {
-                currentGoal.links.push({
-                    title: linkMatch[1],
-                    descript: linkMatch[2]
-                });
-            }
-        } else if (currentGoal) {
-            currentGoal.goalDescript += ' ' + line.trim();
+      if (line.startsWith('&')) {
+        introBlurb = line.slice(1).trim();
+      } else if (line.startsWith('#')) {
+        if (currentGoal) {
+          goals.push(currentGoal);
+          IDindex++;
         }
+        const match = line.match(/#\s*(.*?)\s*\((\d+)%\)\s*(.*)/);
+        if (match) {
+          currentGoal = {
+            id: IDindex,
+            title: match[1],
+            percent: parseInt(match[2], 10),
+            goalDescript: match[3],
+            links: [],
+            completed: false,
+            dueDate: "XXXXXX"
+          };
+        }
+      } else if (line.startsWith('-') && currentGoal) {
+        const linkMatch = line.match(/-\s*\[(.*?)\]\((.*?)\)/);
+        if (linkMatch) {
+          currentGoal.links.push({
+            title: linkMatch[1],
+            descript: linkMatch[2]
+          });
+        }
+      } else if (currentGoal) {
+        currentGoal.goalDescript += ' ' + line.trim();
+      }
     });
 
     if (currentGoal) {
-        goals.push(currentGoal);
+      goals.push(currentGoal);
     }
 
     // Log parsed goals for debugging
     console.log(goals);
-    console.log(introBlurb)
 
     goals = goals;
-}
+  }
 
     let atype;
     let startDate;
@@ -286,7 +294,6 @@
 {#await parseGoogleDocContent()}
     <h2 style="padding: 20px;" class="gp-p-text">Awaiting goals...</h2>
 {:then g}
-{setIntroBlurb()}
 <div transition:fade class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
