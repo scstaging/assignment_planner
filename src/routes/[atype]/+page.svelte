@@ -113,13 +113,6 @@
     goals = goals;
 }
 
-    onMount(() => {
-        setTimeout(() => {
-            setIntroBlurb();
-        }, 500)
-    });
-
-
     let atype;
     let startDate;
     let endDate;
@@ -293,6 +286,7 @@
 {#await parseGoogleDocContent()}
     <h2 style="padding: 20px;" class="gp-p-text">Awaiting goals...</h2>
 {:then g}
+{setIntroBlurb()}
 <div transition:fade class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
