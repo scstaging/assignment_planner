@@ -108,6 +108,7 @@
 
     // Log parsed goals for debugging
     console.log(goals);
+    console.log(introBlurb)
 
     goals = goals;
 }
