@@ -17,12 +17,16 @@
     const SCOPES = 'https://www.googleapis.com/auth/documents.readonly';
     let docID = '1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM';
 
+    let docIDs = {
+        "Annotated Bibliography": "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA"
+    };
+
     let docContent = "";
     let introBlurb = "";
     let goals = [];
 
     async function fetchGoogleDoc() {
-        const response = await fetch(`/api/get-google-doc?docID=${docID}`);
+        const response = await fetch(`/api/get-google-doc?docID=${docIDs['Annotated Bibliography']}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
