@@ -18,12 +18,23 @@
     let docID = '1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM';
 
     let docIDs = {
-        "Annotated Bibliography": "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA"
+        "Annotated Bibliography": "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA",
+        "Artists Statement": "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc",
+        "Analytical Essay": "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM",
+        "Math or PS assignments": "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc",
     };
 
-    let docContent = "";
-    let introBlurb = "";
+    // Testing state variable
+    let testing = true;
+
+    let introBlurbContent;
+    let introBlurb;
     let goals = [];
+
+    function setIntroBlurb()
+    {
+        introBlurb.innerHTML = introBlurbContent;
+    }
 
     async function fetchGoogleDoc() {
         const response = await fetch(`/api/get-google-doc?docID=${docIDs['Annotated Bibliography']}`);
@@ -34,71 +45,79 @@
     }
 
     async function parseGoogleDocContent() {
-        const data = await fetchGoogleDoc();
-        const content = data.body.content;
+    const data = await fetchGoogleDoc();
+    const content = data.body.content;
     let text = '';
     
     // Extract text from the content
     content.forEach(element => {
-      if (element.paragraph) {
-        element.paragraph.elements.forEach(el => {
-          if (el.textRun) {
-            text += el.textRun.content;
-          }
-        });
-      }
+        if (element.paragraph) {
+            element.paragraph.elements.forEach(el => {
+                if (el.textRun) {
+                    text += el.textRun.content;
+                }
+            });
+        }
     });
 
     // Split text into lines
     const lines = text.split('\n');
     let currentGoal = null;
+    let introBlurb = '';
 
     // ID index
     let IDindex = -1;
 
     // Parse lines
     lines.forEach(line => {
-      if (line.startsWith('&')) {
-        introBlurb = line.slice(1).trim();
-      } else if (line.startsWith('#')) {
-        if (currentGoal) {
-          goals.push(currentGoal);
-          IDindex++;
+        if (line.startsWith('&')) {
+            introBlurb = line.slice(1).trim().replace(/\+/g, '<br>');
+        } else if (line.startsWith('#')) {
+            if (currentGoal) {
+                goals.push(currentGoal);
+                IDindex++;
+            }
+            const match = line.match(/#\s*(.*?)\s*\((\d+)%\)\s*(.*)/);
+            if (match) {
+                currentGoal = {
+                    id: IDindex,
+                    title: match[1],
+                    percent: parseInt(match[2], 10),
+                    goalDescript: match[3],
+                    links: [],
+                    completed: false,
+                    dueDate: "XXXXXX"
+                };
+            }
+        } else if (line.startsWith('-') && currentGoal) {
+            const linkMatch = line.match(/-\s*\[(.*?)\]\((.*?)\)/);
+            if (linkMatch) {
+                currentGoal.links.push({
+                    title: linkMatch[1],
+                    descript: linkMatch[2]
+                });
+            }
+        } else if (currentGoal) {
+            currentGoal.goalDescript += ' ' + line.trim();
         }
-        const match = line.match(/#\s*(.*?)\s*\((\d+)%\)\s*(.*)/);
-        if (match) {
-          currentGoal = {
-            id: IDindex,
-            title: match[1],
-            percent: parseInt(match[2], 10),
-            goalDescript: match[3],
-            links: [],
-            completed: false,
-            dueDate: "XXXXXX"
-          };
-        }
-      } else if (line.startsWith('-') && currentGoal) {
-        const linkMatch = line.match(/-\s*\[(.*?)\]\((.*?)\)/);
-        if (linkMatch) {
-          currentGoal.links.push({
-            title: linkMatch[1],
-            descript: linkMatch[2]
-          });
-        }
-      } else if (currentGoal) {
-        currentGoal.goalDescript += ' ' + line.trim();
-      }
     });
 
     if (currentGoal) {
-      goals.push(currentGoal);
+        goals.push(currentGoal);
     }
 
     // Log parsed goals for debugging
     console.log(goals);
 
     goals = goals;
-  }
+}
+
+    onMount(() => {
+        setTimeout(() => {
+            setIntroBlurb();
+        }, 500)
+    });
+
 
     let atype;
     let startDate;
@@ -264,6 +283,10 @@
         selectedGoal = selectedGoal?.id === goal.id ? null : goal;
     }
 
+    // Testing
+    if (testing)
+        goals = goals2;
+
 </script>
 
 {#await parseGoogleDocContent()}
@@ -295,7 +318,7 @@
             </div>
         </div>
         {#if selectedGoal === null}
-        <p class="gp-descript" in:fade={{delay: 500}} out:fade>An analytical essay is the cornerstone style of writing in most university-level Humanities courses. Your professor wants you to go beyond a basic description of your topic; you need to critically examine and interpret the subject and provide a deeper understanding of the material. In other words, you are not simply asked to state the who, what, where and when of a topic; you are asked to explain why. This type of essay is thesis-driven, meaning that it revolves around a central argument or claim that you will support with evidence and analysis throughout your paper. Begin by creating a working thesis statement, do your research, lay out a plan and this paper will write itself!</p>
+        <p bind:this={introBlurb} class="gp-descript" in:fade={{delay: 500}} out:fade></p>
         {/if}
             {#each goals as goal}
                 {#if selectedGoal?.id === goal.id}
