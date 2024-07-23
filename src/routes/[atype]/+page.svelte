@@ -25,7 +25,7 @@
     };
 
     // Testing state variable
-    let testing = true;
+    let testing = false;
 
     let introBlurbContent;
     let introBlurb;
@@ -37,7 +37,7 @@
     }
 
     async function fetchGoogleDoc() {
-        const response = await fetch(`/api/get-google-doc?docID=${docIDs['Annotated Bibliography']}`);
+        const response = await fetch(`/api/get-google-doc?docID=${docIDs['Math or PS assignments']}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
