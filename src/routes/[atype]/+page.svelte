@@ -288,7 +288,7 @@
     {
         selectedGoal = selectedGoal?.id === goal.id ? null : goal;
     }
-
+console.log("stuff")
     // Testing
     if (testing)
         goals = goals2;
