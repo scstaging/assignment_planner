@@ -33,7 +33,7 @@
 
     function setIntroBlurb()
     {
-        console.log(introBlurb);
+        console.log("Set intro blurb: " + introBlurb);
         introBlurb.innerHTML = introBlurbContent;
     }
 
@@ -111,7 +111,7 @@
     // Log parsed goals for debugging
     console.log(goals);
 
-    console.log(introBlurb)
+    console.log("Parse: " + introBlurbContent);
 
     goals = goals;
   }
