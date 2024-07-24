@@ -115,6 +115,7 @@
 
   onMount(() => {
     while (!introBlurb);
+    console.log("here")
     setIntroBlurb();
     introBlurb = introBlurb;
   })
