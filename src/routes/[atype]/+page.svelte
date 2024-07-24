@@ -111,9 +111,6 @@
     console.log(goals);
 
     goals = goals;
-
-    setIntroBlurb();
-    introBlurb = introBlurb;
   }
 
     let atype;
@@ -289,6 +286,10 @@
 {#await parseGoogleDocContent()}
     <h2 style="padding: 20px;" class="gp-p-text">Awaiting goals...</h2>
 {:then g}
+{setTimeout(() => {
+    setIntroBlurb();
+    introBlurb = introBlurb;
+}, 500)}
 <div transition:fade class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
