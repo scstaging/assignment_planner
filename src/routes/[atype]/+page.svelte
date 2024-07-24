@@ -114,12 +114,7 @@
   }
 
   onMount(() => {
-    while (!introBlurb)
-    {
-        setInterval(() => {
-            console.log("undefined");
-        }, 500);
-    }
+    while (!introBlurb);
     setIntroBlurb();
     introBlurb = introBlurb;
   })
