@@ -116,11 +116,10 @@
 
   function testFunction()
   {
-    console.log("Blurb: " + introBlurb);
     setTimeout(() => {
         setIntroBlurb();
         introBlurb = introBlurb;
-    }, 3000)
+    }, 500)
   }
 
     let atype;
