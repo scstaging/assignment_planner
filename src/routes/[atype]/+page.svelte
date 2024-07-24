@@ -33,6 +33,7 @@
 
     function setIntroBlurb()
     {
+        console.log(introBlurb);
         introBlurb.innerHTML = introBlurbContent;
     }
 
@@ -110,15 +111,10 @@
     // Log parsed goals for debugging
     console.log(goals);
 
+    console.log(introBlurb)
+
     goals = goals;
   }
-
-  onMount(() => {
-    while (!introBlurb);
-    console.log("here")
-    setIntroBlurb();
-    introBlurb = introBlurb;
-  })
 
     let atype;
     let startDate;
@@ -293,6 +289,7 @@
 {#await parseGoogleDocContent()}
     <h2 style="padding: 20px;" class="gp-p-text">Awaiting goals...</h2>
 {:then g}
+{setIntroBlurb()}
 <div transition:fade class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
