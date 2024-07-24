@@ -116,13 +116,14 @@
     goals = goals;
   }
 
-  onMount(async () => {
-    await tick();
+  async function testFunction()
+  {
+    tick();
     console.log("Content: " + introBlurbContent);
     console.log("Blurb: " + introBlurb);
     setIntroBlurb();
     introBlurb = introBlurb;
-  })
+  }
 
     let atype;
     let startDate;
@@ -297,6 +298,7 @@
 {#await parseGoogleDocContent()}
     <h2 style="padding: 20px;" class="gp-p-text">Awaiting goals...</h2>
 {:then g}
+{await testFunction()}
 <div transition:fade class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
