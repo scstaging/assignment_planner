@@ -51,14 +51,11 @@
     }
 
     async function parseGoogleDocContent() {
-        // Testing
-        if (testing)
-            return;
-
-        const data = await fetchGoogleDoc();
-        const content = data.body.content;
+    // Fetch Google Doc data
+    const data = await fetchGoogleDoc();
+    const content = data.body.content;
     let text = '';
-    
+
     // Extract text from the content
     content.forEach(element => {
       if (element.paragraph) {
@@ -80,7 +77,8 @@
     // Parse lines
     lines.forEach(line => {
       if (line.startsWith('&')) {
-        introBlurb = line.slice(1).trim();
+        introBlurbContent = line.slice(1).trim();
+        introBlurbContent = introBlurbContent.replace(/\+/g, '<br>');
       } else if (line.startsWith('#')) {
         if (currentGoal) {
           goals.push(currentGoal);
