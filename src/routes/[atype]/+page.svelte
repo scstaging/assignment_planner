@@ -111,17 +111,16 @@
     // Log parsed goals for debugging
     console.log(goals);
 
-    console.log("Parse: " + introBlurbContent);
-
     goals = goals;
   }
 
   function testFunction()
   {
-    console.log("Content: " + introBlurbContent);
     console.log("Blurb: " + introBlurb);
-    setIntroBlurb();
-    introBlurb = introBlurb;
+    setTimeout(() => {
+        setIntroBlurb();
+        introBlurb = introBlurb;
+    }, 3000)
   }
 
     let atype;
