@@ -116,9 +116,8 @@
     goals = goals;
   }
 
-  async function testFunction()
+  function testFunction()
   {
-    tick();
     console.log("Content: " + introBlurbContent);
     console.log("Blurb: " + introBlurb);
     setIntroBlurb();
@@ -288,7 +287,6 @@
     {
         selectedGoal = selectedGoal?.id === goal.id ? null : goal;
     }
-console.log("stuff")
     // Testing
     if (testing)
         goals = goals2;
@@ -298,7 +296,7 @@ console.log("stuff")
 {#await parseGoogleDocContent()}
     <h2 style="padding: 20px;" class="gp-p-text">Awaiting goals...</h2>
 {:then g}
-{await testFunction()}
+{testFunction()}
 <div transition:fade class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
