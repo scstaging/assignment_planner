@@ -9,6 +9,7 @@
     import { fade, fly } from 'svelte/transition';
     import { expoOut } from 'svelte/easing';
     import { onMount } from 'svelte';
+    import { tick } from 'svelte';
 
     //******** DOCS INTEGRATION ********//
     const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
@@ -114,6 +115,14 @@
 
     goals = goals;
   }
+
+  onMount(async () => {
+    await tick();
+    console.log("Content: " + introBlurbContent);
+    console.log("Blurb: " + introBlurb);
+    setIntroBlurb();
+    introBlurb = introBlurb;
+  })
 
     let atype;
     let startDate;
