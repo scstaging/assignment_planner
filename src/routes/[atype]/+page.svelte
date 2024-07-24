@@ -25,7 +25,7 @@
     };
 
     // Testing state variable
-    let testing = true;
+    let testing = false;
 
     let introBlurbContent = "test" + "<br>" + "test";
     let introBlurb;
@@ -35,12 +35,6 @@
     {
         introBlurb.innerHTML = introBlurbContent;
     }
-
-    onMount(() => {
-        setTimeout(() => {
-            setIntroBlurb();
-        }, 500)
-    });
 
     async function fetchGoogleDoc() {
         const response = await fetch(`/api/get-google-doc?docID=${docIDs['Annotated Bibliography']}`);
@@ -117,6 +111,9 @@
     console.log(goals);
 
     goals = goals;
+
+    setIntroBlurb();
+    introBlurb = introBlurb;
   }
 
     let atype;
