@@ -45,6 +45,9 @@
         return response.json();
     }
 
+    // Component mounted
+    let mounted = false;
+
     async function parseGoogleDocContent() {
     // Fetch Google Doc data
     const data = await fetchGoogleDoc();
@@ -112,6 +115,8 @@
     console.log(goals);
 
     goals = goals;
+
+    mounted = true;
   }
 
   function testFunction()
@@ -221,6 +226,7 @@
     formattedEndDate = convertDate(endDate);
     totalDays = calculateDaysBetweenDates(startDate, endDate);
     allocateDays(goals, startDate);
+    mounted === true ? testFunction() : null;
   }
 
   let selectedGoal = null;
@@ -294,7 +300,6 @@
 {#await parseGoogleDocContent()}
     <h2 style="padding: 20px;" class="gp-p-text">Awaiting goals...</h2>
 {:then g}
-{testFunction()}
 <div transition:fade class="gp-container">
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
