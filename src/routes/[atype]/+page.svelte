@@ -326,7 +326,7 @@
             </div>
         </div>
         {#if selectedGoal === null}
-        <p bind:this={introBlurb} class="gp-descript" in:fade={{delay: 500}} out:fade></p>
+        <p bind:this={introBlurb} class="gp-descript" in:fade={{delay: 500}} out:fade>{introBlurb != null ? introBlurb : null}</p>
         {/if}
             {#each goals as goal}
                 {#if selectedGoal?.id === goal.id}
