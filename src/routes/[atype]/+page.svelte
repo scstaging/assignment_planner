@@ -319,7 +319,7 @@
                 {#if selectedGoal === null}
                     <p class="gp-p-text">Due Date: &nbsp;</p>
                     <p style="color: rgba(255,85,0,1);" class="gp-p-text">{formattedEndDate}</p>
-                {:else} sp
+                {:else}
                     {#each goals as goal}
                         {#if selectedGoal?.id === goal.id}
                             <p class="gp-p-text">Subgoal Due Date: &nbsp;</p>
