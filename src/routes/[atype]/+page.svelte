@@ -286,14 +286,14 @@
     function selectGoal(goal) 
     {
         selectedGoal = selectedGoal?.id === goal.id ? null : goal;
-        setTimeout(() => {
-            unmountStorageIntroBlurb = introBlurbContent;
-        }, 500)
     }
 
     function nullSelectedGoal(goal)
     {
         selectedGoal = selectedGoal?.id === goal.id ? null : goal;
+        setTimeout(() => {
+            introBlurb.innerHTML = introBlurbContent;
+        }, 300)
     }
     // Testing
     if (testing)
