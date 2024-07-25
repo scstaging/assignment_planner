@@ -30,6 +30,7 @@
 
     let introBlurbContent = "test" + "<br>" + "test";
     let introBlurb;
+    let unmountStorageIntroBlurb = "";
     let goals = [];
 
     function setIntroBlurb()
@@ -285,6 +286,9 @@
     function selectGoal(goal) 
     {
         selectedGoal = selectedGoal?.id === goal.id ? null : goal;
+        setTimeout(() => {
+            unmountStorageIntroBlurb = introBlurbContent;
+        }, 500)
     }
 
     function nullSelectedGoal(goal)
@@ -315,7 +319,7 @@
                 {#if selectedGoal === null}
                     <p class="gp-p-text">Due Date: &nbsp;</p>
                     <p style="color: rgba(255,85,0,1);" class="gp-p-text">{formattedEndDate}</p>
-                {:else}
+                {:else} sp
                     {#each goals as goal}
                         {#if selectedGoal?.id === goal.id}
                             <p class="gp-p-text">Subgoal Due Date: &nbsp;</p>
@@ -326,7 +330,7 @@
             </div>
         </div>
         {#if selectedGoal === null}
-        <p bind:this={introBlurb} class="gp-descript" in:fade={{delay: 500}} out:fade></p>
+        <p bind:this={introBlurb} class="gp-descript" in:fade={{delay: 500}} out:fade>{unmountStorageIntroBlurb}</p>
         {/if}
             {#each goals as goal}
                 {#if selectedGoal?.id === goal.id}
