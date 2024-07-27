@@ -33,6 +33,7 @@
 
     async function fetchGoogleDoc() {
         while (!sentDocID);
+        console.log(sentDocID);
         const response = await fetch(`/api/get-google-doc?docID=${sentDocID}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
