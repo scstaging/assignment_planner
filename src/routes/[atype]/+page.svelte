@@ -5,18 +5,13 @@
 
 <script>
     import { page } from '$app/stores';
-    import { compile } from 'svelte/compiler';
     import { fade, fly } from 'svelte/transition';
-    import { expoOut } from 'svelte/easing';
-    import { onMount } from 'svelte';
-    import { tick } from 'svelte';
-
+    
     //******** DOCS INTEGRATION ********//
     const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyDHf06lXDDPVFoqdlfhGr3G7CcyHNwsZNw';
     const DISCOVERY_DOC = 'https://docs.googleapis.com/$discovery/rest?version=v1';
     const SCOPES = 'https://www.googleapis.com/auth/documents.readonly';
-    let docID = '1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM';
 
     let docIDs = {
         "Annotated Bibliography": "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA",
@@ -49,7 +44,6 @@
 
     async function fetchGoogleDoc() {
         atype = $page.url.searchParams.get('atype');
-        console.log("here")
         const response = await fetch(`/api/get-google-doc?docID=${docIDs[atype]}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
@@ -122,12 +116,7 @@
     if (currentGoal) {
       goals.push(currentGoal);
     }
-
-    // Log parsed goals for debugging
-    console.log(goals);
-
     goals = goals;
-
     mounted = true;
   }
 
@@ -236,14 +225,6 @@
   }
 
   let selectedGoal = null;
-
-  let goals1 = [
-    {id: 1, title: "Get Started", percent: 15, dueDate: "XXXXXX", goalDescript: "The earlier you begin any assignment, the more likely you are to enjoy the process, learn about the topic, develop your writing skills and get a better grade!", completed: false, links: [{title: "Understanding your assignment", descript: "https://www.concordia.ca/content/dam/concordia/offices/cdev/docs/AssigCalc/start_research_paper.pdf"}, {title: "Understanding key words in writing assignments", descript: "https://www.concordia.ca/content/dam/concordia/offices/cdev/docs/AssigCalc/key_words_assignments.pdf"}]},
-    {id: 2, title: "Collect the information", percent: 33, goalDescript: "For discussion posts, the professor usually has an article(s) for you to read and react; now is the time to read or reread the article(s) required for the assignment to make certain you fully understand the authors’ points. When you do so, keep your possible response in mind and be on the lookout for good quotes or important ideas.", dueDate: "XXXXXX", completed: false, links: [{title: "Active Reading", descript: "https://www.concordia.ca/students/success/learning-support/resources/reading/active-reading.html"}]},
-    {id: 3, title: "Writing your first draft", percent: 25, goalDescript: "Make sure to review the discussion post instructions again. Especially in a discussion post, your reading audience is your well-informed peers. In fact, you may need to read and respond toothers’ posts. Keep your classmates in mind when you write and explain anything that may not be clear to them. Ensure your arguments are logical, with well-structured paragraphs. To persuade your readers, always support your response with evidence from course readings or external sources when permitted or required. Make sure your tone remains academic; just because it is a discussion post, does not mean it is informal. When you use others’ arguments, always paraphrase the information you have taken from your sources. Consult the instructions or ask your professor if you need to add formal citations to your post.", dueDate: "XXXXXX", completed: false, links: [{title: "First Draft", descript: "https://www.concordia.ca/students/success/learning-support/resources/writing/first-draft-research.html"}, {title: "Transitions", descript: "https://www.concordia.ca/students/success/learning-support/resources/writing/transitions.html"}, {title: "Writing Effective Paragraphs", descript: "https://www.concordia.ca/content/dam/concordia/offices/ssc/learning/documents/Writing/writing-effective-paragraphs.pdf"}, {title: "How To Paraphrase", descript: "https://www.concordia.ca/students/success/learning-support/resources/writing/how-to-paraphrase.html"}]},
-    {id: 4, title: "Revise", dueDate: "XXXXXX", percent: 18, goalDescript: "Give yourself some time away from your writing and try to come back to it as if you are the audience. If you want another reader to have a look at your piece, make an appointment with a Writing Assistant.", completed: false, links: [{title: "Writing Assistance", descript: "https://www.concordia.ca/students/success/learning-support/writing-assistance.html"}]},
-    {id: 5, title: "Submit", dueDate: "XXXXXX", percent: 9, goalDescript: "Try not to leave the submission to the last minute as technical errors can happen when posting.", completed: false, links: []}
-  ];
 
   let goals2 = [
     {id: 1, title: "Get started", percent: 15, dueDate: "XXXXXX", completed: false, goalDescript: "Exploring your topic can involve brainstorming to understand the scope of your topic, gathering background information, and thinking about how to develop your ideas.", links: [

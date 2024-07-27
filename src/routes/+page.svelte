@@ -25,7 +25,7 @@
     let startDatePickerVisible = false;
 
     // Date picker selected date
-    let selectedStartDate, selectedEndDate;
+    let selectedStartDate;
 
     let plannerinfo = {
         startDate: null,
