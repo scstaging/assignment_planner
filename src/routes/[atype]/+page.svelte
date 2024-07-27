@@ -31,8 +31,13 @@
         introBlurb.innerHTML = introBlurbContent;
     }
 
+    async function getDocID()
+    {
+        return $page.url.searchParams.get('sentDocID');
+    }
+
     async function fetchGoogleDoc() {
-        while (!sentDocID);
+        let sentDocID = await getDocID();
         console.log(sentDocID);
         const response = await fetch(`/api/get-google-doc?docID=${sentDocID}`);
         if (!response.ok) {
@@ -126,7 +131,6 @@
     let atype;
     let startDate;
     let endDate;
-    let sentDocID;
     let formattedEndDate;
 
     function calculateDaysBetweenDates(date1, date2) {
@@ -220,7 +224,6 @@
     atype = $page.url.searchParams.get('atype');
     startDate = $page.url.searchParams.get('startDate');
     endDate = $page.url.searchParams.get('endDate');
-    sentDocID = $page.url.searchParams.get('sentDocID');
     formattedEndDate = convertDate(endDate);
     totalDays = calculateDaysBetweenDates(startDate, endDate);
     allocateDays(goals, startDate);
