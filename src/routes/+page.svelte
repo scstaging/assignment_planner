@@ -18,17 +18,6 @@
         {title: "Reflection or Response Paper", icon: "/reflection_response_paper.png", docID: "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6"},
     ];
 
-    let docIDs = {
-        "Annotated Bibliography": "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA",
-        "Artists Statement": "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc",
-        "Analytical Essay": "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM",
-        "Math PS Assignment": "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc",
-        "Discussion Post": "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA",
-        "Grammer and Linguistics Assignment": "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ",
-        "Reflection or Response Paper": "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6Q",
-        "Business Report": "1bajwPw8FGidGIie-7ZO7Yrx-U8HW8vuG-kkygmf8ak0"
-    };
-
     // Assignment Choice
     let assignmentChoice = null;
     
@@ -41,8 +30,7 @@
     let plannerinfo = {
         startDate: null,
         endDate: null,
-        atype: null,
-        docID: null
+        atype: null
     }
 
     let delim;
@@ -54,7 +42,6 @@
     $: plannerinfo.endDate = delim[1];
     $: simpleStartDate = convertDate(plannerinfo.startDate);
     $: if (plannerinfo.endDate) simpleEndDate = convertDate(plannerinfo.endDate);
-    $: if (assignmentChoice) plannerinfo.docID = docIDs["assignmentChoice"];
 
     let startButtonColor = "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
 
@@ -120,12 +107,10 @@
         let atype = assignmentChoice;
         let startDate = plannerinfo.startDate;
         let endDate = plannerinfo.endDate;
-        let sentDocID = plannerinfo.docID;
         const params = new URLSearchParams({
             atype,
             startDate,
-            endDate,
-            sentDocID
+            endDate
         }).toString();
         goto(`/${atype}?${params}`);
     }

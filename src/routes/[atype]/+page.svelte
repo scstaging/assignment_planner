@@ -18,6 +18,17 @@
     const SCOPES = 'https://www.googleapis.com/auth/documents.readonly';
     let docID = '1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM';
 
+    let docIDs = {
+        "Annotated Bibliography": "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA",
+        "Artists Statement": "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc",
+        "Analytical Essay": "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM",
+        "Math PS Assignment": "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc",
+        "Discussion Post": "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA",
+        "Grammer and Linguistics Assignment": "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ",
+        "Reflection or Response Paper": "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6Q",
+        "Business Report": "1bajwPw8FGidGIie-7ZO7Yrx-U8HW8vuG-kkygmf8ak0"
+    };
+
     // Testing state variable
     let testing = false;
 
@@ -31,15 +42,16 @@
         introBlurb.innerHTML = introBlurbContent;
     }
 
-    async function getDocID()
-    {
-        return $page.url.searchParams.get('sentDocID');
-    }
+    let atype;
+    let startDate;
+    let endDate;
+    let formattedEndDate;
 
     async function fetchGoogleDoc() {
-        let sentDocID = await getDocID();
-        console.log(sentDocID);
-        const response = await fetch(`/api/get-google-doc?docID=${sentDocID}`);
+        atype = $page.url.searchParams.get('atype');
+        startDate = $page.url.searchParams.get('startDate');
+        endDate = $page.url.searchParams.get('endDate');
+        const response = await fetch(`/api/get-google-doc?docID=${docIDs[atype]}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
@@ -127,11 +139,6 @@
         introBlurb = introBlurb;
     }, 500)
   }
-
-    let atype;
-    let startDate;
-    let endDate;
-    let formattedEndDate;
 
     function calculateDaysBetweenDates(date1, date2) {
         const dateObj1 = new Date(date1);
@@ -221,9 +228,6 @@
     }
 
   $: {
-    atype = $page.url.searchParams.get('atype');
-    startDate = $page.url.searchParams.get('startDate');
-    endDate = $page.url.searchParams.get('endDate');
     formattedEndDate = convertDate(endDate);
     totalDays = calculateDaysBetweenDates(startDate, endDate);
     allocateDays(goals, startDate);
