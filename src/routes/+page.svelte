@@ -7,6 +7,28 @@
     // Assignment dropdown bool
     let visible = false;
 
+    let assignments = [
+        {title: "Analytical Essay", icon: "/analytical_essay.png", docID: "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM"},
+        {title: "Annotated Bibliography", icon: "/annotated-bibliography.png", docID: "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA"},
+        {title: "Artists Statement", icon: "/artists_statement.png", docID: "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc"},
+        {title: "Business Report", icon: "/business_report.png", docID: "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM"},
+        {title: "Discussion Post", icon: "/discussion_post.png", docID: "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA"},
+        {title: "Grammer and Linguistics Assignment", icon: "/poster_pres.png", docID: "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ"},
+        {title: "Math PS Assignment", icon: "/math_assignment.png", docID: "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc"},
+        {title: "Reflection or Response Paper", icon: "/reflection_response_paper.png", docID: "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6"},
+    ];
+
+    let docIDs = {
+        "Annotated Bibliography": "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA",
+        "Artists Statement": "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc",
+        "Analytical Essay": "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM",
+        "Math PS Assignment": "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc",
+        "Discussion Post": "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA",
+        "Grammer and Linguistics Assignment": "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ",
+        "Reflection or Response Paper": "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6Q",
+        "Business Report": "1bajwPw8FGidGIie-7ZO7Yrx-U8HW8vuG-kkygmf8ak0"
+    };
+
     // Assignment Choice
     let assignmentChoice = null;
     
@@ -19,7 +41,8 @@
     let plannerinfo = {
         startDate: null,
         endDate: null,
-        atype: null
+        atype: null,
+        docID: null
     }
 
     let delim;
@@ -31,6 +54,7 @@
     $: plannerinfo.endDate = delim[1];
     $: simpleStartDate = convertDate(plannerinfo.startDate);
     $: if (plannerinfo.endDate) simpleEndDate = convertDate(plannerinfo.endDate);
+    $: if (assignmentChoice) plannerinfo.docID = docIDs["assignmentChoice"];
 
     let startButtonColor = "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
 
@@ -57,59 +81,38 @@
     function selectAssignmentType(event)
     {
         const elementId = event.currentTarget.id;
-        switch (elementId) {
-            case "res-rep":
-                assignmentChoice = "Discussion Post";
-                plannerinfo.atype = "researchreport";
-                setTimeout(() => {
-                    leftHidden = !leftHidden;
-                }, 500)
-                visible = !visible;
-                break;
-            case "res-pres":
-                assignmentChoice = "Analytical Essay";
-                plannerinfo.atype = "researchpresentation";
-                setTimeout(() => {
-                    leftHidden = !leftHidden;
-                }, 500)
-                visible = !visible;
-                break;
-            case "ann-bib":
-                assignmentChoice = "Annotated Bibliography";
-                plannerinfo.atype = "annotatedbibliography";
-                setTimeout(() => {
-                    leftHidden = !leftHidden;
-                }, 500)
-                visible = !visible;
-                break;
-            case "pos-pres":
-                assignmentChoice = "Poster Presentation";
-                plannerinfo.atype = "posterpresentation";
-                setTimeout(() => {
-                    leftHidden = !leftHidden;
-                }, 500)
-                visible = !visible;
-                break;
-            default:
-                break;
-        }
+        assignmentChoice = elementId;
+        plannerinfo.atype = elementId;
+        setTimeout(() => {
+            leftHidden = !leftHidden;
+        }, 500)
+        visible = !visible;
     }
 
     function openStartDatePicker()
     {
         if (!visible)
         {
-            startButtonColor = startButtonColor === "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)" ? "#912338" : "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
-            startDatePickerVisible = !startDatePickerVisible;
+            leftHidden = !leftHidden;
+            setTimeout(() => {
+                startDatePickerVisible = !startDatePickerVisible
+            }, 500);
         }
         else if (visible)
         {
             visible = !visible;
-            startButtonColor = startButtonColor === "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)" ? "#912338" : "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
             setTimeout(() => {
                 startDatePickerVisible = !startDatePickerVisible;
             }, 500)
         }
+    }
+    
+    function closeStartDatePicker()
+    {
+        startDatePickerVisible = !startDatePickerVisible
+        setTimeout(() => {
+            leftHidden = !leftHidden;
+        }, 500);
     }
 
     function generateAssignment()
@@ -117,10 +120,12 @@
         let atype = assignmentChoice;
         let startDate = plannerinfo.startDate;
         let endDate = plannerinfo.endDate;
+        let sentDocID = plannerinfo.docID;
         const params = new URLSearchParams({
             atype,
             startDate,
-            endDate
+            endDate,
+            sentDocID
         }).toString();
         goto(`/${atype}?${params}`);
     }
@@ -211,30 +216,27 @@
     {/if}
     <div class="fp-right">
         {#if visible}
-        <div class="grid-container" transition:fade>
-            <div class="grid-assign">
-                <h2>Discussion Post</h2>
-                <img on:click={selectAssignmentType} id="res-rep" class="grid-item" alt="research-report" src="/research-report-06.webp">
+            <div class="grid-container" transition:fade>
+                {#each assignments as assignment}
+                    <div class="grid-assign">
+                        <h2>{assignment.title}</h2>
+                        <img on:click={selectAssignmentType} id={assignment.title} class="grid-item" alt={assignment.title} src={assignment.icon}>
+                    </div>
+                {/each}
             </div>
-            <div class="grid-assign">
-                <h2>Analytical Essay</h2>
-                <img on:click={selectAssignmentType} id="res-pres" class="grid-item" alt="research-pres" src="/research-presentation-06.webp">
-            </div>
-            <div class="grid-assign">
-                <h2>Annotated Bibliography</h2>
-                <img on:click={selectAssignmentType} id="ann-bib" class="grid-item" alt="research-report" src="/annotated-bib-06.webp">
-            </div>
-            <div class="grid-assign">
-                <h2>Poster Presentation</h2>
-                <img on:click={selectAssignmentType} id="pos-pres" class="grid-item" alt="research-report" src="/poster-pres-06.webp">
-            </div>
-        </div>
         {/if}
 
         <!-- Initial Date Picker -->
         {#if startDatePickerVisible}
-            <div transition:fade>
+            <div style="display: flex;flex-direction: column;align-items:center;" transition:fade>
+                {#if simpleEndDate != undefined}
+                    <h2 transition:fade style="color: black;font-size:2.2em;" class="fp-start-date-text">{simpleStartDate + " - " + simpleEndDate}</h2>
+                {/if}
                 <SveltyPicker pickerOnly isRange startDate={new Date()} bind:value={selectedStartDate} />
+                <div style="background: {startButtonColor};" class="fp-start-button"
+                    on:click={closeStartDatePicker}>
+                    <h2 class="fp-start-date-text">Press to confirm</h2>
+                </div>
             </div>
         {/if}
 
@@ -255,10 +257,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
 }
 .fp-left {
     width: 45%;
+    margin-left: 5%;
 }
 .fp-left h2, .fp-left p {
     font-family: "Montserrat", sans-serif;
@@ -271,7 +273,8 @@
     font-size: 1em;
 }
 .fp-right {
-    width: 45%;
+    width: 100%;
+    position: absolute;
     display: flex;
     justify-content: center;
 }
@@ -347,6 +350,7 @@
     font-size: 1em;
     color: white;
     font-weight: 300;
+    font-family: "Montserrat", sans-serif;
 }
 .fp-generate-button {
     width: 30%;
@@ -378,13 +382,15 @@
 }
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
     gap: 30px;
-    width: 65%;
+    width: 100%;
 }
 .grid-item {
     padding: 30px;
-    width: 70%;
+    width: auto;
+    height: 25vh;
     cursor: pointer;
     transition: ease-in-out;
     transition-duration: .4s;

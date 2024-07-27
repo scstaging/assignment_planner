@@ -18,13 +18,6 @@
     const SCOPES = 'https://www.googleapis.com/auth/documents.readonly';
     let docID = '1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM';
 
-    let docIDs = {
-        "Annotated Bibliography": "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA",
-        "Artists Statement": "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc",
-        "Analytical Essay": "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM",
-        "Math or PS assignments": "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc",
-    };
-
     // Testing state variable
     let testing = false;
 
@@ -39,7 +32,8 @@
     }
 
     async function fetchGoogleDoc() {
-        const response = await fetch(`/api/get-google-doc?docID=${docIDs['Annotated Bibliography']}`);
+        while (!sentDocID);
+        const response = await fetch(`/api/get-google-doc?docID=${sentDocID}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
@@ -131,6 +125,7 @@
     let atype;
     let startDate;
     let endDate;
+    let sentDocID;
     let formattedEndDate;
 
     function calculateDaysBetweenDates(date1, date2) {
@@ -224,6 +219,7 @@
     atype = $page.url.searchParams.get('atype');
     startDate = $page.url.searchParams.get('startDate');
     endDate = $page.url.searchParams.get('endDate');
+    sentDocID = $page.url.searchParams.get('sentDocID');
     formattedEndDate = convertDate(endDate);
     totalDays = calculateDaysBetweenDates(startDate, endDate);
     allocateDays(goals, startDate);
