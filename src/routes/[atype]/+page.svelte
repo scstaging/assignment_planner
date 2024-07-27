@@ -49,8 +49,7 @@
 
     async function fetchGoogleDoc() {
         atype = $page.url.searchParams.get('atype');
-        startDate = $page.url.searchParams.get('startDate');
-        endDate = $page.url.searchParams.get('endDate');
+        console.log("here")
         const response = await fetch(`/api/get-google-doc?docID=${docIDs[atype]}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
@@ -228,6 +227,8 @@
     }
 
   $: {
+    startDate = $page.url.searchParams.get('startDate');
+    endDate = $page.url.searchParams.get('endDate');
     formattedEndDate = convertDate(endDate);
     totalDays = calculateDaysBetweenDates(startDate, endDate);
     allocateDays(goals, startDate);
