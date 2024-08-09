@@ -19,7 +19,7 @@
         "Analytical Essay": "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM",
         "Math PS Assignment": "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc",
         "Discussion Post": "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA",
-        "Grammer and Linguistics Assignment": "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ",
+        "Grammar and Linguistics Assignment": "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ",
         "Reflection or Response Paper": "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6Q",
         "Business Report": "1bajwPw8FGidGIie-7ZO7Yrx-U8HW8vuG-kkygmf8ak0"
     };
@@ -288,7 +288,7 @@
 </script>
 
 {#await parseGoogleDocContent()}
-    <h2 style="padding: 20px;" class="gp-p-text">Awaiting goals...</h2>
+    <h2 style="padding: 20px;" class="gp-p-text">Awaiting plan...</h2>
 {:then g}
 <div transition:fade class="gp-container">
     <div class="gp-inner-container">
@@ -308,8 +308,9 @@
                 {:else}
                     {#each goals as goal}
                         {#if selectedGoal?.id === goal.id}
-                            <p class="gp-p-text">Subgoal Due Date: &nbsp;</p>
+                            <p class="gp-p-text">By &nbsp;</p>
                             <p style="color: rgba(255,85,0,1);" class="gp-p-text">{goal.dueDate}</p>
+                            <p class="gp-p-text">you should...</p>
                         {/if}
                     {/each}
                 {/if}
@@ -326,7 +327,7 @@
                 {/if}
             {/each}
         <div class="goal-list-container" transition:fade>
-            <h2 class="gp-goals-title" transition:fade>{selectedGoal === null ? "Goals" : "Helpful Links"}</h2>
+            <h2 class="gp-goals-title" transition:fade>{selectedGoal === null ? "Plan" : "Helpful Links"}</h2>
             {#if selectedGoal === null}
             <div class="goal-list" transition:fade>
                 {#each goals as goal}

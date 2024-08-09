@@ -13,7 +13,7 @@
         {title: "Artists Statement", icon: "/artists_statement.png", docID: "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc"},
         {title: "Business Report", icon: "/business_report.png", docID: "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM"},
         {title: "Discussion Post", icon: "/discussion_post.png", docID: "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA"},
-        {title: "Grammer and Linguistics Assignment", icon: "/poster_pres.png", docID: "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ"},
+        {title: "Grammar and Linguistics Assignment", icon: "/poster_pres.png", docID: "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ"},
         {title: "Math PS Assignment", icon: "/math_assignment.png", docID: "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc"},
         {title: "Reflection or Response Paper", icon: "/reflection_response_paper.png", docID: "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6"},
     ];
