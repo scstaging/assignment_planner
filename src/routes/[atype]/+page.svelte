@@ -6,6 +6,7 @@
 <script>
     import { page } from '$app/stores';
     import { fade, fly } from 'svelte/transition';
+    import { goto } from '$app/navigation';
     
     //******** DOCS INTEGRATION ********//
     const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
@@ -281,6 +282,12 @@
             introBlurb.innerHTML = introBlurbContent;
         }, 300)
     }
+
+    function backButton()
+    {
+        goto(`/`);
+    }
+
     // Testing
     if (testing)
         goals = goals2;
@@ -308,9 +315,9 @@
                 {:else}
                     {#each goals as goal}
                         {#if selectedGoal?.id === goal.id}
-                            <p class="gp-p-text">By &nbsp;</p>
+                            <p class="gp-p-text">By&nbsp;</p>
                             <p style="color: rgba(255,85,0,1);" class="gp-p-text">{goal.dueDate}</p>
-                            <p class="gp-p-text">you should...</p>
+                            <p class="gp-p-text">&nbsp;you should...</p>
                         {/if}
                     {/each}
                 {/if}

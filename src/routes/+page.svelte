@@ -7,13 +7,15 @@
     // Assignment dropdown bool
     let visible = false;
 
+    let rightHidden = false;
+
     let assignments = [
         {title: "Analytical Essay", icon: "/analytical_essay.png", docID: "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM"},
         {title: "Annotated Bibliography", icon: "/annotated-bibliography.png", docID: "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA"},
         {title: "Artists Statement", icon: "/artists_statement.png", docID: "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc"},
         {title: "Business Report", icon: "/business_report.png", docID: "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM"},
         {title: "Discussion Post", icon: "/discussion_post.png", docID: "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA"},
-        {title: "Grammar and Linguistics Assignment", icon: "/poster_pres.png", docID: "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ"},
+        {title: "Grammar and Linguistics Assignment", icon: "/grammer_and_linguistics_icon.png", docID: "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ"},
         {title: "Math PS Assignment", icon: "/math_assignment.png", docID: "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc"},
         {title: "Reflection or Response Paper", icon: "/reflection_response_paper.png", docID: "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6"},
     ];
@@ -50,6 +52,7 @@
         if (!startDatePickerVisible)
         {
             leftHidden = !leftHidden;
+            rightHidden = !rightHidden;
             setTimeout(() => {
                 visible = !visible;
             }, 500)
@@ -70,49 +73,42 @@
         const elementId = event.currentTarget.id;
         assignmentChoice = elementId;
         plannerinfo.atype = elementId;
-        setTimeout(() => {
-            leftHidden = !leftHidden;
-        }, 500)
-        visible = !visible;
+        openStartDatePicker();
     }
 
     function openStartDatePicker()
     {
-        if (!visible)
-        {
-            leftHidden = !leftHidden;
-            setTimeout(() => {
-                startDatePickerVisible = !startDatePickerVisible
-            }, 500);
-        }
-        else if (visible)
-        {
-            visible = !visible;
-            setTimeout(() => {
-                startDatePickerVisible = !startDatePickerVisible;
-            }, 500)
-        }
+        visible = !visible;
+        setTimeout(() => {
+            startDatePickerVisible = !startDatePickerVisible;
+        }, 500)
     }
     
     function closeStartDatePicker()
     {
         startDatePickerVisible = !startDatePickerVisible
-        setTimeout(() => {
-            leftHidden = !leftHidden;
-        }, 500);
     }
 
+    let warningDateMessage = false;
     function generateAssignment()
     {
-        let atype = assignmentChoice;
-        let startDate = plannerinfo.startDate;
-        let endDate = plannerinfo.endDate;
-        const params = new URLSearchParams({
-            atype,
-            startDate,
-            endDate
-        }).toString();
-        goto(`/${atype}?${params}`);
+        if (selectedStartDate)
+        {
+            closeStartDatePicker();
+            let atype = assignmentChoice;
+            let startDate = plannerinfo.startDate;
+            let endDate = plannerinfo.endDate;
+            const params = new URLSearchParams({
+                atype,
+                startDate,
+                endDate
+            }).toString();
+            setTimeout(() => {
+                goto(`/${atype}?${params}`);
+            }, 500)
+        }
+        else
+            warningDateMessage = true;
     }
 
     let leftHidden = false;
@@ -153,37 +149,13 @@
         <!-- DIVIDER -->
         <div class="divider" style="margin-bottom: 10%;"></div>
         <!-- END DIVIDER -->
-        <h2 class="fp-title">Generate a new assignment plan</h2>
-        <p class="fp-descript">Select start date, end date and your type of assignment!</p>
-        <!-- DIVIDER -->
-        <div class="divider"></div>
-        <!-- END DIVIDER -->
-         {#if assignmentChoice == null}
-            <div class="fp-assignment-picker" 
-            on:click={openAssignments}>
-                <h2 class="fp-assignment-picker-text">Assignment Type</h2>
-                <h2>+</h2>
-            </div>
-        {/if}
-        {#if assignmentChoice != null}
-        <div class="fp-assignment-picker-picked" 
-        on:click={openAssignments}>
-            <h2 class="fp-assignment-picker-text">{assignmentChoice}</h2>
-            <h2>+</h2>
-        </div>
-        {/if}
+        <h2 class="fp-title">Concordia University Assignment Planner</h2>
         <!-- DIVIDER -->
         <div class="divider"></div>
         <!-- END DIVIDER -->
         <div class="fp-buttons-container">
-            <div style="background: {startButtonColor};" class="fp-start-button"
-            on:click={openStartDatePicker}>
-                {#if !selectedStartDate}
-                    <h2 class="fp-start-date-text">Select Date</h2>
-                {/if}
-                {#if selectedStartDate}
-                    <h2 class="fp-start-date-text">{simpleStartDate + " - " + simpleEndDate}</h2>
-                {/if}
+            <div on:click={openAssignments} class="begin-button">
+                <h2 class="begin-button-text">Choose Assignment</h2>
             </div>
         </div>
         <!-- DIVIDER -->
@@ -191,21 +163,26 @@
         <!-- END DIVIDER -->
         <div style="width: 100%;display: flex;flex-direction:row;align-items:center;justify-content:space-between;">
             <img class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
-            {#if selectedStartDate && assignmentChoice}
-                <div on:click={generateAssignment} transition:fade class="fp-generate-button">
-                    <h2 class="fp-generate-button-text ">Generate</h2>
-                </div>
-            {/if}
         </div>
     </div>
+    {/if}
+    {#if !rightHidden}
+        <div transition:fade style="width: 60%;display: flex;justify-content:center;align-items:center;">
+            <div style="width: 80%;">
+                <p class="fp-descript-right">The Assignment Planner breaks down your projects into smaller, manageable
+                    steps and helps you organize your timeline. Each step offers helpful "how-to"
+                    links. Use the “add to calendar” feature to keep track of your progress.</p>
+                    <p class="fp-descript-right"><strong>Begin by selecting your assignment type.</strong></p>
+            </div>
+        </div>
     {/if}
     <div class="fp-right">
         {#if visible}
             <div class="grid-container" transition:fade>
                 {#each assignments as assignment}
                     <div class="grid-assign">
-                        <h2>{assignment.title}</h2>
                         <img on:click={selectAssignmentType} id={assignment.title} class="grid-item" alt={assignment.title} src={assignment.icon}>
+                        <h2>{assignment.title}</h2>
                     </div>
                 {/each}
             </div>
@@ -217,9 +194,12 @@
                 {#if simpleEndDate != undefined}
                     <h2 transition:fade style="color: black;font-size:2.2em;" class="fp-start-date-text">{simpleStartDate + " - " + simpleEndDate}</h2>
                 {/if}
+                {#if warningDateMessage && simpleEndDate === undefined}
+                    <h2 in:fade style="color: black;font-size:2.2em;" class="fp-start-date-text">You must select a date to continue.</h2>
+                {/if}
                 <SveltyPicker pickerOnly isRange startDate={new Date()} bind:value={selectedStartDate} />
                 <div style="background: {startButtonColor};" class="fp-start-button"
-                    on:click={closeStartDatePicker}>
+                    on:click={generateAssignment}>
                     <h2 class="fp-start-date-text">Press to confirm</h2>
                 </div>
             </div>
@@ -244,14 +224,14 @@
     align-items: center;
 }
 .fp-left {
-    width: 45%;
+    width: 50%;
     margin-left: 5%;
 }
 .fp-left h2, .fp-left p {
     font-family: "Montserrat", sans-serif;
 }
 .fp-title {
-    font-size: 2em;
+    font-size: 6vmin;
     font-weight: 700;
 }
 .fp-descript {
@@ -399,5 +379,34 @@
 }
 .grid-assign > h2 {
     font-weight: 500;
+}
+.fp-descript-right {
+    font-size: 3.5vmin;
+    font-family: "Montserrat", sans-serif;
+    line-height: 50px;
+}
+.begin-button {
+    width: 70%;
+    background-color: #912338;
+    border-radius: 15px;
+    padding: 25px 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease, color 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    margin-top: 3%;
+    transition: .4s ease-in-out;
+}
+.begin-button:hover {
+    transform: scale(1.05);
+    transition: .3s ease-in-out;
+}
+.begin-button-text {
+    font-size: 3vmin;
+    color: white;
+    font-weight: 300;
+    font-family: "Montserrat", sans-serif;
 }
 </style>
