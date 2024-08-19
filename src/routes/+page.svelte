@@ -28,6 +28,7 @@
 
     // Date picker selected date
     let selectedStartDate;
+    let selectedEndDate;
 
     let plannerinfo = {
         startDate: null,
@@ -39,11 +40,11 @@
     let simpleStartDate, simpleEndDate;
 
     // Update assignment state on change
-    $: delim = String(selectedStartDate).split(",");
-    $: plannerinfo.startDate = delim[0];
-    $: plannerinfo.endDate = delim[1];
-    $: simpleStartDate = convertDate(plannerinfo.startDate);
+    $: plannerinfo.startDate = selectedStartDate;
+    $: plannerinfo.endDate = selectedEndDate;
+    $: if (selectedStartDate) simpleStartDate = convertDate(selectedStartDate);
     $: if (plannerinfo.endDate) simpleEndDate = convertDate(plannerinfo.endDate);
+    $: if (selectedStartDate) {selectedEndDate = undefined;simpleEndDate = undefined};
 
     let startButtonColor = "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
 
@@ -138,6 +139,24 @@
         return `${monthName} ${dayWithSuffix}`;
     }
 
+    function backButton() {
+        if (visible)
+        {
+            visible = !visible;
+            setTimeout(() => {
+                leftHidden = !leftHidden;
+                rightHidden = !rightHidden;
+            }, 500)
+        }
+        else if (startDatePickerVisible)
+        {
+            startDatePickerVisible = !startDatePickerVisible;
+            setTimeout(() => {
+                visible = !visible;
+            }, 500)
+        }
+    }
+
 </script>
 
 <div class="fp-container">
@@ -176,6 +195,11 @@
             </div>
         </div>
     {/if}
+    {#if visible || startDatePickerVisible}
+        <div on:click={backButton} transition:fade class="back-button">
+            <h2>Back</h2>
+        </div>
+    {/if}
     <div class="fp-right">
         {#if visible}
             <div class="grid-container" transition:fade>
@@ -197,7 +221,18 @@
                 {#if warningDateMessage && simpleEndDate === undefined}
                     <h2 in:fade style="color: black;font-size:2.2em;" class="fp-start-date-text">You must select a date to continue.</h2>
                 {/if}
-                <SveltyPicker pickerOnly isRange startDate={new Date()} bind:value={selectedStartDate} />
+                <div style="width:50vw;display: flex;flex-direction:row;justify-content:space-between;">
+                    <div>
+                        <SveltyPicker pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
+                        <p class="under-date-text">Start Date</p>
+                    </div>
+                    {#if selectedStartDate != undefined}
+                        <div transition:fade>
+                            <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
+                            <p class="under-date-text">End Date</p>
+                        </div>
+                    {/if}
+                </div>
                 <div style="background: {startButtonColor};" class="fp-start-button"
                     on:click={generateAssignment}>
                     <h2 class="fp-start-date-text">Press to confirm</h2>
@@ -408,5 +443,31 @@
     color: white;
     font-weight: 300;
     font-family: "Montserrat", sans-serif;
+}
+.under-date-text {
+    font-size: 2vmin;
+    font-family: "Montserrat", sans-serif;
+}
+.back-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgb(145, 35, 56, 0.3);
+    transition: .4s ease-in-out;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.back-button:hover {
+    transition: .4s ease-in-out;
+    background-color: rgb(145, 35, 56, 1);
+    transform: scale(1.2);
+}
+.back-button h2 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
 }
 </style>
