@@ -548,4 +548,8 @@
         width: 0;
         transition: width 0.3s ease;
     }
+    .distinct-para {
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
 </style>
