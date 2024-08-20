@@ -12,7 +12,7 @@
     let assignments = [
         {title: "Analytical Essay", icon: "/analytical_essay.png", docID: "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM"},
         {title: "Annotated Bibliography", icon: "/annotated-bibliography.png", docID: "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA"},
-        {title: "Artists Statement", icon: "/artists_statement.png", docID: "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc"},
+        {title: "Artist's Statement", icon: "/artists_statement.png", docID: "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc"},
         {title: "Business Report", icon: "/business_report.png", docID: "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM"},
         {title: "Discussion Post", icon: "/discussion_post.png", docID: "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA"},
         {title: "Grammar and Linguistics Assignment", icon: "/grammer_and_linguistics_icon.png", docID: "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ"},
