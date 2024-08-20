@@ -84,6 +84,7 @@
       if (line.startsWith('&')) {
         introBlurbContent = line.slice(1).trim();
         introBlurbContent = introBlurbContent.replace(/\+/g, '<br>');
+        introBlurbContent = introBlurbContent.replace(/<([^>]+)>/g, '<a href="$1">$1</a>');
       } else if (line.startsWith('#')) {
         if (currentGoal) {
           goals.push(currentGoal);
