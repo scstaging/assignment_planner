@@ -563,6 +563,7 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        margin: 0;
     }
     .back-button:hover {
         transition: .4s ease-in-out;
@@ -572,7 +573,7 @@
     .back-button h2 {
         font-family: "Montserrat", sans-serif;
         font-weight: 400;
-        font-size: 2em;
+        font-size: 25px;
         color: black;
     }
 </style>
