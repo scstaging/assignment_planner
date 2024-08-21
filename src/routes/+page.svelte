@@ -208,7 +208,7 @@
                 {#each assignments as assignment}
                     <div class="grid-assign">
                         <img on:click={selectAssignmentType} id={assignment.title} class="grid-item" alt={assignment.title} src={assignment.icon}>
-                        <h2 style="font-weight: 600;font-size:1.7em;margin:0;">{assignment.title}</h2>
+                        <h2 style="font-weight: 600;font-size:1.8em;margin:0;">{assignment.title}</h2>
                     </div>
                 {/each}
             </div>
@@ -393,7 +393,7 @@
 }
 .grid-item {
     padding: 30px;
-    padding-bottom: 0;
+    padding-bottom: 10px;
     width: auto;
     height: 25vh;
     cursor: pointer;
@@ -405,6 +405,7 @@
     transform: translateY(-3%);
     transition: ease-in-out;
     transition-duration: .4s;
+    padding-bottom: 30px;
 }
 .icon {
     width: 3%;
