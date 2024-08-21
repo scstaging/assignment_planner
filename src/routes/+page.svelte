@@ -398,13 +398,13 @@
     height: 25vh;
     cursor: pointer;
     transition: ease-in-out;
-    transition-duration: .4s;
+    transition-duration: .2s;
 }
 .grid-item:hover {
     background-color: #912338;
     transform: translateY(-3%);
     transition: ease-in-out;
-    transition-duration: .4s;
+    transition-duration: .2s;
     padding-bottom: 30px;
 }
 .icon {
@@ -451,7 +451,7 @@
     font-family: "Montserrat", sans-serif;
 }
 .under-date-text {
-    font-size: 2vmin;
+    font-size: 3.5vmin;
     font-family: "Montserrat", sans-serif;
 }
 .back-button {
