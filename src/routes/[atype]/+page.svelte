@@ -552,25 +552,27 @@
         transition: width 0.3s ease;
     }
     .back-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgb(145, 35, 56, 0.3);
-    transition: .4s ease-in-out;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-.back-button:hover {
-    transition: .4s ease-in-out;
-    background-color: rgb(145, 35, 56, 1);
-    transform: scale(1.2);
-}
-.back-button h2 {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 400;
-}
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgb(145, 35, 56, 0.3);
+        transition: .4s ease-in-out;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    .back-button:hover {
+        transition: .4s ease-in-out;
+        background-color: rgb(145, 35, 56, 1);
+        transform: scale(1.2);
+    }
+    .back-button h2 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        font-size: 2em;
+        color: black;
+    }
 </style>
