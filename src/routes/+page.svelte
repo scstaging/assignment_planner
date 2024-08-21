@@ -279,7 +279,6 @@
     position: absolute;
     display: flex;
     justify-content: center;
-    height: 90vh;
 }
 .fp-logo {
     width: 50%;
