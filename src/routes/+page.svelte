@@ -263,6 +263,7 @@
 .fp-left {
     width: 50%;
     margin-left: 5%;
+    z-index: 3;
 }
 .fp-left h2, .fp-left p {
     font-family: "Montserrat", sans-serif;
