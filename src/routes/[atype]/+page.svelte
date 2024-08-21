@@ -22,7 +22,9 @@
         "Discussion Post": "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA",
         "Grammar and Linguistics Assignment": "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ",
         "Reflection or Response Paper": "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6Q",
-        "Business Report": "1bajwPw8FGidGIie-7ZO7Yrx-U8HW8vuG-kkygmf8ak0"
+        "Business Report": "1bajwPw8FGidGIie-7ZO7Yrx-U8HW8vuG-kkygmf8ak0",
+        "Literature Review": "1PLXrrPtFy__ISXmkNhScPevdNfj28dg_XXkP7nOfDwA",
+        "Poster Presentation": "17omHvESVC6-fAcPqH9Y23GiQlB8AzsgBG2qjHO2v1pU"
     };
 
     // Testing state variable
