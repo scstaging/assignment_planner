@@ -223,17 +223,19 @@
                 {#if warningDateMessage && simpleEndDate === undefined}
                     <h2 in:fade style="color: black;font-size:2.2em;" class="fp-start-date-text">You must select a date to continue.</h2>
                 {/if}
-                <div style="width:50vw;display: flex;flex-direction:row;justify-content:space-between;">
-                    <div>
-                        <SveltyPicker pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
-                        <p class="under-date-text">Start Date</p>
-                    </div>
-                    {#if selectedStartDate != undefined}
-                        <div transition:fade>
-                            <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
-                            <p class="under-date-text">End Date</p>
+                <div style="display: flex;height:100vh;align-items:center;">
+                    <div style="width:50vw;display: flex;flex-direction:row;justify-content:space-between;">
+                        <div>
+                            <SveltyPicker pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
+                            <p class="under-date-text">Start Date</p>
                         </div>
-                    {/if}
+                        {#if selectedStartDate != undefined}
+                            <div transition:fade>
+                                <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
+                                <p class="under-date-text">End Date</p>
+                            </div>
+                        {/if}
+                    </div>
                 </div>
                 <div style="background: {startButtonColor};" class="fp-start-button"
                     on:click={generateAssignment}>
