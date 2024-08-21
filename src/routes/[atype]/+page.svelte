@@ -285,7 +285,7 @@
         }, 300)
     }
 
-    function backButton()
+    function homeBackButton()
     {
         goto(`/`);
     }
@@ -299,7 +299,7 @@
 {#await parseGoogleDocContent()}
     <h2 style="padding: 20px;" class="gp-p-text">Awaiting plan...</h2>
 {:then g}
-<div on:click={backButton} transition:fade class="back-button">
+<div on:click={homeBackButton} transition:fade class="home-back-button">
     <h2>Back</h2>
 </div>
 <div transition:fade class="gp-container">
@@ -551,7 +551,7 @@
         width: 0;
         transition: width 0.3s ease;
     }
-    .back-button {
+    .home-back-button {
         position: absolute;
         top: 0;
         left: 0;
@@ -565,12 +565,12 @@
         cursor: pointer;
         margin: 0;
     }
-    .back-button:hover {
+    .home-back-button:hover {
         transition: .4s ease-in-out;
         background-color: rgb(145, 35, 56, 1);
         transform: scale(1.2);
     }
-    .back-button h2 {
+    .home-back-button h2 {
         font-family: "Montserrat", sans-serif;
         font-weight: 400;
         font-size: 25px;
