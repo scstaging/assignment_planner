@@ -216,7 +216,7 @@
 
         <!-- Initial Date Picker -->
         {#if startDatePickerVisible}
-            <div style="display: flex;flex-direction: column;align-items:center;" transition:fade>
+            <div style="display: flex;flex-direction: column;align-items:center;justify-content:center;" transition:fade>
                 {#if simpleEndDate != undefined}
                     <h2 transition:fade style="color: black;font-size:2.2em;" class="fp-start-date-text">{simpleStartDate + " - " + simpleEndDate}</h2>
                 {/if}
