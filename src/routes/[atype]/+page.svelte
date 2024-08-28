@@ -309,6 +309,7 @@
 {/if}
 <div transition:fade class="gp-container">
     <MediaQuery query='(min-width: 1001px)' let:matches>
+    {#if matches}
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
             <div>
@@ -393,9 +394,11 @@
             <img class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
         </div>
     </div>
+    {/if}
     </MediaQuery>
 
     <MediaQuery query='(max-width: 1000px)' let:matches>
+        {#if matches}
         <div class="m-gp-inner-container">
             <div style="display: flex;flex-direction:column;align-items:flex-end;justify-content:space-between;">
                 <div>
@@ -422,6 +425,7 @@
                 </div>
             </div>
         </div>
+        {/if}
     </MediaQuery>
 
 </div>
