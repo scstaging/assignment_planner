@@ -400,7 +400,7 @@
     <MediaQuery query='(max-width: 1000px)' let:matches>
         {#if matches}
         <div class="m-gp-inner-container">
-            <div style="display: flex;flex-direction:column;align-items:flex-end;justify-content:space-between;">
+            <div style="display: flex;flex-direction:column;">
                 <div>
                     <h2 class="gp-title-text">{atype}</h2>
                     {#each goals as goal}
