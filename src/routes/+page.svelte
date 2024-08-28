@@ -290,12 +290,10 @@
             <!-- Initial Date Picker -->
             {#if startDatePickerVisible}
                 <div style="width:100%;display:flex;justify-content:center;align-items:center;flex-direction:column;" transition:fade>
-                    {#if selectedEndDate === undefined}
                     <div>
                         <SveltyPicker pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
                         <p class="under-date-text">Start Date</p>
                     </div>
-                    {/if}
                     {#if selectedStartDate != undefined}
                         <div transition:fade>
                             <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
