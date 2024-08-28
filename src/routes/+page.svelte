@@ -18,7 +18,7 @@
         {title: "Discussion Post", icon: "/discussion_post.png", docID: "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA"},
         {title: "Grammar and Linguistics Assignment", icon: "/grammer_and_linguistics_icon.png", docID: "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ"},
         {title: "Math PS Assignment", icon: "/math_assignment.png", docID: "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc"},
-        {title: "Reflection or Response Paper", icon: "/reflection_response_paper.png", docID: "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6"},
+        {title: "Reflection or Response Paper", icon: "/new_refl_resp.png", docID: "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6"},
         {title: "Literature Review", icon: "/new_lit_review.png", docID: "1PLXrrPtFy__ISXmkNhScPevdNfj28dg_XXkP7nOfDwA"},
         {title: "Poster Presentation", icon: "/poster_pres.png", docID: "17omHvESVC6-fAcPqH9Y23GiQlB8AzsgBG2qjHO2v1pU"}
     ];
