@@ -620,6 +620,7 @@
 .m-fp-confirm-button {
     width: 80%;
     margin-top: 20px;
+    margin-bottom: 20px;
     border-radius: 15px;
     padding: 5px 5px;
     cursor: pointer;
