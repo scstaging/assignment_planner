@@ -7,6 +7,7 @@
     import { page } from '$app/stores';
     import { fade, fly } from 'svelte/transition';
     import { goto } from '$app/navigation';
+    import MediaQuery from 'svelte-media-queries'
     
     //******** DOCS INTEGRATION ********//
     const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
