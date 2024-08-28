@@ -3,6 +3,7 @@
     import { fade } from 'svelte/transition';
     import SveltyPicker, { config } from 'svelty-picker';
     import { goto } from '$app/navigation';
+    import MediaQuery from 'svelte-media-queries'
 
     // Assignment dropdown bool
     let visible = false;
@@ -161,6 +162,9 @@
 
 </script>
 
+<!-- WEB LAYOUT -->
+<MediaQuery query='(min-width: 1001px)' let:matches>
+{#if matches}
 <div class="fp-container">
     {#if !leftHidden}
     <div transition:fade class="fp-left">
@@ -241,9 +245,71 @@
                 </div>
             </div>
         {/if}
-
     </div>
 </div>
+{/if}
+</MediaQuery>
+<!-- END: WEB LAYOUT -->
+
+<!-- TABLET / MOBILE LAYOUT -->
+<MediaQuery query='(max-width: 1000px)' let:matches>
+    {#if matches}
+        <div class="m-fp-container">
+            {#if !leftHidden}
+                <div class="m-fp-inner-container" transition:fade>
+                    <h2 class="m-fp-title">Concordia University Assignment Planner</h2>
+                    <p class="m-fp-p-text">The Assignment Planner breaks down your projects into smaller, manageable
+                        steps and helps you organize your timeline. Each step offers helpful "how-to"
+                        links. Use the “add to calendar” feature to keep track of your progress.</p>
+                    <p class="m-fp-p-text"><strong>Begin by selecting your assignment type.</strong></p>
+                    <div style="display: flex;justify-content:center;">
+                        <div on:click={openAssignments} class="m-begin-button">
+                            <h2 class="begin-button-text">Choose Assignment</h2>
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-direction:row;justify-content:center;">
+                        <div style="display: flex;flex-direction:row;justify-content:center;align-items:center;width:90%">
+                            <img class="fp-logo" alt="fp-logo" src="/concordia-logo.webp">
+                            <img class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
+                        </div>
+                    </div>
+                </div>
+            {/if}
+
+            {#if visible}
+                <div class="m-grid-container" transition:fade>
+                    {#each assignments as assignment}
+                        <div class="grid-assign">
+                            <img on:click={selectAssignmentType} id={assignment.title} class="m-grid-item" alt={assignment.title} src={assignment.icon}>
+                            <h2 style="font-weight: 600;font-size:4.0vmin;margin:0;margin-bottom:50px;">{assignment.title}</h2>
+                        </div>
+                    {/each}
+                </div>
+            {/if}
+
+            <!-- Initial Date Picker -->
+            {#if startDatePickerVisible}
+                <div style="width:100%;display:flex;justify-content:center;align-items:center;flex-direction:column;" transition:fade>
+                    <div style="display: block;width:50vw;">
+                        <SveltyPicker pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
+                        <p class="under-date-text">Start Date</p>
+                    </div>
+                    {#if selectedStartDate != undefined}
+                        <div style="display: block;width:50vw;" transition:fade>
+                            <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
+                            <p class="under-date-text">End Date</p>
+                        </div>
+                    {/if}
+                    <div style="background: {startButtonColor};" class="fp-start-button"
+                        on:click={generateAssignment}>
+                        <h2 class="fp-start-date-text">Press to confirm</h2>
+                    </div>    
+                </div>
+            {/if}
+        </div>
+    {/if}
+</MediaQuery>
+<!-- END: MOBILE LAYOUT -->
 
 <style>
 * {
@@ -477,4 +543,80 @@
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
 }
+
+/* MOBILE STYLES */
+.m-fp-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.m-fp-inner-container {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.m-fp-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 8vmin;
+    text-align: center;
+}
+.m-fp-p-text {
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 2.5vmax;
+    line-height: 40px;
+}
+.m-begin-button {
+    width: 70%;
+    background-color: #912338;
+    border-radius: 15px;
+    padding: 25px 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease, color 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    margin-top: 3%;
+    transition: .4s ease-in-out;
+}
+.m-grid-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.m-grid-item {
+    padding: 30px;
+    padding-bottom: 10px;
+    width: 50vw;
+    cursor: pointer;
+    transition: ease-in-out;
+    transition-duration: .2s;
+}
+.m-grid-item:hover {
+    background-color: #912338;
+    transform: translateY(-3%);
+    transition: ease-in-out;
+    transition-duration: .2s;
+    padding-bottom: 30px;
+}
+.m-fp-start-button {
+    width: 80%;
+    margin-right: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    padding: 5px 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease, color 0.3s ease;
+}
+/* END: MOBILE STYLES */
 </style>

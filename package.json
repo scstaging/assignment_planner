@@ -22,6 +22,7 @@
 		"google-auth-library": "^9.11.0",
 		"googleapis": "^140.0.1",
 		"node-fetch": "^3.3.2",
+		"svelte-media-queries": "^1.6.2",
 		"svelty-picker": "^5.2.9"
 	}
 }
