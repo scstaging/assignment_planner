@@ -308,6 +308,7 @@
     </div>
 {/if}
 <div transition:fade class="gp-container">
+    <MediaQuery query='(min-width: 1001px)' let:matches>
     <div class="gp-inner-container">
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
             <div>
@@ -392,6 +393,37 @@
             <img class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
         </div>
     </div>
+    </MediaQuery>
+
+    <MediaQuery query='(max-width: 1000px)' let:matches>
+        <div class="m-gp-inner-container">
+            <div style="display: flex;flex-direction:column;align-items:flex-end;justify-content:space-between;">
+                <div>
+                    <h2 class="gp-title-text">{atype}</h2>
+                    {#each goals as goal}
+                        {#if selectedGoal?.id === goal.id}
+                            <h2 out:fade in:fly={{x: -100, delay: 500}} class="subtitle-text">{goal.title}</h2>
+                        {/if}
+                    {/each}
+                </div>
+                <div style="display: flex;flex-direction:row;">
+                    {#if selectedGoal === null}
+                        <p class="gp-p-text">Due Date: &nbsp;</p>
+                        <p style="color: rgba(255,85,0,1);" class="gp-p-text">{formattedEndDate}</p>
+                    {:else}
+                        {#each goals as goal}
+                            {#if selectedGoal?.id === goal.id}
+                                <p class="gp-p-text">By&nbsp;</p>
+                                <p style="color: rgba(255,85,0,1);" class="gp-p-text">{goal.dueDate}</p>
+                                <p class="gp-p-text">&nbsp;you should...</p>
+                            {/if}
+                        {/each}
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </MediaQuery>
+
 </div>
 {/await}
 
@@ -581,4 +613,12 @@
         font-size: 25px;
         color: black;
     }
+/* MOBILE STLYES */
+.m-gp-inner-container {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+/* END: MOBILE STYLES */
 </style>
