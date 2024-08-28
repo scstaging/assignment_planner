@@ -549,13 +549,11 @@
 /* MOBILE STYLES */
 .m-fp-container {
     width: 100%;
-    height: 100vh;
     display: flex;
     justify-content: center;
 }
 .m-fp-inner-container {
     width: 90%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
