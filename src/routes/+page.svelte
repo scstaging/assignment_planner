@@ -300,7 +300,7 @@
                             <p class="under-date-text">End Date</p>
                         </div>
                     {/if}
-                    <div style="background: {startButtonColor};width:90%;" class="fp-start-button"
+                    <div style="background: {startButtonColor};width:70%;" class="fp-start-button"
                         on:click={generateAssignment}>
                         <h2 class="fp-start-date-text">Press to confirm</h2>
                     </div>    
