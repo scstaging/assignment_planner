@@ -402,7 +402,7 @@
         <div class="m-gp-inner-container">
             <div style="display: flex;flex-direction:column;">
                 <div>
-                    <h2 class="gp-title-text">{atype}</h2>
+                    <h2 style="margin-bottom:20px;" class="gp-title-text">{atype}</h2>
                     {#each goals as goal}
                         {#if selectedGoal?.id === goal.id}
                             <h2 out:fade in:fly={{x: -100, delay: 500}} class="subtitle-text">{goal.title}</h2>
@@ -623,6 +623,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
+    margin-top: 80px;
 }
 /* END: MOBILE STYLES */
 </style>
