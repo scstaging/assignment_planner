@@ -19,7 +19,7 @@
         {title: "Grammar and Linguistics Assignment", icon: "/grammer_and_linguistics_icon.png", docID: "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ"},
         {title: "Math PS Assignment", icon: "/math_assignment.png", docID: "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc"},
         {title: "Reflection or Response Paper", icon: "/reflection_response_paper.png", docID: "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6"},
-        {title: "Literature Review", icon: "/literature_review.png", docID: "1PLXrrPtFy__ISXmkNhScPevdNfj28dg_XXkP7nOfDwA"},
+        {title: "Literature Review", icon: "/new_lit_review.png", docID: "1PLXrrPtFy__ISXmkNhScPevdNfj28dg_XXkP7nOfDwA"},
         {title: "Poster Presentation", icon: "/poster_pres.png", docID: "17omHvESVC6-fAcPqH9Y23GiQlB8AzsgBG2qjHO2v1pU"}
     ];
 
@@ -267,10 +267,10 @@
                             <h2 class="begin-button-text">Choose Assignment</h2>
                         </div>
                     </div>
-                    <div style="display: flex;flex-direction:row;justify-content:center;">
-                        <div style="display: flex;flex-direction:row;justify-content:center;align-items:center;width:90%">
-                            <img class="fp-logo" alt="fp-logo" src="/concordia-logo.webp">
-                            <img class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
+                    <div style="display: flex;flex-direction:row;justify-content:center;margin-top:30px;">
+                        <div style="display: flex;flex-direction:column;justify-content:center;align-items:center;width:100%">
+                            <img style="width: 80%;margin-bottom:20px;" class="fp-logo" alt="fp-logo" src="/concordia-logo.webp">
+                            <img style="width: 80%;margin-bottom:20px;" class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
                         </div>
                     </div>
                 </div>
@@ -290,12 +290,14 @@
             <!-- Initial Date Picker -->
             {#if startDatePickerVisible}
                 <div style="width:100%;display:flex;justify-content:center;align-items:center;flex-direction:column;" transition:fade>
-                    <div style="display: block;width:50vw;">
+                    {#if selectedEndDate === undefined}
+                    <div>
                         <SveltyPicker pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
                         <p class="under-date-text">Start Date</p>
                     </div>
+                    {/if}
                     {#if selectedStartDate != undefined}
-                        <div style="display: block;width:50vw;" transition:fade>
+                        <div transition:fade>
                             <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
                             <p class="under-date-text">End Date</p>
                         </div>
@@ -561,14 +563,15 @@
 .m-fp-title {
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
-    font-size: 8vmin;
+    font-size: 10vmin;
     text-align: center;
+    margin-bottom: 0;
 }
 .m-fp-p-text {
     text-align: center;
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
-    font-size: 2.5vmax;
+    font-size: 5vw;
     line-height: 40px;
 }
 .m-begin-button {
