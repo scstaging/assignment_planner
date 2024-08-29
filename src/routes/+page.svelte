@@ -278,6 +278,9 @@
 
             {#if visible}
                 <div class="m-grid-container" transition:fade>
+                    <div style="margin-bottom: 20px;" on:click={backButton} transition:fade class="m-back-button">
+                        <h2 class="m-button-text">Back</h2>
+                    </div>
                     {#each assignments as assignment}
                         <div class="grid-assign">
                             <img on:click={selectAssignmentType} id={assignment.title} class="m-grid-item" alt={assignment.title} src={assignment.icon}>
@@ -290,6 +293,9 @@
             <!-- Initial Date Picker -->
             {#if startDatePickerVisible}
                 <div style="width:100%;display:flex;justify-content:center;align-items:center;flex-direction:column;" transition:fade>
+                    <div style="margin-bottom: 20px;" on:click={backButton} transition:fade class="m-back-button">
+                        <h2 class="m-button-text">Back</h2>
+                    </div>
                     <div>
                         <SveltyPicker pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
                         <p class="under-date-text">Start Date</p>
@@ -628,6 +634,25 @@
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease, color 0.3s ease;
+}
+.m-back-button {
+    background-color: rgb(145, 35, 56, 0.3);
+    transition: .4s ease-in-out;
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 3;
+}
+.m-back-button:hover {
+    transition: .4s ease-in-out;
+    background-color: rgb(145, 35, 56, 1);
+}
+.m-button-text {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
 }
 /* END: MOBILE STYLES */
 </style>
