@@ -399,6 +399,7 @@
 
     <MediaQuery query='(max-width: 1000px)' let:matches>
         {#if matches}
+        <p bind:this={introBlurb} class="gp-descript" in:fade={{delay: 500}} out:fade>{unmountStorageIntroBlurb}</p>
         <div class="m-gp-inner-container">
             <div style="display: flex;flex-direction:column;">
                 <div>
