@@ -403,11 +403,6 @@
             <div style="display: flex;flex-direction:column;">
                 <div>
                     <h2 style="margin-bottom:20px;" class="gp-title-text">{atype}</h2>
-                    {#each goals as goal}
-                        {#if selectedGoal?.id === goal.id}
-                            <h2 out:fade in:fly={{x: -100, delay: 500}} class="subtitle-text">{goal.title}</h2>
-                        {/if}
-                    {/each}
                 </div>
                 <div style="display: flex;flex-direction:row;">
                     {#if selectedGoal === null}
@@ -438,6 +433,16 @@
                         />
                         <div style="display: flex;flex-direction:column;">
                             <h2>By {goal.dueDate} you should: {goal.title}</h2>
+                            {#each goals as goal}
+                                {#if selectedGoal?.id === goal.id}
+                                    {#each goal.links as link}
+                                        <div style="margin-bottom: 20px;margin-top:40px;">
+                                            <a style="text-decoration: none;" target="_blank" class="link-descript" href={link.descript}><h2 class="link-title">{link.title}</h2></a>
+                                        </div>
+                                    {/each}
+                                    <h2 class="back-button" on:click={() => {nullSelectedGoal(goal)}}>Back</h2>
+                                {/if}
+                            {/each}
                         </div>
                     </div>
                 {/each}
