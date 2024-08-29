@@ -441,9 +441,11 @@
                                         delay: 1000
                                     }}>{goal.goalDescript}</p>
                                     <h2 class="gp-goals-title" transition:fade>Helpful Links</h2>
-                                    <div style="margin-bottom: 20px;margin-top:40px;">
-                                        <a style="text-decoration: none;" target="_blank" class="link-descript" href={link.descript}><h2 class="link-title">{link.title}</h2></a>
-                                    </div>
+                                    {#each goal.links as link}
+                                        <div style="margin-bottom: 20px;margin-top:40px;">
+                                            <a style="text-decoration: none;" target="_blank" class="link-descript" href={link.descript}><h2 class="link-title">{link.title}</h2></a>
+                                        </div>
+                                    {/each}
                                 </div>
                             {/if}
                         {/each}
