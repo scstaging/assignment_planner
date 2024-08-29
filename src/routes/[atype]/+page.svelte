@@ -314,43 +314,18 @@
         <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
             <div>
                 <h2 class="gp-title-text">{atype}</h2>
-                {#each goals as goal}
-                    {#if selectedGoal?.id === goal.id}
-                        <h2 out:fade in:fly={{x: -100, delay: 500}} class="subtitle-text">{goal.title}</h2>
-                    {/if}
-                {/each}
             </div>
             <div style="display: flex;flex-direction:row;">
-                {#if selectedGoal === null}
-                    <p class="gp-p-text">Due Date: &nbsp;</p>
-                    <p style="color: rgba(255,85,0,1);" class="gp-p-text">{formattedEndDate}</p>
-                {:else}
-                    {#each goals as goal}
-                        {#if selectedGoal?.id === goal.id}
-                            <p class="gp-p-text">By&nbsp;</p>
-                            <p style="color: rgba(255,85,0,1);" class="gp-p-text">{goal.dueDate}</p>
-                            <p class="gp-p-text">&nbsp;you should...</p>
-                        {/if}
-                    {/each}
-                {/if}
+                <p class="gp-p-text">Due Date: &nbsp;</p>
+                <p style="color: rgba(255,85,0,1);" class="gp-p-text">{formattedEndDate}</p>
             </div>
         </div>
-        {#if selectedGoal === null}
         <p bind:this={introBlurb} class="gp-descript" in:fade={{delay: 500}} out:fade>{unmountStorageIntroBlurb}</p>
-        {/if}
-            {#each goals as goal}
-                {#if selectedGoal?.id === goal.id}
-                    <p class="gp-descript" out:fade in:fade={{
-                        delay: 1000
-                    }}>{goal.goalDescript}</p>
-                {/if}
-            {/each}
         <div class="goal-list-container" transition:fade>
-            <h2 class="gp-goals-title" transition:fade>{selectedGoal === null ? "Plan" : "Helpful Links"}</h2>
-            {#if selectedGoal === null}
+            <h2 class="gp-goals-title" transition:fade>Plan</h2>
             <div class="goal-list" transition:fade>
                 {#each goals as goal}
-                    <div style="box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;" class="gp-goal" on:click={() => selectGoal(goal)}>
+                    <div style="{selectedGoal?.id === goal.id ? "background-color: rgb(145, 35, 56, 0.36)" : "white"};box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;" class="gp-goal" on:click={() => selectGoal(goal)}>
                         <input id={goal.id} type="checkbox" class="checkbox"
                         on:click={(e) => e.stopPropagation()}
                         on:change={(e) => {
@@ -363,19 +338,21 @@
                             <h2>By {goal.dueDate} you should: {goal.title}</h2>
                         </div>
                     </div>
+                    {#if selectedGoal?.id === goal.id}
+                    <div transition:fade style="display: flex;flex-direction:column;margin-bottom:40px;">
+                        <p style="margin-bottom:40px;" class="gp-descript" out:fade in:fade={{
+                            delay: 1000
+                        }}>{goal.goalDescript}</p>
+                        <h2 class="gp-goals-title" transition:fade>Helpful Links</h2>
+                        {#each goal.links as link}
+                            <div style="margin-top:40px;">
+                                <a style="text-decoration: none;" target="_blank" class="link-descript" href={link.descript}><h2 class="link-title">{link.title}</h2></a>
+                            </div>
+                        {/each}
+                    </div>
+                    {/if}
                 {/each}
             </div>
-            {/if}
-            {#each goals as goal}
-                {#if selectedGoal?.id === goal.id}
-                    {#each goal.links as link}
-                        <div style="margin-bottom: 20px;margin-top:40px;">
-                            <a style="text-decoration: none;" target="_blank" class="link-descript" href={link.descript}><h2 class="link-title">{link.title}</h2></a>
-                        </div>
-                    {/each}
-                    <h2 class="back-button" on:click={() => {nullSelectedGoal(goal)}}>Back</h2>
-                {/if}
-            {/each}
         </div>
         <div style="width: 100%;display: flex;flex-direction:row;align-items:center;justify-content:space-between;margin-top:40px;">
             {#each goals as goal}
@@ -408,7 +385,7 @@
                     <p class="gp-p-text">Due Date: &nbsp;</p>
                     <p style="color: rgba(255,85,0,1);" class="gp-p-text">{formattedEndDate}</p>
                 </div>
-                <p bind:this={introBlurb} class="gp-descript" in:fade={{delay: 500}} out:fade>{unmountStorageIntroBlurb}</p>
+                <p bind:this={introBlurb} style="margin-top: 40px;" class="gp-descript" in:fade={{delay: 500}} out:fade>{unmountStorageIntroBlurb}</p>
             </div>
 
             <div class="goal-list" transition:fade>
@@ -428,7 +405,7 @@
                     </div>
                     {#if selectedGoal?.id === goal.id}
                     <div transition:fade style="display: flex;flex-direction:column;margin-bottom:40px;">
-                        <p style="margin-bottom:20px;" class="gp-descript" out:fade in:fade={{
+                        <p style="margin-bottom:40px;" class="gp-descript" out:fade in:fade={{
                             delay: 1000
                         }}>{goal.goalDescript}</p>
                         <h2 class="gp-goals-title" transition:fade>Helpful Links</h2>
