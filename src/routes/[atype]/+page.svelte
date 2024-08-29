@@ -426,7 +426,7 @@
                         </div>
                     </div>
                     {#if selectedGoal?.id === goal.id}
-                    <div transition:fade style="display: flex;flex-direction:column;">
+                    <div transition:fade style="display: flex;flex-direction:column;margin-bottom:40px;">
                         <p style="margin-bottom:20px;" class="gp-descript" out:fade in:fade={{
                             delay: 1000
                         }}>{goal.goalDescript}</p>
