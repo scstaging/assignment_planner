@@ -391,7 +391,7 @@
             <div class="goal-list" transition:fade>
                 {#each goals as goal}
                     <div style="{selectedGoal?.id === goal.id ? "background-color: rgb(145, 35, 56, 0.36)" : "white"};box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;" class="gp-goal" on:click={() => selectGoal(goal)}>
-                        <input id={goal.id} type="checkbox" class="checkbox"
+                        <input step="background-color:white;" id={goal.id} type="checkbox" class="checkbox"
                         on:click={(e) => e.stopPropagation()}
                         on:change={(e) => {
                             e.stopPropagation(); // Prevent change event from bubbling up
