@@ -434,7 +434,6 @@
                         <div style="display: flex;flex-direction:column;">
                             <h2>By {goal.dueDate} you should: {goal.title}</h2>
                         </div>
-                        {#each goals as goal}
                             {#if selectedGoal?.id === goal.id}
                                 <div style="display: flex;flex-direction:column;">
                                     <p class="gp-descript" out:fade in:fade={{
@@ -448,7 +447,6 @@
                                     {/each}
                                 </div>
                             {/if}
-                        {/each}
                     </div>
                 {/each}
             </div>
