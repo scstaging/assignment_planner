@@ -433,17 +433,20 @@
                         />
                         <div style="display: flex;flex-direction:column;">
                             <h2>By {goal.dueDate} you should: {goal.title}</h2>
-                            {#each goals as goal}
-                                {#if selectedGoal?.id === goal.id}
-                                    {#each goal.links as link}
-                                        <div style="margin-bottom: 20px;margin-top:40px;">
-                                            <a style="text-decoration: none;" target="_blank" class="link-descript" href={link.descript}><h2 class="link-title">{link.title}</h2></a>
-                                        </div>
-                                    {/each}
-                                    <h2 class="back-button" on:click={() => {nullSelectedGoal(goal)}}>Back</h2>
-                                {/if}
-                            {/each}
                         </div>
+                        {#each goals as goal}
+                            {#if selectedGoal?.id === goal.id}
+                                <div style="display: flex;flex-direction:column;">
+                                    <p class="gp-descript" out:fade in:fade={{
+                                        delay: 1000
+                                    }}>{goal.goalDescript}</p>
+                                    <h2 class="gp-goals-title" transition:fade>Helpful Links</h2>
+                                    <div style="margin-bottom: 20px;margin-top:40px;">
+                                        <a style="text-decoration: none;" target="_blank" class="link-descript" href={link.descript}><h2 class="link-title">{link.title}</h2></a>
+                                    </div>
+                                </div>
+                            {/if}
+                        {/each}
                     </div>
                 {/each}
             </div>
