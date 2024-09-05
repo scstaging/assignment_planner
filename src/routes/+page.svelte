@@ -523,7 +523,7 @@
     font-family: "Montserrat", sans-serif;
 }
 .under-date-text {
-    font-size: 3.5vmin;
+    font-size: 4vmin;
     font-family: "Montserrat", sans-serif;
 }
 .back-button {
