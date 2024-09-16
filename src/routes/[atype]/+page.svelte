@@ -127,16 +127,6 @@
     mounted = true;
   }
 
-  function speakText(text) {
-    const synth = new SpeechSynthesisUtterance(text);
-    
-    // Select a voice
-    const voices = speechSynthesis.getVoices();
-    synth.voice = voices[0]; // Choose a specific voice
-    speechSynthesis.cancel();
-    speechSynthesis.speak(synth);
-  };
-
   function testFunction()
   {
     setTimeout(() => {
@@ -352,11 +342,11 @@ const accessibilitySelectGoal = (goal) => {
     synth.voice = voices[0]; // Choose a specific voice
     speechSynthesis.speak(synth);
 
-    // for (let i = 0; i < goal.links.length; i++)
-    // {
-    //     speechSynthesis.cancel(synth); // Bug override
-    //     let synth = new SpeechSynthesisUtterance("" + goals.links[i].title);
-    // }
+    for (let i = 0; i < goal.links.length; i++)
+    {
+        speechSynthesis.cancel(synth); // Bug override
+        let synth = new SpeechSynthesisUtterance("Alt plus " + (i+1) + ": " + goals.links[i].title);
+    }
   }
 };
 
@@ -380,7 +370,6 @@ onMount(() => {
     </div>
 {/if}
 <div transition:fade class="gp-container">
-    {speakText("Test speak text")}
     <MediaQuery query="(min-width: 1001px)" let:matches>
         {#if matches}
           <div class="gp-inner-container">
