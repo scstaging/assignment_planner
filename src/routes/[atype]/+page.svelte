@@ -390,7 +390,7 @@ onMount(() => {
               </div>
             </div>
             
-            <p use:readIntroduction bind:this={introBlurb} class="gp-descript" in:fade={{ delay: 500 }} out:fade>{unmountStorageIntroBlurb}</p>
+            <p bind:this={introBlurb} class="gp-descript" in:fade={{ delay: 500 }} out:fade>{unmountStorageIntroBlurb}</p>
       
             <div class="goal-list-container" transition:fade>
               <h2 class="gp-goals-title" transition:fade>Plan</h2>
