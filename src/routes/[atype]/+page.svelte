@@ -308,7 +308,7 @@ const accessibilityHandleKeyPress = (event) => {
   const key = event.key;
   
   // Select goal using number keys 1 to n
-  if (key >= '1' && key <= String(goals.length)) {
+  if (!event.altKey && key >= '1' && key <= String(goals.length)) {
     const goalIndex = Number(key) - 1;
     accessibilitySelectGoal(goals[goalIndex]);
   }
