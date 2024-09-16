@@ -361,8 +361,12 @@ onMount(() => {
 
   // Function to trigger speech synthesis
   const speakText = (text) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(utterance);
+    const synth = new SpeechSynthesisUtterance(text);
+    
+    // Select a voice
+    const voices = speechSynthesis.getVoices();
+    synth.voice = voices[0]; // Choose a specific voice
+    speechSynthesis.speak(synth);
   };
     // *************** END: ACCESSIBILITY OPTIONS *************** //
 
