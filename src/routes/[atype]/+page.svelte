@@ -303,10 +303,14 @@
 
     let goalRefs = [];  // To hold references to goal DOM elements for focus management
 
+    let introText = "";
+    $: introText = unmountStorageIntroBlurb;
     function readIntroduction()
     {
         setTimeout(() => {
+            console.log(introText)
             console.log(unmountStorageIntroBlurb)
+            console.log(introBlurb)
         }, 500)
 
         // Speak Goal
