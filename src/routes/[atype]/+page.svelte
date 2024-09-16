@@ -308,9 +308,7 @@
     function readIntroduction()
     {
         setTimeout(() => {
-            console.log(introText)
-            console.log(unmountStorageIntroBlurb)
-            console.log(introBlurb)
+            console.log(introBlurbContent)
         }, 500)
 
         // Speak Goal
