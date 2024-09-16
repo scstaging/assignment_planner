@@ -250,7 +250,7 @@
 
     function keyAccessibilityOn(event)
     {
-        if (!leftHidden && event.key === "Escape")
+        if (!leftHidden && event.key === "Escape" && accessibilityOn === false)
         {
             accessibilityOn = true;
             readIntro();
