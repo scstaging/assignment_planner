@@ -332,15 +332,19 @@ const accessibilitySelectGoal = (goal) => {
     // Set focus to selected goal for screen reader
     goalRefs[goal.id].focus();
 
-    console.log(goal)
-
     // Speak Goal
-    let synth = new SpeechSynthesisUtterance("" + goalRefs[goal.id].title + ". " + goalRefs[goal.id].goalDescript);
-            
+    let synth = new SpeechSynthesisUtterance("" + goal.title + ". " + goal.goalDescript);
+                
     // Select a voice
     const voices = speechSynthesis.getVoices();
     synth.voice = voices[0]; // Choose a specific voice
     speechSynthesis.speak(synth);
+
+    // for (let i = 0; i < goal.links.length; i++)
+    // {
+    //     speechSynthesis.cancel(synth); // Bug override
+    //     let synth = new SpeechSynthesisUtterance("" + goals.links[i].title);
+    // }
   }
 };
 
