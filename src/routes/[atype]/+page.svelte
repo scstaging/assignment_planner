@@ -127,11 +127,22 @@
     mounted = true;
   }
 
+  function speakText(text) {
+    const synth = new SpeechSynthesisUtterance(text);
+    
+    // Select a voice
+    const voices = speechSynthesis.getVoices();
+    synth.voice = voices[0]; // Choose a specific voice
+    speechSynthesis.cancel();
+    speechSynthesis.speak(synth);
+  };
+
   function testFunction()
   {
     setTimeout(() => {
         setIntroBlurb();
         introBlurb = introBlurb;
+        console.log(speakText);
         speakText("Test speak text");
     }, 500)
   }
@@ -358,16 +369,6 @@ onMount(() => {
     window.removeEventListener('keydown', accessibilityHandleKeyPress);
   };
 });
-
-  // Function to trigger speech synthesis
-  function speakText(text) {
-    const synth = new SpeechSynthesisUtterance(text);
-    
-    // Select a voice
-    const voices = speechSynthesis.getVoices();
-    synth.voice = voices[0]; // Choose a specific voice
-    speechSynthesis.speak(synth);
-  };
     // *************** END: ACCESSIBILITY OPTIONS *************** //
 
 </script>
