@@ -332,6 +332,8 @@ const accessibilitySelectGoal = (goal) => {
     // Set focus to selected goal for screen reader
     goalRefs[goal.id].focus();
 
+    console.log(goalRefs[goal.id])
+
     // Speak Goal
     let synth = new SpeechSynthesisUtterance("" + goalRefs[goal.id].title + ". " + goalRefs[goal.id].goalDescript);
             
