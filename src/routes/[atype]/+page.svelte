@@ -468,7 +468,7 @@
         font-family: "Montserrat", sans-serif;
         font-size: 1.2em;
         font-weight: 400;
-        margin-top: 3%;
+        margin-top: 20px;
         line-height: 30px;
     }
     .gp-goal {
