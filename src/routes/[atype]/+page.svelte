@@ -329,6 +329,14 @@ const accessibilitySelectGoal = (goal) => {
   selectedGoal = goal;
   if (goalRefs[goal.id]) {
     goalRefs[goal.id].focus();  // Set focus to selected goal for screen reader
+
+    // Speak date
+    let synth = new SpeechSynthesisUtterance(goalRefs[goal.id].title + ". " + goalRefs[goal.id].descript);
+            
+    // Select a voice
+    const voices = speechSynthesis.getVoices();
+    synth.voice = voices[0]; // Choose a specific voice
+    speechSynthesis.speak(synth);
   }
 };
 
