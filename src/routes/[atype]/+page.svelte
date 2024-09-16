@@ -132,7 +132,7 @@
     setTimeout(() => {
         setIntroBlurb();
         introBlurb = introBlurb;
-        speakText(introBlurb);
+        speakText("Test speak text");
     }, 500)
   }
 
@@ -360,7 +360,7 @@ onMount(() => {
 });
 
   // Function to trigger speech synthesis
-  const speakText = (text) => {
+  function speakText(text) {
     const synth = new SpeechSynthesisUtterance(text);
     
     // Select a voice
