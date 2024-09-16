@@ -328,7 +328,9 @@ const accessibilityHandleKeyPress = (event) => {
 const accessibilitySelectGoal = (goal) => {
   selectedGoal = goal;
   if (goalRefs[goal.id]) {
-    goalRefs[goal.id].focus();  // Set focus to selected goal for screen reader
+
+    // Set focus to selected goal for screen reader
+    goalRefs[goal.id].focus();
 
     // Speak Goal
     let synth = new SpeechSynthesisUtterance(goalRefs[goal.id].title + ". " + goalRefs[goal.id].descript);
