@@ -366,11 +366,12 @@ onMount(() => {
 
   // Trigger speech synthesis on mount
   onMount(() => {
-    if (introBlurb) {
-      // Read the intro blurb text when the component is mounted
-      console.log(mounted)
-      speakText("this is the intro blurb");
-    }
+    setTimeout(() => {
+        if (introBlurb) {
+            // Read the intro blurb text when the component is mounted
+            speakText("this is the intro blurb");
+        }
+    }, 500)
   });
     // *************** END: ACCESSIBILITY OPTIONS *************** //
 
