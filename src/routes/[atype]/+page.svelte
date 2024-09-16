@@ -308,8 +308,6 @@
         // Speak Goal
         let synth = new SpeechSynthesisUtterance(unmountStorageIntroBlurb);
 
-        console.log(unmountStorageIntroBlurb)
-
         // Select a voice
         const voices = speechSynthesis.getVoices();
         synth.voice = voices[0]; // Choose a specific voice
@@ -382,7 +380,7 @@ onMount(() => {
         <h2>Back</h2>
     </div>
 {/if}
-<div transition:fade class="gp-container">
+<div use:readIntroduction transition:fade class="gp-container">
     <MediaQuery query="(min-width: 1001px)" let:matches>
         {#if matches}
           <div class="gp-inner-container">
@@ -396,7 +394,7 @@ onMount(() => {
               </div>
             </div>
             
-            <p use:readIntroduction bind:this={introBlurb} class="gp-descript" in:fade={{ delay: 500 }} out:fade>{unmountStorageIntroBlurb}</p>
+            <p bind:this={introBlurb} class="gp-descript" in:fade={{ delay: 500 }} out:fade>{unmountStorageIntroBlurb}</p>
       
             <div class="goal-list-container" transition:fade>
               <h2 class="gp-goals-title" transition:fade>Plan</h2>
