@@ -308,6 +308,8 @@
         // Speak Goal
         let synth = new SpeechSynthesisUtterance(unmountStorageIntroBlurb);
 
+        console.log(unmountStorageIntroBlurb)
+
         // Select a voice
         const voices = speechSynthesis.getVoices();
         synth.voice = voices[0]; // Choose a specific voice
