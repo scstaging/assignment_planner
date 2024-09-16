@@ -368,7 +368,7 @@ onMount(() => {
   onMount(() => {
     if (introBlurb) {
       // Read the intro blurb text when the component is mounted
-      speakText(unmountStorageIntroBlurb);
+      speakText("this is the intro blurb");
     }
   });
     // *************** END: ACCESSIBILITY OPTIONS *************** //
