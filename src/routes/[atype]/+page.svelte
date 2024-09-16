@@ -142,8 +142,6 @@
     setTimeout(() => {
         setIntroBlurb();
         introBlurb = introBlurb;
-        console.log(speakText);
-        speakText("Test speak text");
     }, 500)
   }
 
@@ -382,6 +380,7 @@ onMount(() => {
     </div>
 {/if}
 <div transition:fade class="gp-container">
+    {speakText("Test speak text")}
     <MediaQuery query="(min-width: 1001px)" let:matches>
         {#if matches}
           <div class="gp-inner-container">
