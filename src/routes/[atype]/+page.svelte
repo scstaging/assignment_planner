@@ -303,16 +303,10 @@
 
     let goalRefs = [];  // To hold references to goal DOM elements for focus management
 
-    let introText = "";
-    $: introText = unmountStorageIntroBlurb;
     function readIntroduction()
     {
-        setTimeout(() => {
-            console.log(introBlurbContent)
-        }, 500)
-
         // Speak Goal
-        let synth = new SpeechSynthesisUtterance(unmountStorageIntroBlurb);
+        let synth = new SpeechSynthesisUtterance(introBlurbContent);
 
         // Select a voice
         const voices = speechSynthesis.getVoices();
