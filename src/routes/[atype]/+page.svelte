@@ -334,6 +334,8 @@ const accessibilitySelectGoal = (goal) => {
 
     // Speak Goal
     let synth = new SpeechSynthesisUtterance("" + goal.title + ". " + goal.goalDescript);
+
+    console.log(goal.title)
                 
     // Select a voice
     const voices = speechSynthesis.getVoices();
