@@ -4,6 +4,7 @@
     import SveltyPicker, { config } from 'svelty-picker';
     import { goto } from '$app/navigation';
     import MediaQuery from 'svelte-media-queries'
+    import { onMount, onDestroy, afterUpdate } from 'svelte';
 
     // Assignment dropdown bool
     let visible = false;
@@ -160,6 +161,196 @@
         }
     }
 
+    // *********** ACCESSIBILITY ***********//
+    function keyDownEnter(event)
+    {
+        if (!leftHidden && !rightHidden)
+            if (event.key === "Enter")
+                openAssignments();
+    }
+
+    function keyBack(event)
+    {
+        if (event.key === "Backspace")
+            backButton();
+    }
+
+    function keyAssignment(event)
+    {
+        if (visible) {
+        switch (event.key) {
+            case "1":
+                assignments[0].title;
+                assignmentChoice = assignments[0].title;
+                plannerinfo.atype = assignments[0].title;
+                openStartDatePicker();
+                break;
+            case "2":
+                assignments[1].title;
+                assignmentChoice = assignments[1].title;
+                plannerinfo.atype = assignments[1].title;
+                openStartDatePicker();
+                break;
+            case "3":
+                assignments[2].title;
+                assignmentChoice = assignments[2].title;
+                plannerinfo.atype = assignments[2].title;
+                openStartDatePicker();
+                break;
+            case "4":
+                assignments[3].title;
+                assignmentChoice = assignments[3].title;
+                plannerinfo.atype = assignments[3].title;
+                openStartDatePicker();
+                break;
+            case "5":
+                assignments[4].title;
+                assignmentChoice = assignments[4].title;
+                plannerinfo.atype = assignments[4].title;
+                openStartDatePicker();
+                break;
+            case "6":
+                assignments[5].title;
+                assignmentChoice = assignments[5].title;
+                plannerinfo.atype = assignments[5].title;
+                openStartDatePicker();
+                break;
+            case "7":
+                assignments[6].title;
+                assignmentChoice = assignments[6].title;
+                plannerinfo.atype = assignments[6].title;
+                openStartDatePicker();
+                break;
+            case "8":
+                assignments[7].title;
+                assignmentChoice = assignments[7].title;
+                plannerinfo.atype = assignments[7].title;
+                openStartDatePicker();
+                break;
+            case "9":
+                assignments[8].title;
+                assignmentChoice = assignments[8].title;
+                plannerinfo.atype = assignments[8].title;
+                openStartDatePicker();
+                break;
+            case "0":
+                assignments[9].title;
+                assignmentChoice = assignments[9].title;
+                plannerinfo.atype = assignments[9].title;
+                openStartDatePicker();
+                break;
+            default:
+                console.log("not assignment");
+                break;
+        }
+    }
+    }
+
+    let accessibilityOn = false;
+
+    function keyAccessibilityOn(event)
+    {
+        if (!leftHidden && event.key === "Escape")
+        {
+            accessibilityOn = true;
+            readIntro();
+        }
+    }
+
+    // Set up the global event listener only in the browser
+    onMount(() => {
+        if (typeof window !== 'undefined') { // Check if window is defined
+            window.addEventListener('keydown', keyDownEnter);
+            window.addEventListener('keydown', keyBack);
+            window.addEventListener('keydown', keyAssignment);
+            window.addEventListener('keydown', keyAccessibilityOn);
+        }
+    });
+
+    // Clean up the event listener when the component is destroyed
+    onDestroy(() => {
+        if (typeof window !== 'undefined') { // Check if window is defined
+            window.removeEventListener('keydown', keyDownEnter);
+            window.removeEventListener('keydown', keyBack);
+            window.removeEventListener('keydown', keyAssignment);
+            window.removeEventListener('keydown', keyAccessibilityOn);
+        }
+    });
+
+    // Watch for changes
+    afterUpdate(() => {
+
+    });
+
+    function readIntro()
+    {
+        // Speak date
+        let synth = new SpeechSynthesisUtterance("Accessibility options have been turned on. This is the Concordia Assignment Planner. The Assignment Planner breaks down your projects into smaller, manageable steps and helps you organize your timeline. Each step offers helpful how-to links. Use the “add to calendar” feature to keep track of your progress. To begin, press enter.");
+            
+        // Select a voice
+        const voices = speechSynthesis.getVoices();
+        synth.voice = voices[0]; // Choose a specific voice
+        speechSynthesis.speak(synth);
+    }
+
+    function readAssignments()
+    {
+        if (accessibilityOn) {
+            let listOfAssignments = assignments[0].title;
+            for (let i = 1; i < assignments.length; i++)
+            {
+                listOfAssignments = listOfAssignments.concat(", ", assignments[i].title);
+            }
+            // Speak date
+            let synth = new SpeechSynthesisUtterance("Select one of 10 possible assignments using the numbers 1 to 9, and also 0. The list of possible assignments in order from 1 to 9 and finally zero is: " + listOfAssignments);
+                
+            // Select a voice
+            const voices = speechSynthesis.getVoices();
+            synth.voice = voices[0]; // Choose a specific voice
+            speechSynthesis.speak(synth);
+        }
+    }
+
+    function getAccessibilityDates()
+    {
+        if (accessibilityOn) {
+            const date = new Date();
+
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+
+            // This arrangement can be altered based on how we want the date's format to appear.
+            let currentDate = `${year}-${month}-${day}`;
+
+            // Convert to speakable format
+            currentDate = convertDate(currentDate);
+
+            // Speak date
+            let synth = new SpeechSynthesisUtterance("Enter a start date. Today's date is " + currentDate + ". Please put the start date in the form, year, hyphen, month, hyphen, day, and then press enter.");
+            // Select a voice
+            const voices = speechSynthesis.getVoices();
+            synth.voice = voices[0]; // Choose a specific voice
+            speechSynthesis.speak(synth);
+
+            // Prompt for start date
+            plannerinfo.startDate = prompt("Enter an start date");
+
+            synth = new SpeechSynthesisUtterance("Enter a due date. Your selected start date is " + convertDate(plannerinfo.startDate) + ". Please put the due date in the form, year, hyphen, month, hyphen, day.");
+            
+            speechSynthesis.cancel(synth); // Bug override
+            speechSynthesis.speak(synth);
+
+            plannerinfo.endDate = prompt("Enter an end date");
+
+            // Override conditional
+            selectedStartDate = plannerinfo.startDate;
+
+            generateAssignment();
+        }
+    }
+    // *********** END: ACCESSIBILITY ***********//
+
 </script>
 
 <!-- WEB LAYOUT -->
@@ -167,7 +358,7 @@
 {#if matches}
 <div class="fp-container">
     {#if !leftHidden}
-    <div transition:fade class="fp-left">
+    <div tabindex="0" on:keydown={keyAccessibilityOn} transition:fade class="fp-left">
         <div style="display: flex;flex-direction:row;">
             <img class="fp-logo" alt="fp-logo" src="/concordia-logo.webp">
         </div>
@@ -179,7 +370,7 @@
         <div class="divider"></div>
         <!-- END DIVIDER -->
         <div class="fp-buttons-container">
-            <div on:click={openAssignments} class="begin-button">
+            <div tabindex="0" on:keydown={keyDownEnter} on:click={openAssignments} class="begin-button">
                 <h2 class="begin-button-text">Choose Assignment</h2>
             </div>
         </div>
@@ -202,13 +393,13 @@
         </div>
     {/if}
     {#if visible || startDatePickerVisible}
-        <div on:click={backButton} transition:fade class="back-button">
+        <div tabindex="0" on:keydown={keyBack} on:click={backButton} transition:fade class="back-button">
             <h2>Back</h2>
         </div>
     {/if}
     <div class="fp-right">
         {#if visible}
-            <div class="grid-container" transition:fade>
+            <div use:readAssignments tabindex="0" on:keydown={keyAssignment} class="grid-container" transition:fade>
                 {#each assignments as assignment}
                     <div class="grid-assign">
                         <img on:click={selectAssignmentType} id={assignment.title} class="grid-item" alt={assignment.title} src={assignment.icon}>
@@ -220,6 +411,9 @@
 
         <!-- Initial Date Picker -->
         {#if startDatePickerVisible}
+        {#if accessibilityOn}
+            <div use:getAccessibilityDates></div>
+        {/if}
             <div style="display: flex;flex-direction: column;align-items:center;justify-content:center;" transition:fade>
                 {#if simpleEndDate != undefined}
                     <h2 transition:fade style="color: black;font-size:2.2em;" class="fp-start-date-text">{simpleStartDate + " - " + simpleEndDate}</h2>
