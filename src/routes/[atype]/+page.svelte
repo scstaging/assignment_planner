@@ -333,19 +333,22 @@ const accessibilitySelectGoal = (goal) => {
     goalRefs[goal.id].focus();
 
     // Speak Goal
-    let synth = new SpeechSynthesisUtterance("" + goal.title + ". " + goal.goalDescript);
-
-    console.log(goal.title)
+    let synth = new SpeechSynthesisUtterance("" + goal.dueDate + " " + goal.title + ". " + goal.goalDescript);
                 
     // Select a voice
     const voices = speechSynthesis.getVoices();
     synth.voice = voices[0]; // Choose a specific voice
     speechSynthesis.speak(synth);
 
+    synth = new SpeechSynthesisUtterance("Helpful links: ");
+    speechSynthesis.cancel(synth); // Bug override
+    speechSynthesis.speak(synth);
+
     for (let i = 0; i < goal.links.length; i++)
     {
         speechSynthesis.cancel(synth); // Bug override
-        let synth = new SpeechSynthesisUtterance("Alt plus " + (i+1) + ": " + goals.links[i].title);
+        synth = new SpeechSynthesisUtterance("Alt plus " + (i+1) + ": " + goals.links[i].title);
+        speechSynthesis.speak(synth);
     }
   }
 };
