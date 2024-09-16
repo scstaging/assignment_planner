@@ -352,7 +352,12 @@ const accessibilitySelectGoal = (goal) => {
 
 // Attach the event listener on mount
 onMount(() => {
-    speakText(introBlurbContent);
+    const synth = new SpeechSynthesisUtterance("This is a test.");
+    
+    // Select a voice
+    const voices = speechSynthesis.getVoices();
+    synth.voice = voices[0]; // Choose a specific voice
+    speechSynthesis.speak(synth);
   window.addEventListener('keydown', accessibilityHandleKeyPress);
   return () => {
     window.removeEventListener('keydown', accessibilityHandleKeyPress);
