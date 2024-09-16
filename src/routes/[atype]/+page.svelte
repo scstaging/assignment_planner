@@ -332,7 +332,7 @@ const accessibilitySelectGoal = (goal) => {
     goalRefs[goal.id].focus();
 
     // Speak Goal: goal due date, title, and description
-    let synth = new SpeechSynthesisUtterance(`${goal.dueDate} ${goal.title}. ${goal.goalDescript}`);
+    let synth = new SpeechSynthesisUtterance(`By ${goal.dueDate} you should: ${goal.title}. ${goal.goalDescript}`);
                 
     // Select a voice
     const voices = speechSynthesis.getVoices();
