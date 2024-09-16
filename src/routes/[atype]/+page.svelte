@@ -344,12 +344,12 @@ const accessibilitySelectGoal = (goal) => {
     speechSynthesis.cancel(synth); // Bug override
     speechSynthesis.speak(synth);
 
-    for (let i = 0; i < goal.links.length; i++)
-    {
-        synth = new SpeechSynthesisUtterance("Alt, plus " + (i+1) + ": " + goal.links[i].title);
-        speechSynthesis.cancel(synth); // Bug override
-        speechSynthesis.speak(synth);
-    }
+    // for (let i = 0; i < goal.links.length; i++)
+    // {
+    //     synth = new SpeechSynthesisUtterance("Alt, plus " + (i+1) + ": " + goal.links[i].title);
+    //     speechSynthesis.cancel(synth); // Bug override
+    //     speechSynthesis.speak(synth);
+    // }
   }
 };
 
