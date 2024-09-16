@@ -305,6 +305,10 @@
 
     function readIntroduction()
     {
+        setTimeout(() => {
+            console.log(unmountStorageIntroBlurb)
+        }, 500)
+
         // Speak Goal
         let synth = new SpeechSynthesisUtterance(unmountStorageIntroBlurb);
 
@@ -380,7 +384,7 @@ onMount(() => {
         <h2>Back</h2>
     </div>
 {/if}
-<div use:readIntroduction transition:fade class="gp-container">
+<div transition:fade class="gp-container">
     <MediaQuery query="(min-width: 1001px)" let:matches>
         {#if matches}
           <div class="gp-inner-container">
