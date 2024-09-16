@@ -324,32 +324,36 @@ const accessibilityHandleKeyPress = (event) => {
   }
 };
 
-// Function to select a goal
 const accessibilitySelectGoal = (goal) => {
   selectedGoal = goal;
-  if (goalRefs[goal.id]) {
 
+  if (goalRefs[goal.id]) {
     // Set focus to selected goal for screen reader
     goalRefs[goal.id].focus();
 
-    // Speak Goal
-    let synth = new SpeechSynthesisUtterance("" + goal.dueDate + " " + goal.title + ". " + goal.goalDescript);
+    // Speak Goal: goal due date, title, and description
+    let synth = new SpeechSynthesisUtterance(`${goal.dueDate} ${goal.title}. ${goal.goalDescript}`);
                 
     // Select a voice
     const voices = speechSynthesis.getVoices();
     synth.voice = voices[0]; // Choose a specific voice
+
+    // Speak the goal first
     speechSynthesis.speak(synth);
 
-    synth = new SpeechSynthesisUtterance("Helpful links: ");
-    speechSynthesis.cancel(synth); // Bug override
-    speechSynthesis.speak(synth);
+    // After the first utterance ends, queue "Helpful links"
+    synth.onend = () => {
+      let linksSynth = new SpeechSynthesisUtterance("Helpful links: ");
+      speechSynthesis.speak(linksSynth);
 
-    // for (let i = 0; i < goal.links.length; i++)
-    // {
-    //     synth = new SpeechSynthesisUtterance("Alt, plus " + (i+1) + ": " + goal.links[i].title);
-    //     speechSynthesis.cancel(synth); // Bug override
-    //     speechSynthesis.speak(synth);
-    // }
+      // Queue the links after "Helpful links" is spoken
+      linksSynth.onend = () => {
+        for (let i = 0; i < goal.links.length; i++) {
+          let linkSynth = new SpeechSynthesisUtterance(`Alt, plus ${i + 1}: ${goal.links[i].title}`);
+          speechSynthesis.speak(linkSynth);
+        }
+      };
+    };
   }
 };
 
