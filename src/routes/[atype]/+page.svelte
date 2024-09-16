@@ -303,6 +303,17 @@
 
     let goalRefs = [];  // To hold references to goal DOM elements for focus management
 
+    function readIntroduction()
+    {
+        // Speak Goal
+        let synth = new SpeechSynthesisUtterance(unmountStorageIntroBlurb);
+
+        // Select a voice
+        const voices = speechSynthesis.getVoices();
+        synth.voice = voices[0]; // Choose a specific voice
+        speechSynthesis.speak(synth);
+    }
+
 // Function to handle key presses
 const accessibilityHandleKeyPress = (event) => {
   const key = event.key;
@@ -383,7 +394,7 @@ onMount(() => {
               </div>
             </div>
             
-            <p bind:this={introBlurb} class="gp-descript" in:fade={{ delay: 500 }} out:fade>{unmountStorageIntroBlurb}</p>
+            <p use:readIntroduction bind:this={introBlurb} class="gp-descript" in:fade={{ delay: 500 }} out:fade>{unmountStorageIntroBlurb}</p>
       
             <div class="goal-list-container" transition:fade>
               <h2 class="gp-goals-title" transition:fade>Plan</h2>
