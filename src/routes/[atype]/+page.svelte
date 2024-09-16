@@ -297,6 +297,49 @@
     if (testing)
         goals = goals2;
 
+    // *************** ACCESSIBILITY OPTIONS *************** //
+    let accessibilityOn = true;
+
+    let goalRefs = [];  // To hold references to goal DOM elements for focus management
+
+// Function to handle key presses
+const accessibilityHandleKeyPress = (event) => {
+  const key = event.key;
+  
+  // Select goal using number keys 1 to n
+  if (key >= '1' && key <= String(goals.length)) {
+    const goalIndex = Number(key) - 1;
+    accessibilitySelectGoal(goals[goalIndex]);
+  }
+
+  // Handle link selection using Alt + 1 to k
+  if (event.altKey && selectedGoal) {
+    const linkKey = key;
+    const links = selectedGoal.links || [];
+    if (linkKey >= '1' && linkKey <= String(links.length)) {
+      const linkIndex = Number(linkKey) - 1;
+      window.open(links[linkIndex].descript, '_blank');
+    }
+  }
+};
+
+// Function to select a goal
+const accessibilitySelectGoal = (goal) => {
+  selectedGoal = goal;
+  if (goalRefs[goal.id]) {
+    goalRefs[goal.id].focus();  // Set focus to selected goal for screen reader
+  }
+};
+
+// Attach the event listener on mount
+onMount(() => {
+  window.addEventListener('keydown', accessibilityHandleKeyPress);
+  return () => {
+    window.removeEventListener('keydown', accessibilityHandleKeyPress);
+  };
+});
+    // *************** END: ACCESSIBILITY OPTIONS *************** //
+
 </script>
 
 {#await parseGoogleDocContent()}
@@ -308,71 +351,93 @@
     </div>
 {/if}
 <div transition:fade class="gp-container">
-    <MediaQuery query='(min-width: 1001px)' let:matches>
-    {#if matches}
-    <div class="gp-inner-container">
-        <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
-            <div>
+    <MediaQuery query="(min-width: 1001px)" let:matches>
+        {#if matches}
+          <div class="gp-inner-container">
+            <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
+              <div>
                 <h2 class="gp-title-text">{atype}</h2>
-            </div>
-            <div style="display: flex;flex-direction:row;">
+              </div>
+              <div style="display: flex;flex-direction:row;">
                 <p class="gp-p-text">Due Date: &nbsp;</p>
                 <p style="color: rgba(255,85,0,1);" class="gp-p-text">{formattedEndDate}</p>
+              </div>
             </div>
-        </div>
-        <p bind:this={introBlurb} class="gp-descript" in:fade={{delay: 500}} out:fade>{unmountStorageIntroBlurb}</p>
-        <div class="goal-list-container" transition:fade>
-            <h2 class="gp-goals-title" transition:fade>Plan</h2>
-            <div class="goal-list" transition:fade>
-                {#each goals as goal}
-                    <div style="{selectedGoal?.id === goal.id ? "background-color: rgba(255,85,0,1)" : "white"};box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;" class="gp-goal" on:click={() => selectGoal(goal)}>
-                        <input id={goal.id} type="checkbox" class="checkbox"
-                        on:click={(e) => e.stopPropagation()}
-                        on:change={(e) => {
-                            e.stopPropagation(); // Prevent change event from bubbling up
-                            toggleGoal(goal)
-                        }}
-                        checked={isChecked(goal)}
-                        />
-                        <div style="display: flex;flex-direction:column;">
-                            <h2>By {goal.dueDate} you should: {goal.title}</h2>
-                        </div>
+            
+            <p bind:this={introBlurb} class="gp-descript" in:fade={{ delay: 500 }} out:fade>{unmountStorageIntroBlurb}</p>
+      
+            <div class="goal-list-container" transition:fade>
+              <h2 class="gp-goals-title" transition:fade>Plan</h2>
+              <div class="goal-list" transition:fade>
+                {#each goals as goal, index}
+                  <div 
+                    bind:this={goalRefs[goal.id]}
+                    tabindex="0" 
+                    aria-live="polite"
+                    style="{selectedGoal?.id === goal.id ? 'background-color: rgba(255,85,0,1)' : 'white'};box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;"
+                    class="gp-goal"
+                    on:click={() => accessibilitySelectGoal(goal)}>
+      
+                    <input id={goal.id} type="checkbox" class="checkbox"
+                      on:click={(e) => e.stopPropagation()}
+                      on:change={(e) => {
+                        e.stopPropagation();  // Prevent change event from bubbling up
+                        accessibilityToggleGoal(goal);
+                      }}
+                      checked={isChecked(goal)}
+                    />
+                    
+                    <div style="display: flex;flex-direction:column;">
+                      <h2>By {goal.dueDate} you should: {goal.title}</h2>
                     </div>
-                    {#if selectedGoal?.id === goal.id}
+                  </div>
+      
+                  {#if selectedGoal?.id === goal.id}
                     <div transition:fade style="display: flex;flex-direction:column;margin-bottom:40px;">
-                        <p style="margin-bottom:40px;" class="gp-descript" out:fade in:fade={{
-                            delay: 1000
-                        }}>{goal.goalDescript}</p>
-                        <h2 class="gp-goals-title" transition:fade>Helpful Links</h2>
-                        {#each goal.links as link}
-                            <div style="margin-top:40px;">
-                                <a style="text-decoration: none;" target="_blank" class="link-descript" href={link.descript}><h2 class="link-title">{link.title}</h2></a>
-                            </div>
-                        {/each}
+                      <p style="margin-bottom:40px;" class="gp-descript" out:fade in:fade={{ delay: 1000 }}>{goal.goalDescript}</p>
+                      
+                      <h2 class="gp-goals-title" transition:fade>Helpful Links</h2>
+      
+                      {#each goal.links as link, linkIndex}
+                        <div style="margin-top:40px;">
+                          <a 
+                            tabindex="0" 
+                            aria-live="polite" 
+                            style="text-decoration: none;" 
+                            target="_blank" 
+                            class="link-descript" 
+                            href={link.descript}>
+                            <h2 class="link-title">[{linkIndex + 1}] {link.title}</h2>
+                          </a>
+                        </div>
+                      {/each}
                     </div>
-                    {/if}
+                  {/if}
                 {/each}
+              </div>
             </div>
-        </div>
-        <div style="width: 100%;display: flex;flex-direction:row;align-items:center;justify-content:space-between;margin-top:40px;">
-            {#each goals as goal}
+            
+            <div style="width: 100%;display: flex;flex-direction:row;align-items:center;justify-content:space-between;margin-top:40px;">
+              {#each goals as goal}
                 {#if selectedGoal?.id === goal.id}
-                    <div class="fp-start-button"><h2 class="fp-start-date-text">Add to Calendar</h2></div>
+                  <div class="fp-start-button">
+                    <h2 class="fp-start-date-text">Add to Calendar</h2>
+                  </div>
                 {/if}
-            {/each}
-            <div style="width: 40%;">
+              {/each}
+              <div style="width: 40%;">
                 {#if selectedGoal === null}
-                    <h2 class="gp-p-text">Total Progress - {totalPercent}%</h2>
-                    <div class="progress-container">
-                        <div class="progress-bar" style="width: {totalPercent}%;"></div>
-                    </div>
+                  <h2 class="gp-p-text">Total Progress - {totalPercent}%</h2>
+                  <div class="progress-container">
+                    <div class="progress-bar" style="width: {totalPercent}%;"></div>
+                  </div>
                 {/if}
+              </div>
+              <img class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
             </div>
-            <img class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
-        </div>
-    </div>
-    {/if}
-    </MediaQuery>
+          </div>
+        {/if}
+      </MediaQuery>
 
     <MediaQuery query='(max-width: 1000px)' let:matches>
         {#if matches}
