@@ -303,17 +303,6 @@
 
     let goalRefs = [];  // To hold references to goal DOM elements for focus management
 
-    function readIntroduction()
-    {
-        // Speak Goal
-        let synth = new SpeechSynthesisUtterance(introBlurbContent);
-
-        // Select a voice
-        const voices = speechSynthesis.getVoices();
-        synth.voice = voices[0]; // Choose a specific voice
-        speechSynthesis.speak(synth);
-    }
-
 // Function to handle key presses
 const accessibilityHandleKeyPress = (event) => {
   const key = event.key;
@@ -368,6 +357,20 @@ onMount(() => {
     window.removeEventListener('keydown', accessibilityHandleKeyPress);
   };
 });
+
+  // Function to trigger speech synthesis
+  const speakText = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(utterance);
+  };
+
+  // Trigger speech synthesis on mount
+  onMount(() => {
+    if (introBlurb) {
+      // Read the intro blurb text when the component is mounted
+      speakText(unmountStorageIntroBlurb);
+    }
+  });
     // *************** END: ACCESSIBILITY OPTIONS *************** //
 
 </script>
@@ -394,7 +397,7 @@ onMount(() => {
               </div>
             </div>
             
-            <p use:readIntroduction bind:this={introBlurb} class="gp-descript" in:fade={{ delay: 500 }} out:fade>{unmountStorageIntroBlurb}</p>
+            <p bind:this={introBlurb} class="gp-descript" in:fade={{ delay: 500 }} out:fade>{unmountStorageIntroBlurb}</p>
       
             <div class="goal-list-container" transition:fade>
               <h2 class="gp-goals-title" transition:fade>Plan</h2>
