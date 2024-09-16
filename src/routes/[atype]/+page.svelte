@@ -352,6 +352,7 @@ const accessibilitySelectGoal = (goal) => {
 
 // Attach the event listener on mount
 onMount(() => {
+    console.log(introBlurb);
   window.addEventListener('keydown', accessibilityHandleKeyPress);
   return () => {
     window.removeEventListener('keydown', accessibilityHandleKeyPress);
@@ -363,16 +364,6 @@ onMount(() => {
     const utterance = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(utterance);
   };
-
-  // Trigger speech synthesis on mount
-  onMount(() => {
-    setTimeout(() => {
-        if (introBlurb) {
-            // Read the intro blurb text when the component is mounted
-            speakText("this is the intro blurb");
-        }
-    }, 500)
-  });
     // *************** END: ACCESSIBILITY OPTIONS *************** //
 
 </script>
