@@ -36,6 +36,7 @@
     let introBlurb;
     let unmountStorageIntroBlurb = "";
     let goals = [];
+    let accessibility;
 
     function setIntroBlurb()
     {
@@ -46,6 +47,7 @@
         // voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
 
         accessibility = $page.url.searchParams.get('accessibility');
+        console.log(accessibility);
 
         if (accessibility)
         {
@@ -59,7 +61,6 @@
     let startDate;
     let endDate;
     let formattedEndDate;
-    let accessibility;
 
     async function fetchGoogleDoc() {
         atype = $page.url.searchParams.get('atype');
