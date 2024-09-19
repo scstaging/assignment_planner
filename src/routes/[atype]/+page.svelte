@@ -151,7 +151,7 @@
   function formatStringForVoice(input) {
         return input
             .replace(/\+/g, ' ') // Replace '+' with a space for smooth reading
-            .replace(/{([^}]+)}/g, ' link ') // Replace {link} with "link"
+            .replace(/{[^}]+}/g, '') // Replace {link} with "link"
             .replace(/\[([^\]]+)\]/g, '$1'); // Remove square brackets but keep the content
     }
 
