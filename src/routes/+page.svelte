@@ -52,6 +52,8 @@
 
     let startButtonColor = "linear-gradient(90deg, rgba(33,126,221,1) 0%, rgba(33,46,129,1) 100%)";
 
+    let accessibilityOn = false;
+
     function openAssignments()
     {
         if (!startDatePickerVisible)
@@ -247,8 +249,6 @@
         }
     }
     }
-
-    let accessibilityOn = false;
 
     function keyAccessibilityOn(event)
     {

@@ -46,7 +46,7 @@
         // let voiceIntroBlurb = introBlurbContent;
         // voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
 
-        accessibility = $page.url.searchParams.get('accessibility');
+        accessibility = $page.url.searchParams.get('accessiblity');
         console.log(accessibility);
 
         if (accessibility)
