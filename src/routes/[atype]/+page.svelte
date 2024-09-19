@@ -125,6 +125,23 @@
     }
     goals = goals;
     mounted = true;
+
+    setTimeout(() => {
+      readIntro();
+    })
+  }
+
+  function readIntro()
+  {
+    // Speak Goal: goal due date, title, and description
+    let synth = new SpeechSynthesisUtterance(`This is a test.`);
+                
+    // Select a voice
+    const voices = speechSynthesis.getVoices();
+    synth.voice = voices[0]; // Choose a specific voice
+            
+    // Speak the goal first
+    speechSynthesis.speak(synth);
   }
 
   function testFunction()
