@@ -83,6 +83,10 @@
     // ID index
     let IDindex = -1;
 
+    // For voice reading
+    let voiceIntroBlurb = introBlurbContent;
+    voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
+
     // Parse lines
     lines.forEach(line => {
       if (line.startsWith('&')) {
@@ -127,14 +131,14 @@
     mounted = true;
 
     setTimeout(() => {
-      readIntro();
+      readIntro(voiceIntroBlurb);
     }, 1000)
   }
 
-  function readIntro()
+  function readIntro(text)
   {
     // Speak Goal: goal due date, title, and description
-    let synth = new SpeechSynthesisUtterance(`This is a test.`);
+    let synth = new SpeechSynthesisUtterance(text);
                 
     // Select a voice
     const voices = speechSynthesis.getVoices();
@@ -143,6 +147,13 @@
     // Speak the goal first
     speechSynthesis.speak(synth);
   }
+
+  function formatStringForVoice(input) {
+        return input
+            .replace(/\+/g, ' ') // Replace '+' with a space for smooth reading
+            .replace(/{([^}]+)}/g, ' link ') // Replace {link} with "link"
+            .replace(/\[([^\]]+)\]/g, '$1'); // Remove square brackets but keep the content
+    }
 
   function testFunction()
   {
