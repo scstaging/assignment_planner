@@ -40,6 +40,14 @@
     function setIntroBlurb()
     {
         introBlurb.innerHTML = introBlurbContent;
+
+        // For voice reading
+        let voiceIntroBlurb = introBlurbContent;
+        voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
+
+        setTimeout(() => {
+          readIntro(voiceIntroBlurb);
+        }, 1000)
     }
 
     let atype;
@@ -83,10 +91,6 @@
     // ID index
     let IDindex = -1;
 
-    // For voice reading
-    let voiceIntroBlurb = introBlurbContent;
-    voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
-
     // Parse lines
     lines.forEach(line => {
       if (line.startsWith('&')) {
@@ -129,10 +133,6 @@
     }
     goals = goals;
     mounted = true;
-
-    setTimeout(() => {
-      readIntro(voiceIntroBlurb);
-    }, 1000)
   }
 
   function readIntro(text)
