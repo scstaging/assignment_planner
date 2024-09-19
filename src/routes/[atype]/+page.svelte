@@ -128,7 +128,7 @@
 
     setTimeout(() => {
       readIntro();
-    })
+    }, 1000)
   }
 
   function readIntro()
