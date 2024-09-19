@@ -103,10 +103,12 @@
             let atype = assignmentChoice;
             let startDate = plannerinfo.startDate;
             let endDate = plannerinfo.endDate;
+            let accessiblity = accessibilityOn;
             const params = new URLSearchParams({
                 atype,
                 startDate,
-                endDate
+                endDate,
+                accessiblity
             }).toString();
             setTimeout(() => {
                 goto(`/${atype}?${params}`);

@@ -45,15 +45,21 @@
         // let voiceIntroBlurb = introBlurbContent;
         // voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
 
-        setTimeout(() => {
-          readIntro("This is the goal page for your " + atype + " assignment plan. You can navigate through the goals of the plan using 1 to 9 and finally 0, and for each goal, you can access it's helpful links using Alt + 1 to 9 and finally 0.");
-        }, 1000)
+        accessibility = $page.url.searchParams.get('accessibility');
+
+        if (accessibility)
+        {
+          setTimeout(() => {
+            readIntro("This is the goal page for your " + atype + " assignment plan. You can navigate through the goals of the plan using 1 to 9 and finally 0, and for each goal, you can access it's helpful links using Alt + 1 to 9 and finally 0.");
+          }, 1000)
+        }
     }
 
     let atype;
     let startDate;
     let endDate;
     let formattedEndDate;
+    let accessibility;
 
     async function fetchGoogleDoc() {
         atype = $page.url.searchParams.get('atype');
@@ -355,7 +361,7 @@ const accessibilityHandleKeyPress = (event) => {
 const accessibilitySelectGoal = (goal) => {
   selectedGoal = goal;
 
-  if (goalRefs[goal.id]) {
+  if (goalRefs[goal.id] && accessibility) {
     // Set focus to selected goal for screen reader
     goalRefs[goal.id].focus();
 
