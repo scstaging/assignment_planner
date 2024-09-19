@@ -41,12 +41,12 @@
     {
         introBlurb.innerHTML = introBlurbContent;
 
-        // For voice reading
-        let voiceIntroBlurb = introBlurbContent;
-        voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
+        // // For voice reading
+        // let voiceIntroBlurb = introBlurbContent;
+        // voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
 
         setTimeout(() => {
-          readIntro(voiceIntroBlurb);
+          readIntro("This is the goal page for your currently generated assignment plan. You can navigate through the goals of the plan using 1 to 9 and finally 0, and for each goal, you can access it's helpful links using Alt + 1 to 9 and finally 0.");
         }, 1000)
     }
 
