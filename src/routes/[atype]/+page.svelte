@@ -49,12 +49,14 @@
         accessibility = $page.url.searchParams.get('accessiblity');
         console.log(accessibility);
 
-        if (accessibility)
-        {
-          setTimeout(() => {
-            readIntro("This is the goal page for your " + atype + " assignment plan. You can navigate through the goals of the plan using 1 to 9 and finally 0, and for each goal, you can access it's helpful links using Alt + 1 to 9 and finally 0.");
-          }, 1000)
-        }
+        accessibility = false;
+
+        // if (accessibility)
+        // {
+        //   setTimeout(() => {
+        //     readIntro("This is the goal page for your " + atype + " assignment plan. You can navigate through the goals of the plan using 1 to 9 and finally 0, and for each goal, you can access it's helpful links using Alt + 1 to 9 and finally 0.");
+        //   }, 1000)
+        // }
     }
 
     let atype;
