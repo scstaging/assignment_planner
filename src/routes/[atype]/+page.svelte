@@ -339,6 +339,9 @@
     // *************** ACCESSIBILITY OPTIONS *************** //
     let accessibilityOn = true;
 
+    let voices = speechSynthesis.getVoices();
+    let selectedVoice = voices.find(voice => voice.name.includes('Google UK English Female')) || voices[0];
+
     let goalRefs = [];  // To hold references to goal DOM elements for focus management
 
 // Function to handle key presses
@@ -372,9 +375,7 @@ const accessibilitySelectGoal = (goal) => {
     // Speak Goal: goal due date, title, and description
     let synth = new SpeechSynthesisUtterance(`By ${goal.dueDate} you should: ${goal.title}. ${goal.goalDescript}`);
                 
-    // Select a voice
-    const voices = speechSynthesis.getVoices();
-    synth.voice = voices[0]; // Choose a specific voice
+    synth.voice = selectedVoice; // UK Female
 
     // Speak the goal first
     speechSynthesis.speak(synth);
@@ -382,12 +383,14 @@ const accessibilitySelectGoal = (goal) => {
     // After the first utterance ends, queue "Helpful links"
     synth.onend = () => {
       let linksSynth = new SpeechSynthesisUtterance("Helpful links: ");
+      linksSynth.voice = selectedVoice; // UK Female
       speechSynthesis.speak(linksSynth);
 
       // Queue the links after "Helpful links" is spoken
       linksSynth.onend = () => {
         for (let i = 0; i < goal.links.length; i++) {
           let linkSynth = new SpeechSynthesisUtterance(`Alt, plus ${i + 1}: ${goal.links[i].title}`);
+          linksSynth.voice = selectedVoice; // UK Female
           speechSynthesis.speak(linkSynth);
         }
       };

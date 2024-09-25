@@ -284,14 +284,16 @@
 
     });
 
+    // Specify Voice
+    let voices = speechSynthesis.getVoices();
+    let selectedVoice = voices.find(voice => voice.name.includes('Google UK English Female')) || voices[0];
+
     function readIntro()
     {
         // Speak date
         let synth = new SpeechSynthesisUtterance("Accessibility options have been turned on. This is the Concordia Assignment Planner. The Assignment Planner breaks down your projects into smaller, manageable steps and helps you organize your timeline. Each step offers helpful how-to links. Use the “add to calendar” feature to keep track of your progress. To begin, press enter.");
             
-        // Select a voice
-        const voices = speechSynthesis.getVoices();
-        synth.voice = voices[0]; // Choose a specific voice
+        synth.voice = selectedVoice; // UK Female
         speechSynthesis.speak(synth);
     }
 
@@ -306,9 +308,7 @@
             // Speak date
             let synth = new SpeechSynthesisUtterance("Select one of 10 possible assignments using the numbers 1 to 9, and also 0. The list of possible assignments in order from 1 to 9 and finally zero is: " + listOfAssignments);
                 
-            // Select a voice
-            const voices = speechSynthesis.getVoices();
-            synth.voice = voices[0]; // Choose a specific voice
+            synth.voice = selectedVoice; // UK Female
             speechSynthesis.speak(synth);
         }
     }
@@ -331,15 +331,15 @@
             // Speak date
             let synth = new SpeechSynthesisUtterance("Enter a start date. Today's date is " + currentDate + ". Please put the start date in the form, year, hyphen, month, hyphen, day, and then press enter.");
             // Select a voice
-            const voices = speechSynthesis.getVoices();
-            synth.voice = voices[0]; // Choose a specific voice
+            synth.voice = selectedVoice; // UK Female
             speechSynthesis.speak(synth);
 
             // Prompt for start date
             plannerinfo.startDate = prompt("Enter an start date");
 
             synth = new SpeechSynthesisUtterance("Enter a due date. Your selected start date is " + convertDate(plannerinfo.startDate) + ". Please put the due date in the form, year, hyphen, month, hyphen, day.");
-            
+            synth.voice = selectedVoice; // UK Female
+
             speechSynthesis.cancel(synth); // Bug override
             speechSynthesis.speak(synth);
 
