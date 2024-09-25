@@ -351,8 +351,7 @@
             generateAssignment();
         }
     }
-    // *********** END: ACCESSIBILITY ***********//
-
+    //*********** END: ACCESSIBILITY ***********//
 </script>
 
 <!-- WEB LAYOUT -->

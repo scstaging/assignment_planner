@@ -403,6 +403,38 @@ onMount(() => {
 });
     // *************** END: ACCESSIBILITY OPTIONS *************** //
 
+    //*********** SAVING THE WEBPAGE ***********//
+
+    // Function to expand all goals
+    let expandGoalsBool = true;
+    function expandAllGoals() {
+        expandGoalsBool = true;
+    }
+
+    // Function to save the expanded webpage as HTML
+    async function saveExpandedPageAsHtml() {
+        expandAllGoals();
+
+        // Give some time for the UI to update before saving the page
+        await tick();
+
+        // Get the current document's HTML content
+        const pageHtml = document.documentElement.outerHTML;
+
+        // Create a Blob object with the HTML content
+        const blob = new Blob([pageHtml], { type: 'text/html' });
+
+        // Create a temporary download link element
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'expanded_goals_page.html';
+
+        // Trigger the download
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+    //*********** END: SAVING THE WEBPAGE ***********//
+
 </script>
 
 {#await parseGoogleDocContent()}
@@ -455,7 +487,7 @@ onMount(() => {
                     </div>
                   </div>
       
-                  {#if selectedGoal?.id === goal.id}
+                  {#if selectedGoal?.id === goal.id || expandAllGoals}
                     <div transition:fade style="display: flex;flex-direction:column;margin-bottom:40px;">
                       <p style="margin-bottom:40px;" class="gp-descript" out:fade in:fade={{ delay: 1000 }}>{goal.goalDescript}</p>
                       
