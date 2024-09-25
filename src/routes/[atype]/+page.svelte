@@ -546,7 +546,7 @@ onMount(() => {
                   <div class="progress-container">
                     <div class="progress-bar" style="width: {totalPercent}%;"></div>
                   </div> -->
-                  <div on:click={saveExpandedPageAsHtml} class="fp-start-button">
+                  <div style="width: 70%;" on:click={saveExpandedPageAsHtml} class="fp-start-button">
                     <h2 class="fp-start-date-text">Save Assignment Plan</h2>
                   </div>
                 {/if}
