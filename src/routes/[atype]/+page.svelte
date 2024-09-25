@@ -505,7 +505,7 @@ onMount(() => {
                     </div>
                   </div>
       
-                  {#if selectedGoal?.id === goal.id || expandAllGoals}
+                  {#if selectedGoal?.id === goal.id || expandGoalsBool}
                     <div transition:fade style="display: flex;flex-direction:column;margin-bottom:40px;">
                       <p style="margin-bottom:40px;" class="gp-descript" out:fade in:fade={{ delay: 1000 }}>{goal.goalDescript}</p>
                       
