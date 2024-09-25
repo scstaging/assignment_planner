@@ -445,7 +445,7 @@ onMount(() => {
         // Create a temporary download link element
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'expanded_goals_page.html';
+        link.download = `${atype} Assignment Plan.html`;
 
         // Trigger the download
         link.click();
@@ -533,16 +533,19 @@ onMount(() => {
             <div style="width: 100%;display: flex;flex-direction:row;align-items:center;justify-content:space-between;margin-top:40px;">
               {#each goals as goal}
                 {#if selectedGoal?.id === goal.id}
-                  <div on:click={saveExpandedPageAsHtml} class="fp-start-button">
+                  <div class="fp-start-button">
                     <h2 class="fp-start-date-text">Add to Calendar</h2>
                   </div>
                 {/if}
               {/each}
               <div style="width: 40%;">
                 {#if selectedGoal === null}
-                  <h2 class="gp-p-text">Total Progress - {totalPercent}%</h2>
+                  <!-- <h2 class="gp-p-text">Total Progress - {totalPercent}%</h2>
                   <div class="progress-container">
                     <div class="progress-bar" style="width: {totalPercent}%;"></div>
+                  </div> -->
+                  <div on:click={saveExpandedPageAsHtml} class="fp-start-button">
+                    <h2 class="fp-start-date-text">Save Assignment Plan</h2>
                   </div>
                 {/if}
               </div>
