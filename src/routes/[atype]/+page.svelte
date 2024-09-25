@@ -405,18 +405,35 @@ onMount(() => {
 
     //*********** SAVING THE WEBPAGE ***********//
 
-    // Function to expand all goals
-    let expandGoalsBool = true;
-    function expandAllGoals() {
-        expandGoalsBool = true;
+        // Function to convert external styles to inline styles
+        async function inlineStyles() {
+        const styleSheets = [...document.styleSheets];
+        const cssPromises = styleSheets.map(sheet => {
+            if (sheet.href) {
+                // Fetch external styles
+                return fetch(sheet.href).then(response => response.text());
+            } else if (sheet.ownerNode && sheet.ownerNode.innerHTML) {
+                // Inline styles
+                return Promise.resolve(sheet.ownerNode.innerHTML);
+            }
+            return Promise.resolve('');
+        });
+        const cssContent = await Promise.all(cssPromises);
+        const styleTag = document.createElement('style');
+        styleTag.textContent = cssContent.join('\n');
+        document.head.appendChild(styleTag); // Append inlined styles to <head>
     }
 
     // Function to save the expanded webpage as HTML
+    let expandGoalsBool = false;
     async function saveExpandedPageAsHtml() {
-        expandAllGoals();
+        expandGoalsBool = true;
 
         // Give some time for the UI to update before saving the page
         await tick();
+
+        // Inline all external and internal styles
+        await inlineStyles();
 
         // Get the current document's HTML content
         const pageHtml = document.documentElement.outerHTML;
@@ -515,7 +532,7 @@ onMount(() => {
             <div style="width: 100%;display: flex;flex-direction:row;align-items:center;justify-content:space-between;margin-top:40px;">
               {#each goals as goal}
                 {#if selectedGoal?.id === goal.id}
-                  <div class="fp-start-button">
+                  <div on:click={saveExpandedPageAsHtml} class="fp-start-button">
                     <h2 class="fp-start-date-text">Add to Calendar</h2>
                   </div>
                 {/if}
