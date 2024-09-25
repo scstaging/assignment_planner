@@ -450,6 +450,8 @@ onMount(() => {
         // Trigger the download
         link.click();
         URL.revokeObjectURL(link.href);
+
+        expandGoalsBool = false;
     }
     //*********** END: SAVING THE WEBPAGE ***********//
 
