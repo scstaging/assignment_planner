@@ -12,7 +12,7 @@
     let rightHidden = false;
 
     let assignments = [
-        {title: "Essay", icon: "/reflection_response_number_3.png", docID: "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM"},
+        {title: "Research Paper / Analytical Essay", icon: "/reflection_response_number_3.png", docID: "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM"},
         {title: "Annotated Bibliography", icon: "/annotated-bibliography.png", docID: "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA"},
         {title: "Artist's Statement", icon: "/artists_statement.png", docID: "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc"},
         {title: "Business Report", icon: "/business_report.png", docID: "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM"},
@@ -283,10 +283,6 @@
     afterUpdate(() => {
 
     });
-
-    // // Specify Voice
-    // let voices = speechSynthesis.getVoices();
-    // let selectedVoice = voices.find(voice => voice.name.includes('Google UK English Female')) || voices[0];
 
     function readIntro()
     {

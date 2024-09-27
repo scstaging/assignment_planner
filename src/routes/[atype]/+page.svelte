@@ -290,7 +290,7 @@
         {title: "Get live online help from a library team member via chat", descript: "https://library.concordia.ca/"},
         {title: "Email the library reference team", descript: "https://library.concordia.ca/help/questions/email.php"}
     ]},
-    {id: 3, title: "Organize the information", percent: 14, dueDate: "XXXXXX", completed: false, goalDescript: "Carving out a good plan is a major part of the writing process. Once you have a good plan in place, the first draft becomes easy. An Essay is “thesis-based”; as such, the first step in planning is to decide on a working-thesis statement. You can make changes to it later, but for now you need a main idea, a point of view, and supporting ideas.", links: [
+    {id: 3, title: "Organize the information", percent: 14, dueDate: "XXXXXX", completed: false, goalDescript: "Carving out a good plan is a major part of the writing process. Once you have a good plan in place, the first draft becomes easy. A Research Paper / Analytical Essay is “thesis-based”; as such, the first step in planning is to decide on a working-thesis statement. You can make changes to it later, but for now you need a main idea, a point of view, and supporting ideas.", links: [
         {title: "Finding a Plan", descript: "https://www.concordia.ca/content/dam/concordia/offices/cdev/docs/writing/writing-essays-research-papers/find_plan.pdf"},
         {title: "Thesis Statements", descript: "https://www.concordia.ca/students/success/learning-support/resources/writing/thesis-statements.html"}
     ]},
@@ -305,7 +305,7 @@
     {id: 5, title: "Revise", percent: 8, dueDate: "XXXXXX", completed: false, goalDescript: "Give yourself some time away from your writing and try to come back to it as if you are the audience. If you want another reader to have a look at your piece, make an appointment with a Writing Assistant.", links: [
         {title: "Make an appointment with a Writing Assistant", descript: "Make an appointment with a Writing Assistant"}
     ]},
-    {id: 6, title: "Cite", percent: 10, dueDate: "XXXXXX", completed: false, goalDescript: "Citations are critical to an Essay. Be sure to follow your professor’s preferred citation style.", links: [
+    {id: 6, title: "Cite", percent: 10, dueDate: "XXXXXX", completed: false, goalDescript: "Citations are critical to an Research Paper / Analytical Essay. Be sure to follow your professor’s preferred citation style.", links: [
         {title: "How to Cite", descript: "https://library.concordia.ca/learn/citing/"}
     ]},
     {id: 7, title: "Hand it in", percent: 6, dueDate: "XXXXXX", completed: false, goalDescript: "Aim to have your paper ready before the due date. This strategy helps if there are technical issues with sending your work to your professor or if any other situation arises that may get in the way of finishing your assignment.", links: [
@@ -338,9 +338,6 @@
 
     // *************** ACCESSIBILITY OPTIONS *************** //
     let accessibilityOn = true;
-
-    // let voices = speechSynthesis.getVoices();
-    // let selectedVoice = voices.find(voice => voice.name.includes('Google UK English Female')) || voices[0];
 
     let goalRefs = [];  // To hold references to goal DOM elements for focus management
 
