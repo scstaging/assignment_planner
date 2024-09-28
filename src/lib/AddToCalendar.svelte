@@ -78,7 +78,6 @@
   </style>
   
   <div>
-    asdasd
     <button class="add-to-calendar-button" on:click="{() => showOptions = !showOptions}">
       Add to Calendar
     </button>
