@@ -1,11 +1,15 @@
 <script>
+
+    export let title;
+    export let start;
+    export let end;
     // Event details
     let event = {
-      title: 'Event Title',
-      description: 'Event Description',
-      location: 'Event Location',
-      start: '2023-10-31T09:00:00', // ISO format
-      end: '2023-10-31T10:00:00'
+      title: title,
+      description: 'Assignment Goal',
+      location: 'N/A',
+      start: start, // ISO format
+      end: end
     };
   
     let showOptions = false;
