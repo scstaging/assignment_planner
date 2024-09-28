@@ -492,7 +492,7 @@ onMount(() => {
                       {/each}
                       <div style="margin-bottom:20px;"></div>
                         <!-- ADD TO CALENDAR BUTTON -->
-                         <AddToCalendar title={selectedGoal.title} start={startDate} end={selectedGoal.endDate}/>
+                         <AddToCalendar />
                     </div>
                   {/if}
                 {/each}
