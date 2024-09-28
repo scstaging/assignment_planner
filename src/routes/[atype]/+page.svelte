@@ -540,15 +540,15 @@ onMount(() => {
                           </a>
                         </div>
                       {/each}
+                      <add-to-calendar-button
+                      name="Title"
+                      options="'Apple','Google'"
+                      location="World Wide Web"
+                      startDate="2024-10-01"
+                      endDate="2024-10-01"
+                    ></add-to-calendar-button>
                     </div>
                   {/if}
-                  <add-to-calendar-button
-  name="Title"
-  options="'Apple','Google'"
-  location="World Wide Web"
-  startDate="2024-10-01"
-  endDate="2024-10-01"
-></add-to-calendar-button>
                 {/each}
               </div>
             </div>
