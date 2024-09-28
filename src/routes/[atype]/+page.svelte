@@ -541,13 +541,7 @@ onMount(() => {
                         </div>
                       {/each}
                       <div style="margin-bottom:20px;"></div>
-                      <svelte:element this="add-to-calendar-button"
-                      name={selectedGoal.title}
-                      options="Apple,Google,Outlook.com,Yahoo"
-                      location="World Wide Web"
-                      start-date="2024-09-28"
-                      end-date="2024-09-29"
-                    ></svelte:element>
+                        <!-- ADD TO CALENDAR BUTTON -->
                     </div>
                   {/if}
                 {/each}
