@@ -540,9 +540,10 @@ onMount(() => {
                           </a>
                         </div>
                       {/each}
+                      <div style="margin-bottom:20px;"></div>
                       <add-to-calendar-button
                       name="Title"
-                      options="'Apple','Google'"
+                      options="'Apple','Google','Outlook.com','Yahoo'"
                       location="World Wide Web"
                       startDate="2024-10-01"
                       endDate="2024-10-01"
