@@ -545,7 +545,7 @@ onMount(() => {
                       data-name="{selectedGoal.title}"
                       data-options="Apple,Google,Outlook.com,Yahoo"
                       data-location="World Wide Web"
-                      data-start-date="today"
+                      data-start-date="2024-10-01"
                       data-end-date="2024-10-02"
                     ></add-to-calendar-button>
                     </div>
