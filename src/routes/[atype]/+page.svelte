@@ -542,11 +542,11 @@ onMount(() => {
                       {/each}
                       <div style="margin-bottom:20px;"></div>
                       <add-to-calendar-button
-                      name="title"
+                      name="Title"
                       options="'Apple','Google','Outlook.com','Yahoo'"
                       location="World Wide Web"
-                      startDate={startDate}
-                      endDate={selectedGoal.dueDate}
+                      startDate="2024-10-01"
+                      endDate="2024-10-01"
                     ></add-to-calendar-button>
                     </div>
                   {/if}
