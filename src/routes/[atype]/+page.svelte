@@ -10,7 +10,7 @@
     import MediaQuery from 'svelte-media-queries'
     import { onMount, onDestroy, afterUpdate } from 'svelte';
     import { tick } from 'svelte';
-    import AddToCalendar from './AddToCalendar.svelte';
+    import AddToCalendar from '$lib/AddToCalendar.svelte'
     
     //******** DOCS INTEGRATION ********//
     const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
