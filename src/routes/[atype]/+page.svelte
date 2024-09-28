@@ -85,13 +85,13 @@
 
     // Extract text from the content
     content.forEach(element => {
-      if (element.paragraph) {
-        element.paragraph.elements.forEach(el => {
-          if (el.textRun) {
-            text += el.textRun.content;
-          }
-        });
-      }
+        if (element.paragraph) {
+            element.paragraph.elements.forEach(el => {
+                if (el.textRun) {
+                    text += el.textRun.content;
+                }
+            });
+        }
     });
 
     // Split text into lines
@@ -103,47 +103,55 @@
 
     // Parse lines
     lines.forEach(line => {
-      if (line.startsWith('&')) {
-        introBlurbContent = line.slice(1).trim();
-        introBlurbContent = introBlurbContent.replace(/\+/g, '<br>');
-        introBlurbContent = introBlurbContent.replace(/{([^}]+)}/g, '<a href="$1" target="_blank">$1</a>');
-        introBlurbContent = introBlurbContent.replace(/\[([^\]]+)\]/g, '<p style="padding: 20px;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">$1</p>');
-      } else if (line.startsWith('#')) {
-        if (currentGoal) {
-          goals.push(currentGoal);
-          IDindex++;
+        if (line.startsWith('&')) {
+            introBlurbContent = line.slice(1).trim();
+            introBlurbContent = introBlurbContent.replace(/\+/g, '<br>');
+
+            // Updated regex to handle {Title~Link} pattern
+            introBlurbContent = introBlurbContent.replace(/{([^~}]+)~([^}]+)}/g, '<a href="$2">$1</a>');
+
+            introBlurbContent = introBlurbContent.replace(/\[([^\]]+)\]/g, '<p style="padding: 20px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">$1</p>');
+        } else if (line.startsWith('#')) {
+            if (currentGoal) {
+                // Apply the same replacement to goal descriptions before pushing
+                currentGoal.goalDescript = currentGoal.goalDescript.replace(/{([^~}]+)~([^}]+)}/g, '<a href="$2">$1</a>');
+                goals.push(currentGoal);
+                IDindex++;
+            }
+            const match = line.match(/#\s*(.*?)\s*\((\d+)%\)\s*(.*)/);
+            if (match) {
+                currentGoal = {
+                    id: IDindex,
+                    title: match[1],
+                    percent: parseInt(match[2], 10),
+                    goalDescript: match[3],
+                    links: [],
+                    completed: false,
+                    dueDate: "XXXXXX"
+                };
+            }
+        } else if (line.startsWith('-') && currentGoal) {
+            const linkMatch = line.match(/-\s*\[(.*?)\]\((.*?)\)/);
+            if (linkMatch) {
+                currentGoal.links.push({
+                    title: linkMatch[1],
+                    descript: linkMatch[2]
+                });
+            }
+        } else if (currentGoal) {
+            currentGoal.goalDescript += ' ' + line.trim();
         }
-        const match = line.match(/#\s*(.*?)\s*\((\d+)%\)\s*(.*)/);
-        if (match) {
-          currentGoal = {
-            id: IDindex,
-            title: match[1],
-            percent: parseInt(match[2], 10),
-            goalDescript: match[3],
-            links: [],
-            completed: false,
-            dueDate: "XXXXXX"
-          };
-        }
-      } else if (line.startsWith('-') && currentGoal) {
-        const linkMatch = line.match(/-\s*\[(.*?)\]\((.*?)\)/);
-        if (linkMatch) {
-          currentGoal.links.push({
-            title: linkMatch[1],
-            descript: linkMatch[2]
-          });
-        }
-      } else if (currentGoal) {
-        currentGoal.goalDescript += ' ' + line.trim();
-      }
     });
 
     if (currentGoal) {
-      goals.push(currentGoal);
+        // Apply the replacement to the last goal description
+        currentGoal.goalDescript = currentGoal.goalDescript.replace(/{([^~}]+)~([^}]+)}/g, '<a href="$2">$1</a>');
+        goals.push(currentGoal);
     }
+
     goals = goals;
     mounted = true;
-  }
+}
 
   function readIntro(text)
   {
