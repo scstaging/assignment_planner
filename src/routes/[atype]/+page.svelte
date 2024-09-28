@@ -541,13 +541,13 @@ onMount(() => {
                         </div>
                       {/each}
                       <div style="margin-bottom:20px;"></div>
-                      <add-to-calendar-button
-                      data-name="{selectedGoal.title}"
-                      data-options="Apple,Google,Outlook.com,Yahoo"
-                      data-location="World Wide Web"
-                      data-start-date="2024-10-01"
-                      data-end-date="2024-10-02"
-                    ></add-to-calendar-button>
+                      <!-- <add-to-calendar-button
+                      name="{selectedGoal.title}"
+                      options="Apple,Google,Outlook.com,Yahoo"
+                      location="World Wide Web"
+                      start-date="2024-10-01"
+                      end-date="2024-10-02"
+                    ></add-to-calendar-button> -->
                     </div>
                   {/if}
                 {/each}
