@@ -17,6 +17,7 @@
 	"type": "module",
 	"dependencies": {
 		"@googleapis/docs": "^3.0.2",
+		"add-to-calendar-button": "^2.6.20",
 		"gapi-client": "^0.0.3",
 		"gapi-script": "^1.2.0",
 		"google-auth-library": "^9.11.0",

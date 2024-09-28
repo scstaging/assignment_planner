@@ -10,6 +10,7 @@
     import MediaQuery from 'svelte-media-queries'
     import { onMount, onDestroy, afterUpdate } from 'svelte';
     import { tick } from 'svelte';
+    import 'add-to-calendar-button';
     
     //******** DOCS INTEGRATION ********//
     const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
@@ -541,6 +542,13 @@ onMount(() => {
                       {/each}
                     </div>
                   {/if}
+                  <add-to-calendar-button
+  name="Title"
+  options="'Apple','Google'"
+  location="World Wide Web"
+  startDate="2024-10-01"
+  endDate="2024-10-01"
+></add-to-calendar-button>
                 {/each}
               </div>
             </div>
