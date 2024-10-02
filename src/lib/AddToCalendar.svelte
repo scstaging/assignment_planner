@@ -14,7 +14,7 @@
 
   // Format dates for URLs
   function formatDateForUrl(dateStr) {
-    return dateStr.replace(/-|:|\.\d\d\d/g, '');
+    return dateStr;
   }
 
   // Reactive statements to update URLs when props change
