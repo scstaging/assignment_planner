@@ -807,7 +807,7 @@ onMount(() => {
     border-radius: 4px;
     top: 0; /* Adjust position as needed */
     left: 0;
-    transform: translate(50%, 100%);
+    transform: translate(50%, 150%);
     font-family: "Montserrat", sans-serif;
   }
 /* END: TOOLTIP */
