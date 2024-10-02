@@ -1,13 +1,16 @@
 <script>
   export let title = 'Event Title';
-  export let start = '2023-10-31T09:00:00'; // ISO format
-  export let end = '2023-10-31T10:00:00';
-
-  // Optional props with default values
-  export let description = 'Assignment Goal';
-  export let location = 'N/A';
+  export let startDate = '2023-10-31'; // Date in YYYY-MM-DD format
+  export let endDate = '2023-10-31';
 
   let showOptions = false;
+
+  // Default time to append (you can change this as needed)
+  const defaultTime = 'T14:00:00'; // 2:00 PM
+
+  // Create ISO datetime strings by appending the default time
+  $: start = `${startDate}${defaultTime}`;
+  $: end = `${endDate}${defaultTime}`;
 
   // Format dates for URLs
   function formatDateForUrl(dateStr) {
@@ -15,9 +18,9 @@
   }
 
   // Reactive statements to update URLs when props change
-  $: googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${formatDateForUrl(start)}/${formatDateForUrl(end)}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+  $: googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${formatDateForUrl(start)}/${formatDateForUrl(end)}`;
 
-  $: outlookCalendarUrl = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}&startdt=${encodeURIComponent(start)}&enddt=${encodeURIComponent(end)}`;
+  $: outlookCalendarUrl = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(title)}&startdt=${encodeURIComponent(start)}&enddt=${encodeURIComponent(end)}`;
 
   function generateICS() {
     const startFormatted = formatDateForUrl(start);
@@ -32,8 +35,6 @@ DTSTAMP:${startFormatted}
 DTSTART:${startFormatted}
 DTEND:${endFormatted}
 SUMMARY:${title}
-DESCRIPTION:${description}
-LOCATION:${location}
 END:VEVENT
 END:VCALENDAR`;
 
