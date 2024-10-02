@@ -123,9 +123,11 @@ END:VCALENDAR`;
   .calendar-options li {
     margin: 5px 0;
     font-family: "Montserrat", sans-serif;
+    transition: .4s ease-in-out;
   }
   .calendar-options li:hover {
     transform: scale(1.01);
+    transition: .4s ease-in-out;
   }
 
   .calendar-options a {
