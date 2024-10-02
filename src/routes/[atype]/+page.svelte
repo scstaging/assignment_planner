@@ -494,7 +494,7 @@ onMount(() => {
                         <!-- ADD TO CALENDAR BUTTON -->
                         {#if selectedGoal}
                             <AddToCalendar 
-                            title={selectedGoal.title}
+                            title={atype + ": " + selectedGoal.title}
                             description={selectedGoal.goalDescript}
                             dueDate={selectedGoal.dueDate}
                             />
