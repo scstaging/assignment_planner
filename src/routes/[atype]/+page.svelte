@@ -800,13 +800,13 @@ onMount(() => {
 /* TOOLTIP */
 .tooltip {
     /* Add your tooltip styling here */
-    position: absolute;
+    position: fixed;
     background-color: #333;
     color: #fff;
     padding: 8px;
     border-radius: 4px;
-    top: 50px; /* Adjust position as needed */
-    left: 50%;
+    top: 0; /* Adjust position as needed */
+    left: 0;
     transform: translateX(-50%);
   }
 /* END: TOOLTIP */
