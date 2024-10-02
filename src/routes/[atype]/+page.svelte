@@ -493,8 +493,8 @@ onMount(() => {
                       <div style="margin-bottom:20px;"></div>
                         <!-- ADD TO CALENDAR BUTTON -->
                         <AddToCalendar 
-                        title={selectedGoal.title}
-                        start={startDate}
+                        title={goal.title}
+                        start="2023-11-01"
                         end="2023-11-01"
                         />
                     </div>
