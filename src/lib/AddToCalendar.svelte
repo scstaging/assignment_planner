@@ -1,4 +1,6 @@
 <script>
+  import { fade } from 'svelte/transition';
+
   export let title = 'Event Title';
   export let description = 'Event Description';
   export let dueDate = 'January 7th'; // Date in 'Month Dayth' format
@@ -95,12 +97,15 @@ END:VCALENDAR`;
 
 <style>
   .add-to-calendar-button {
-    padding: 10px 20px;
+    padding: 20px 30px;
     background-color: #007bff; /* Blue color */
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+  }
+  .add-to-calendar-button:hover {
+    transform: scale(1.05);
   }
 
   .calendar-options {
@@ -128,7 +133,7 @@ END:VCALENDAR`;
   </button>
 
   {#if showOptions}
-    <div class="calendar-options">
+    <div class="calendar-options" transition:fade>
       <ul>
         {#if googleCalendarUrl}
           <li><a href="{googleCalendarUrl}" target="_blank">Google Calendar</a></li>
