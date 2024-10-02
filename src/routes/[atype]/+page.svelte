@@ -808,6 +808,7 @@ onMount(() => {
     top: 0; /* Adjust position as needed */
     left: 0;
     transform: translate(50%, 100%);
+    font-family: "Montserrat", sans-serif;
   }
 /* END: TOOLTIP */
 </style>
