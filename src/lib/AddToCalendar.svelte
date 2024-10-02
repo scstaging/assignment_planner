@@ -127,7 +127,7 @@ END:VCALENDAR`;
   }
   .calendar-options li:hover {
     transform: scale(1.01);
-    transition: .4s ease-in-out;
+    transition: .2s ease-in-out;
   }
 
   .calendar-options a {
