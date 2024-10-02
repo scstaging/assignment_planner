@@ -103,9 +103,12 @@ END:VCALENDAR`;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    transition: .4s ease-in-out;
   }
   .add-to-calendar-button:hover {
     transform: scale(1.05);
+    transition: .4s ease-in-out;
   }
 
   .calendar-options {
@@ -119,6 +122,7 @@ END:VCALENDAR`;
 
   .calendar-options li {
     margin: 5px 0;
+    font-family: "Montserrat", sans-serif;
   }
 
   .calendar-options a {
