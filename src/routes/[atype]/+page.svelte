@@ -493,9 +493,9 @@ onMount(() => {
                       <div style="margin-bottom:20px;"></div>
                         <!-- ADD TO CALENDAR BUTTON -->
                         <AddToCalendar 
-                        title={goal.title}
-                        start="2023-11-01"
-                        end="2023-11-01"
+                        title="Meeting with Team"
+                        start="2023-11-01T14:00:00"
+                        end="2023-11-01T15:00:00"
                         />
                     </div>
                   {/if}
