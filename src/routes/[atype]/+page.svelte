@@ -416,8 +416,23 @@ onMount(() => {
         URL.revokeObjectURL(link.href);
 
         expandGoalsBool = false;
+
+        displayTooltip();
     }
     //*********** END: SAVING THE WEBPAGE ***********//
+
+    //*********** SAVING TOOLTIP ***********//
+    let showTooltip = false;
+    function displayTooltip() {
+    // Show the tooltip
+    showTooltip = true;
+
+    // Hide the tooltip after 3 seconds
+    setTimeout(() => {
+      showTooltip = false;
+    }, 3000);
+  }
+    //*********** END: SAVING TOOLTIP ***********//
 
 </script>
 
@@ -431,6 +446,11 @@ onMount(() => {
 {/if}
 <div transition:fade class="gp-container">
     <MediaQuery query="(min-width: 1001px)" let:matches>
+        {#if showTooltip}
+            <div class="tooltip" transition:fade>
+                Document has been downloaded
+            </div>
+        {/if}
         {#if matches}
           <div class="gp-inner-container">
             <div style="display: flex;flex-direction:row;align-items:flex-end;justify-content:space-between;">
@@ -776,4 +796,18 @@ onMount(() => {
     margin-top: 80px;
 }
 /* END: MOBILE STYLES */
+
+/* TOOLTIP */
+.tooltip {
+    /* Add your tooltip styling here */
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    top: 50px; /* Adjust position as needed */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+/* END: TOOLTIP */
 </style>
