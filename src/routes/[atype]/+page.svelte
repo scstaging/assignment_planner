@@ -807,7 +807,7 @@ onMount(() => {
     border-radius: 4px;
     top: 0; /* Adjust position as needed */
     left: 0;
-    transform: translate(50%, 50%);
+    transform: translate(50%, 100%);
   }
 /* END: TOOLTIP */
 </style>
