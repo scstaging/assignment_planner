@@ -1,25 +1,75 @@
 <script>
   export let title = 'Event Title';
-  export let start = '2023-10-31T09:00:00'; // ISO format
-  export let end = '2023-10-31T10:00:00';
-
-  // Optional props with default values
-  export let description = 'Assignment Goal';
-  export let location = 'N/A';
+  export let description = 'Event Description';
+  export let dueDate = 'January 7th'; // Date in 'Month Dayth' format
 
   let showOptions = false;
 
+  // Default start and end times
+  const startTime = 'T09:00:00'; // 9:00 AM
+  const endTime = 'T10:00:00';   // 10:00 AM
+
+  // Function to convert dueDate from 'Month Dayth' to 'YYYY-MM-DD'
+  function parseDueDate(dateStr) {
+    if (!dateStr) return '';
+
+    // Regex to extract the month and day, ignoring ordinal suffixes
+    const dateParts = dateStr.match(/(\w+)\s+(\d+)(st|nd|rd|th)?/i);
+    if (!dateParts) return '';
+
+    const monthName = dateParts[1];
+    const day = dateParts[2];
+
+    const monthNames = {
+      January: '01',
+      February: '02',
+      March: '03',
+      April: '04',
+      May: '05',
+      June: '06',
+      July: '07',
+      August: '08',
+      September: '09',
+      October: '10',
+      November: '11',
+      December: '12'
+    };
+
+    const month = monthNames[monthName];
+    if (!month) return '';
+
+    const currentYear = new Date().getFullYear();
+
+    const formattedDay = day.padStart(2, '0');
+
+    return `${currentYear}-${month}-${formattedDay}`;
+  }
+
+  // Parse the dueDate into 'YYYY-MM-DD' format
+  $: parsedDueDate = parseDueDate(dueDate);
+
+  // Create ISO datetime strings by appending the default times
+  $: start = parsedDueDate ? `${parsedDueDate}${startTime}` : '';
+  $: end = parsedDueDate ? `${parsedDueDate}${endTime}` : '';
+
   // Format dates for URLs
   function formatDateForUrl(dateStr) {
+    if (!dateStr) return '';
     return dateStr.replace(/-|:|\.\d\d\d/g, '');
   }
 
   // Reactive statements to update URLs when props change
-  $: googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${formatDateForUrl(start)}/${formatDateForUrl(end)}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+  $: googleCalendarUrl = start && end
+    ? `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${formatDateForUrl(start)}/${formatDateForUrl(end)}&details=${encodeURIComponent(description)}`
+    : '';
 
-  $: outlookCalendarUrl = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}&startdt=${encodeURIComponent(start)}&enddt=${encodeURIComponent(end)}`;
+  $: outlookCalendarUrl = start && end
+    ? `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(title)}&body=${encodeURIComponent(description)}&startdt=${encodeURIComponent(start)}&enddt=${encodeURIComponent(end)}`
+    : '';
 
   function generateICS() {
+    if (!start || !end) return '';
+
     const startFormatted = formatDateForUrl(start);
     const endFormatted = formatDateForUrl(end);
 
@@ -33,7 +83,6 @@ DTSTART:${startFormatted}
 DTEND:${endFormatted}
 SUMMARY:${title}
 DESCRIPTION:${description}
-LOCATION:${location}
 END:VEVENT
 END:VCALENDAR`;
 
@@ -81,9 +130,15 @@ END:VCALENDAR`;
   {#if showOptions}
     <div class="calendar-options">
       <ul>
-        <li><a href="{googleCalendarUrl}" target="_blank">Google Calendar</a></li>
-        <li><a href="{outlookCalendarUrl}" target="_blank">Outlook Calendar</a></li>
-        <li><a href="{icsUrl}" download="event.ics">Apple Calendar</a></li>
+        {#if googleCalendarUrl}
+          <li><a href="{googleCalendarUrl}" target="_blank">Google Calendar</a></li>
+        {/if}
+        {#if outlookCalendarUrl}
+          <li><a href="{outlookCalendarUrl}" target="_blank">Outlook Calendar</a></li>
+        {/if}
+        {#if icsUrl}
+          <li><a href="{icsUrl}" download="event.ics">Apple Calendar</a></li>
+        {/if}
       </ul>
     </div>
   {/if}

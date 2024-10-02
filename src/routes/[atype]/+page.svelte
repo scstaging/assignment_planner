@@ -125,8 +125,7 @@
                     goalDescript: match[3],
                     links: [],
                     completed: false,
-                    dueDate: "XXXXXX",
-                    calendarDueDate: ""
+                    dueDate: "XXXXXX"
                 };
             }
         } else if (line.startsWith('-') && currentGoal) {
@@ -220,10 +219,6 @@
             let days = Math.floor((goal.percent / 100) * totalDays);
             goal.dueDate = addDaysToDate(temp, days);
             temp = goal.dueDate;
-
-            // For Calendar
-            goal.calendarDueDate = goal.dueDate;
-
             goal.dueDate = convertDate(goal.dueDate);
         }
     }
@@ -500,8 +495,8 @@ onMount(() => {
                         {#if selectedGoal}
                             <AddToCalendar 
                             title={selectedGoal.title}
-                            start={startDate + "T9:00:00"}
-                            end={selectedGoal.calendarDueDate + "T9:00:00"}
+                            description={selectedGoal.goalDescript}
+                            dueDate={selectedGoal.dueDate}
                             />
                         {/if}
                     </div>
