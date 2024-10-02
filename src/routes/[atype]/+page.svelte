@@ -501,7 +501,7 @@ onMount(() => {
                             <AddToCalendar 
                             title={selectedGoal.title}
                             start={startDate + "T9:00:00"}
-                            end={selectedGoal.calendarDueDate}
+                            end={selectedGoal.calendarDueDate + "T9:00:00"}
                             />
                         {/if}
                     </div>
