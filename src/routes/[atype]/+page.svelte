@@ -494,7 +494,7 @@ onMount(() => {
                         <!-- ADD TO CALENDAR BUTTON -->
                         {#if selectedGoal}
                             <AddToCalendar 
-                            title="Meeting with Team"
+                            title={selectedGoal.title}
                             start="2023-11-01T14:00:00"
                             end="2023-11-01T15:00:00"
                             />
