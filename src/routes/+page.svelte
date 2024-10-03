@@ -412,7 +412,7 @@
         {/if}
 
         {#if visible && altLayout}
-            <div class="alt-layout-container">
+            <div use:readAssignments tabindex="0" on:keydown={keyAssignment} class="alt-layout-container" transition:fade>
                 {#each assignments as assignment}
                 <div class="alt-layout-elem">
                     <div class="alt-item">
