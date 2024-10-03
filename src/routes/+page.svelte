@@ -351,6 +351,8 @@
         }
     }
     //*********** END: ACCESSIBILITY ***********//
+
+    let altLayout = true;
 </script>
 
 <!-- WEB LAYOUT -->
@@ -398,13 +400,26 @@
         </div>
     {/if}
     <div class="fp-right">
-        {#if visible}
+        {#if visible && !altLayout}
             <div use:readAssignments tabindex="0" on:keydown={keyAssignment} class="grid-container" transition:fade>
                 {#each assignments as assignment}
                     <div class="grid-assign">
                         <img on:click={selectAssignmentType} id={assignment.title} class="grid-item" alt={assignment.title} src={assignment.icon}>
                         <h2 style="font-weight: 600;font-size:1.8em;margin:0;">{assignment.title}</h2>
                     </div>
+                {/each}
+            </div>
+        {/if}
+
+        {#if visible && altLayout}
+            <div class="alt-layout-container">
+                {#each assignments as assignment}
+                <div class="alt-layout-elem">
+                    <div class="alt-item">
+                        <img style="width: 150px;height:auto;" on:click={selectAssignmentType} id={assignment.title} alt={assignment.title} src={assignment.icon}>
+                    </div>
+                    <h2 class="alt-item-text">{assignment.title}</h2>
+                </div>
                 {/each}
             </div>
         {/if}
@@ -849,4 +864,40 @@
     font-weight: 400;
 }
 /* END: MOBILE STYLES */
+
+/* ALT LAYOUT */
+.alt-layout-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.alt-layout-elem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+}
+.alt-item {
+    width: 150px;
+    padding: 40px;
+    margin: 20px 80px 20px 20px;
+    cursor: pointer;
+    transition: ease-in-out;
+    transition-duration: .4s;
+}
+.alt-item:hover {
+    background-color: #912338;
+    transition: ease-in-out;
+    transition-duration: .4s;
+    transform: translateY(-3%);
+}
+.alt-item-text {
+    font-weight: 600;
+    font-size:1.8em;
+    font-weight: 400;
+    margin:0;
+    font-family: "Montserrat", sans-serif;
+}
+/* END: ALT LAYOUT */
 </style>
