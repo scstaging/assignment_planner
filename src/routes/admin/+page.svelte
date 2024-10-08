@@ -36,7 +36,7 @@
     });
   
     const uploadIconFile = async (iconFile) => {
-      const fileName = `${Date.now()}_${iconFile.name}`;
+      const fileName = `${iconFile.name}`;
       const { data, error } = await supabase.storage
         .from('icons')
         .upload(`${fileName}`, iconFile, {
@@ -53,6 +53,7 @@
       if (urlError) {
         throw urlError;
       }
+      console.log("Data path: " + data.path)
       return { path: data.path, url: publicURL };
     };
   
