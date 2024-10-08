@@ -1,4 +1,3 @@
-<!-- src/routes/Admin.svelte -->
 <script>
     import { supabase } from '$lib/supabaseClient';
     import { onMount } from 'svelte';
@@ -36,10 +35,12 @@
     });
   
     const uploadIconFile = async (iconFile) => {
-      const fileName = `${iconFile.name}`;
+      // Generate a unique filename to prevent conflicts
+      const uniqueId = Date.now();
+      const fileName = `${uniqueId}_${iconFile.name}`;
       const { data, error } = await supabase.storage
         .from('icons')
-        .upload(`${fileName}`, iconFile, {
+        .upload(fileName, iconFile, {
           cacheControl: '3600',
           upsert: false,
         });
@@ -47,14 +48,13 @@
         throw error;
       }
       // Get the public URL of the uploaded file
-      const { publicURL, error: urlError } = supabase.storage
+      const { data: publicUrlData, error: urlError } = supabase.storage
         .from('icons')
         .getPublicUrl(data.path);
       if (urlError) {
         throw urlError;
       }
-      console.log("Data path: " + data.path)
-      return { path: data.path, url: publicURL };
+      return { path: data.path, url: publicUrlData.publicUrl };
     };
   
     const handleAddAssignment = async () => {
@@ -67,19 +67,21 @@
           {
             title: newTitle,
             doc_id: newDocId,
-            icon_url: iconData ? `${iconData.url}/${iconData.path}` : null,
+            icon_url: iconData ? iconData.url : null,
           },
         ]);
         if (error) {
           throw error;
         }
         successMessage = 'Assignment added successfully!';
+        errorMessage = '';
         newTitle = '';
         newDocId = '';
         newIconFile = null;
         await fetchAssignments();
       } catch (error) {
         errorMessage = error.message;
+        successMessage = '';
       }
     };
   
@@ -96,7 +98,7 @@
           }
           // Upload new icon
           const iconData = await uploadIconFile(assignment.newIconFile);
-          iconUrl = `${iconData.url}/${iconData.path}`;
+          iconUrl = iconData.url;
         }
   
         const { error } = await supabase
@@ -111,9 +113,11 @@
           throw error;
         }
         successMessage = 'Assignment updated successfully!';
+        errorMessage = '';
         await fetchAssignments();
       } catch (error) {
         errorMessage = error.message;
+        successMessage = '';
       }
     };
   
@@ -134,9 +138,11 @@
         }
   
         successMessage = 'Assignment deleted successfully!';
+        errorMessage = '';
         await fetchAssignments();
       } catch (error) {
         errorMessage = error.message;
+        successMessage = '';
       }
     };
   </script>
@@ -178,12 +184,22 @@
           <!-- Title -->
           <label>
             Title:
-            <input type="text" bind:value={assignment.title} required />
+            <input
+              type="text"
+              bind:value={assignment.title}
+              required
+              on:input={() => (assignment = { ...assignment })}
+            />
           </label>
           <!-- Google Doc ID -->
           <label>
             Google Doc ID:
-            <input type="text" bind:value={assignment.doc_id} required />
+            <input
+              type="text"
+              bind:value={assignment.doc_id}
+              required
+              on:input={() => (assignment = { ...assignment })}
+            />
           </label>
           <!-- Current Icon -->
           {#if assignment.icon_url}
@@ -195,7 +211,10 @@
             <input
               type="file"
               accept=".png"
-              on:change={(e) => (assignment.newIconFile = e.target.files[0])}
+              on:change={(e) => {
+                assignment.newIconFile = e.target.files[0];
+                assignment = { ...assignment }; // Trigger reactivity
+              }}
             />
           </label>
           <!-- Update and Delete Buttons -->
