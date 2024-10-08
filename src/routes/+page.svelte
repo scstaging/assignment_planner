@@ -369,6 +369,9 @@
 </script>
 
 <!-- WEB LAYOUT -->
+ {#await fetchAssignments()}
+    <p>Fetching the assignments...</p>
+ {:then f} 
 <MediaQuery query='(min-width: 1001px)' let:matches>
 {#if matches}
 <div class="fp-container">
@@ -538,6 +541,7 @@
     {/if}
 </MediaQuery>
 <!-- END: MOBILE LAYOUT -->
+{/await}
 
 <style>
 * {
