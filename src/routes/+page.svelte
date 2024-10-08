@@ -5,6 +5,7 @@
     import { goto } from '$app/navigation';
     import MediaQuery from 'svelte-media-queries'
     import { onMount, onDestroy, afterUpdate } from 'svelte';
+    import { supabase } from "$lib/supabaseClient";
 
     // Assignment dropdown bool
     let visible = false;
@@ -351,6 +352,17 @@
         }
     }
     //*********** END: ACCESSIBILITY ***********//
+
+    //*********** FETCH DYNAMIC ASSIGNMENTS ***********//
+    const fetchAssignments = async () => {
+        let { data, error } = await supabase.from('assignments').select('*');
+        if (error) {
+            console.error(error);
+        } else {
+            assignments = data;
+        }
+    };
+    //*********** END: FETCH DYNAMIC ASSIGNMENTS ***********//
 
     let altLayout = true;
 </script>
