@@ -128,15 +128,13 @@
         if (error) {
           throw error;
         }
-  
-        console.log(assignment.icon_url)
 
         // Delete the icon from storage if it exists
         if (assignment.icon_url) {
           // Extract the relative path to the icon
           const url = new URL(assignment.icon_url);
-          const iconPath = url.pathname.replace('/storage/v1/object/public/icons/', '');
-          await supabase.storage.from('icons').remove([iconPath]);
+          let relativeIconPath = url.substring(url.lastIndexOf('/') + 1);
+          await supabase.storage.from('icons').remove([relativeIconPath]);
         }
   
         successMessage = 'Assignment deleted successfully!';
