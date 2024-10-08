@@ -432,7 +432,7 @@
                 {#each assignments as assignment}
                 <div class="alt-layout-elem">
                     <div class="alt-item">
-                        <img style="width: 150px;height:auto;" on:click={selectAssignmentType} id={assignment.title} alt={assignment.title} src={assignment.icon}>
+                        <img style="width: 150px;height:auto;" on:click={selectAssignmentType} id={assignment.title} alt={assignment.title} src={assignment.icon_url}>
                     </div>
                     <h2 class="alt-item-text">{assignment.title}</h2>
                 </div>
