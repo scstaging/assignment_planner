@@ -5,7 +5,7 @@
     import { goto } from '$app/navigation';
     import MediaQuery from 'svelte-media-queries'
     import { onMount, onDestroy, afterUpdate } from 'svelte';
-    // import { supabase } from "$lib/supabaseClient";
+    import { supabase } from '$lib/supabaseClient';
 
     // Assignment dropdown bool
     let visible = false;
@@ -428,7 +428,7 @@
                 {#each assignments as assignment}
                 <div class="alt-layout-elem">
                     <div class="alt-item">
-                        <img style="width: 90px;height:auto;" on:click={selectAssignmentType} id={assignment.title} alt={assignment.title} src={assignment.icon}>
+                        <img style="width: 150px;height:auto;" on:click={selectAssignmentType} id={assignment.title} alt={assignment.title} src={assignment.icon}>
                     </div>
                     <h2 class="alt-item-text">{assignment.title}</h2>
                 </div>
