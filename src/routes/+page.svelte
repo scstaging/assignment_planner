@@ -5,7 +5,7 @@
     import { goto } from '$app/navigation';
     import MediaQuery from 'svelte-media-queries'
     import { onMount, onDestroy, afterUpdate } from 'svelte';
-    import { supabase } from "$lib/supabaseClient";
+    // import { supabase } from "$lib/supabaseClient";
 
     // Assignment dropdown bool
     let visible = false;
