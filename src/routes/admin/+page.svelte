@@ -83,15 +83,12 @@
         if (assignment.newIconFile) {
           // Delete old icon if it exists
           if (assignment.icon_url) {
-            const oldIconPath = assignment.icon_url.replace(
-              `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/`,
-              ''
-            );
+            const oldIconPath = `${assignment.icon_url}`;
             await supabase.storage.from('icons').remove([oldIconPath]);
           }
           // Upload new icon
           const uploadedPath = await uploadIconFile(assignment.newIconFile);
-          iconPath = `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/${uploadedPath}`;
+          iconPath = `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/icons/${uploadedPath}`;
         }
   
         const { error } = await supabase
@@ -121,11 +118,8 @@
         }
         // Delete the icon from storage if it exists
         if (assignment.icon_url) {
-          const iconPath = assignment.icon_url.replace(
-            `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/`,
-            ''
-          );
-          await supabase.storage.from('icons').remove([iconPath]);
+            const iconPath = `${assignment.icon_url}`;
+            await supabase.storage.from('icons').remove([iconPath]);
         }
         successMessage = 'Assignment deleted successfully!';
         await fetchAssignments();
