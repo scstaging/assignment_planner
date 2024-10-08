@@ -39,7 +39,7 @@
       const fileName = `${Date.now()}_${iconFile.name}`;
       const { data, error } = await supabase.storage
         .from('icons')
-        .upload(`public/${fileName}`, iconFile, {
+        .upload(`${fileName}`, iconFile, {
           cacheControl: '3600',
           upsert: false,
         });
@@ -60,7 +60,7 @@
             title: newTitle,
             doc_id: newDocId,
             icon_url: iconPath
-              ? `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/${iconPath}`
+              ? `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/icons/${iconPath}`
               : null,
           },
         ]);
