@@ -360,6 +360,7 @@
             console.error(error);
         } else {
             assignments = data;
+            console.log("assigned successfully")
         }
     };
     //*********** END: FETCH DYNAMIC ASSIGNMENTS ***********//
