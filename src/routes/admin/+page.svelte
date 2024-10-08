@@ -67,7 +67,7 @@
           {
             title: newTitle,
             doc_id: newDocId,
-            icon_url: iconData ? iconData.url : null,
+            icon_url: iconData ? `${iconData.url}/${iconData.path}` : null,
           },
         ]);
         if (error) {
