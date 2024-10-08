@@ -59,9 +59,7 @@
           {
             title: newTitle,
             doc_id: newDocId,
-            icon_url: iconPath
-              ? `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/icons/${iconPath}`
-              : null,
+            icon_url: iconPath || null,
           },
         ]);
         if (error) {
@@ -83,12 +81,11 @@
         if (assignment.newIconFile) {
           // Delete old icon if it exists
           if (assignment.icon_url) {
-            const oldIconPath = `${assignment.icon_url}`;
-            await supabase.storage.from('icons').remove([oldIconPath]);
+            await supabase.storage.from('icons').remove([assignment.icon_url]);
           }
           // Upload new icon
           const uploadedPath = await uploadIconFile(assignment.newIconFile);
-          iconPath = `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/icons/${uploadedPath}`;
+          iconPath = uploadedPath;
         }
   
         const { error } = await supabase
@@ -116,16 +113,23 @@
         if (error) {
           throw error;
         }
+  
         // Delete the icon from storage if it exists
         if (assignment.icon_url) {
-            const iconPath = `${assignment.icon_url}`;
-            await supabase.storage.from('icons').remove([iconPath]);
+          await supabase.storage.from('icons').remove([assignment.icon_url]);
         }
+  
         successMessage = 'Assignment deleted successfully!';
         await fetchAssignments();
       } catch (error) {
         errorMessage = error.message;
       }
+    };
+  
+    const getIconUrl = (path) => {
+      if (!path) return '';
+      const { data } = supabase.storage.from('icons').getPublicUrl(path);
+      return data.publicUrl;
     };
   </script>
   
@@ -175,7 +179,7 @@
           </label>
           <!-- Current Icon -->
           {#if assignment.icon_url}
-            <img src="{assignment.icon_url}" alt="{assignment.title}" width="100" />
+            <img src="{getIconUrl(assignment.icon_url)}" alt="{assignment.title}" width="100" />
           {/if}
           <!-- Upload New Icon -->
           <label>
