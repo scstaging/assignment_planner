@@ -129,6 +129,8 @@
           throw error;
         }
   
+        console.log(assignment.icon.url)
+
         // Delete the icon from storage if it exists
         if (assignment.icon_url) {
           // Extract the relative path to the icon
