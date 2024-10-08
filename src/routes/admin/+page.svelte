@@ -39,35 +39,33 @@
       const fileName = `${Date.now()}_${iconFile.name}`;
       const { data, error } = await supabase.storage
         .from('icons')
-        .upload(`${fileName}`, iconFile, {
+        .upload(fileName, iconFile, {
           cacheControl: '3600',
           upsert: false,
         });
       if (error) {
         throw error;
       }
-      // Get the public URL of the uploaded file
-      const { publicURL, error: urlError } = supabase.storage
-        .from('icons')
-        .getPublicUrl(data.path);
-      if (urlError) {
-        throw urlError;
-      }
-      return { path: data.path, url: publicURL };
+      // Return the full path to the file in storage
+      return data.path;
+    };
+  
+    const getPublicIconUrl = (iconPath) => {
+      return `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/icons/${iconPath}`;
     };
   
     const handleAddAssignment = async () => {
       try {
-        let iconData = null;
+        let iconPath = null;
         if (newIconFile) {
-          iconData = await uploadIconFile(newIconFile);
+          iconPath = await uploadIconFile(newIconFile);
         }
-
         const { error } = await supabase.from('assignments').insert([
           {
             title: newTitle,
             doc_id: newDocId,
-            icon_url: iconData ? iconData.url : null,
+            icon_url: iconPath ? getPublicIconUrl(iconPath) : null,
+            icon_path: iconPath,
           },
         ]);
         if (error) {
@@ -85,18 +83,16 @@
   
     const handleUpdateAssignment = async (assignment) => {
       try {
+        let iconPath = assignment.icon_path;
         let iconUrl = assignment.icon_url;
         if (assignment.newIconFile) {
           // Delete old icon if it exists
-          if (assignment.icon_url) {
-            // Extract the relative path to the icon
-            const url = new URL(assignment.icon_url);
-            const iconPath = url.pathname.replace('/storage/v1/object/public/icons/', '');
-            await supabase.storage.from('icons').remove([iconPath]);
+          if (assignment.icon_path) {
+            await supabase.storage.from('icons').remove([assignment.icon_path]);
           }
           // Upload new icon
-          const iconData = await uploadIconFile(assignment.newIconFile);
-          iconUrl = iconData.url;
+          iconPath = await uploadIconFile(assignment.newIconFile);
+          iconUrl = getPublicIconUrl(iconPath);
         }
   
         const { error } = await supabase
@@ -105,6 +101,7 @@
             title: assignment.title,
             doc_id: assignment.doc_id,
             icon_url: iconUrl,
+            icon_path: iconPath,
           })
           .eq('id', assignment.id);
         if (error) {
@@ -126,12 +123,8 @@
         }
   
         // Delete the icon from storage if it exists
-        if (assignment.icon_url) {
-          // Extract the relative path to the icon
-          const url = new URL(assignment.icon_url);
-          const iconPath = url.pathname.replace('/storage/v1/object/public/icons/', '');
-          console.log("Icon Path: " + iconPath);
-          await supabase.storage.from('icons').remove([iconPath]);
+        if (assignment.icon_path) {
+          await supabase.storage.from('icons').remove([assignment.icon_path]);
         }
   
         successMessage = 'Assignment deleted successfully!';
