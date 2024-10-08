@@ -60,7 +60,7 @@
             title: newTitle,
             doc_id: newDocId,
             icon_url: iconPath
-              ? `https://your-project.supabase.co/storage/v1/object/public/${iconPath}`
+              ? `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/${iconPath}`
               : null,
           },
         ]);
@@ -84,14 +84,14 @@
           // Delete old icon if it exists
           if (assignment.icon_url) {
             const oldIconPath = assignment.icon_url.replace(
-              `https://your-project.supabase.co/storage/v1/object/public/`,
+              `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/`,
               ''
             );
             await supabase.storage.from('icons').remove([oldIconPath]);
           }
           // Upload new icon
           const uploadedPath = await uploadIconFile(assignment.newIconFile);
-          iconPath = `https://your-project.supabase.co/storage/v1/object/public/${uploadedPath}`;
+          iconPath = `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/${uploadedPath}`;
         }
   
         const { error } = await supabase
@@ -122,7 +122,7 @@
         // Delete the icon from storage if it exists
         if (assignment.icon_url) {
           const iconPath = assignment.icon_url.replace(
-            `https://your-project.supabase.co/storage/v1/object/public/`,
+            `https://vvjogjaiiuqsklqkwlrj.supabase.co/storage/v1/object/public/`,
             ''
           );
           await supabase.storage.from('icons').remove([iconPath]);
