@@ -133,6 +133,7 @@
         if (assignment.icon_url) {
           // Extract the relative path to the icon
           let relativeIconPath = assignment.icon_url.substring(assignment.icon_url.lastIndexOf('/') + 1);
+          console.log(relativeIconPath)
           await supabase.storage.from('icons').remove([relativeIconPath]);
         }
   
