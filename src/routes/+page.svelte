@@ -370,7 +370,7 @@
 
 <!-- WEB LAYOUT -->
  {#await fetchAssignments()}
-    <p class="gp-p-text">Getting the assignments ready...</p>
+    <p style="margin-left: 1vw;" class="gp-p-text">Getting the assignments ready...</p>
  {:then f} 
 <MediaQuery query='(min-width: 1001px)' let:matches>
 {#if matches}
