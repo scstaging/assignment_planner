@@ -354,14 +354,14 @@
     //*********** END: ACCESSIBILITY ***********//
 
     //*********** FETCH DYNAMIC ASSIGNMENTS ***********//
-    // const fetchAssignments = async () => {
-    //     let { data, error } = await supabase.from('assignments').select('*');
-    //     if (error) {
-    //         console.error(error);
-    //     } else {
-    //         assignments = data;
-    //     }
-    // };
+    const fetchAssignments = async () => {
+        let { data, error } = await supabase.from('assignments').select('*');
+        if (error) {
+            console.error(error);
+        } else {
+            assignments = data;
+        }
+    };
     //*********** END: FETCH DYNAMIC ASSIGNMENTS ***********//
 
     let altLayout = true;
