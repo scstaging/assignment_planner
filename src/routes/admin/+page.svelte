@@ -132,8 +132,7 @@
         // Delete the icon from storage if it exists
         if (assignment.icon_url) {
           // Extract the relative path to the icon
-          const url = new URL(assignment.icon_url);
-          let relativeIconPath = url.substring(url.lastIndexOf('/') + 1);
+          let relativeIconPath = assignment.icon_url.substring(assignment.icon_url.lastIndexOf('/') + 1);
           await supabase.storage.from('icons').remove([relativeIconPath]);
         }
   
