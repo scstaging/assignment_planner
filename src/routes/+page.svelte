@@ -370,7 +370,7 @@
 
 <!-- WEB LAYOUT -->
  {#await fetchAssignments()}
-    <p>Fetching the assignments...</p>
+    <p class="gp-p-text">Getting the assignments ready...</p>
  {:then f} 
 <MediaQuery query='(min-width: 1001px)' let:matches>
 {#if matches}
@@ -917,4 +917,9 @@
     font-family: "Montserrat", sans-serif;
 }
 /* END: ALT LAYOUT */
+.gp-p-text {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.1em;
+    font-weight: 500;
+}
 </style>
