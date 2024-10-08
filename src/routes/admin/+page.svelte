@@ -62,6 +62,7 @@
         if (newIconFile) {
           iconData = await uploadIconFile(newIconFile);
         }
+
         const { error } = await supabase.from('assignments').insert([
           {
             title: newTitle,
@@ -129,6 +130,7 @@
           // Extract the relative path to the icon
           const url = new URL(assignment.icon_url);
           const iconPath = url.pathname.replace('/storage/v1/object/public/icons/', '');
+          console.log("Icon Path: " + iconPath);
           await supabase.storage.from('icons').remove([iconPath]);
         }
   
