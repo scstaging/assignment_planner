@@ -96,7 +96,7 @@
           }
           // Upload new icon
           const iconData = await uploadIconFile(assignment.newIconFile);
-          iconUrl = iconData.url;
+          iconUrl = `${iconData.url}/${iconData.path}`;
         }
   
         const { error } = await supabase
