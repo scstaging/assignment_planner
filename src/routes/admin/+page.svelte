@@ -129,7 +129,7 @@
           throw error;
         }
   
-        console.log(assignment.icon.url)
+        console.log(assignment.icon_url)
 
         // Delete the icon from storage if it exists
         if (assignment.icon_url) {
