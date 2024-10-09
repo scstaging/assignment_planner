@@ -687,13 +687,13 @@
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, auto);
     gap: 30px;
-    width: 100%;
+    width: 90%;
 }
 .grid-item {
     padding: 30px;
     padding-bottom: 10px;
     width: auto;
-    height: 25vh;
+    height: 15vh;
     cursor: pointer;
     transition: ease-in-out;
     transition-duration: .2s;
