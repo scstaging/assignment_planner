@@ -365,7 +365,7 @@
     };
     //*********** END: FETCH DYNAMIC ASSIGNMENTS ***********//
 
-    let altLayout = true;
+    let altLayout = false;
 </script>
 
 <!-- WEB LAYOUT -->
