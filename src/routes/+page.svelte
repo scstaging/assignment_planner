@@ -715,6 +715,7 @@
     align-items:center;
     font-family: "Montserrat", sans-serif;
     font-size: 10px;
+    text-align: center;
 }
 .grid-assign > h2 {
     font-weight: 500;
