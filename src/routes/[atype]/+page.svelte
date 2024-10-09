@@ -439,11 +439,9 @@ onMount(() => {
 {#await parseGoogleDocContent()}
     <h2 style="padding: 20px;" class="gp-p-text">Awaiting plan...</h2>
 {:then g}
-{#if selectedGoal === null}
-    <div on:click={homeBackButton} transition:fade class="home-back-button">
-        <h2>Back</h2>
-    </div>
-{/if}
+<div on:click={homeBackButton} transition:fade class="home-back-button">
+    <h2>Back</h2>
+</div>
 <div transition:fade class="gp-container">
     <MediaQuery query="(min-width: 1001px)" let:matches>
         {#if showTooltip}
