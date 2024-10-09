@@ -420,7 +420,7 @@
             <div use:readAssignments tabindex="0" on:keydown={keyAssignment} class="grid-container" transition:fade>
                 {#each assignments as assignment}
                     <div class="grid-assign">
-                        <img on:click={selectAssignmentType} id={assignment.title} class="grid-item" alt={assignment.title} src={assignment.icon}>
+                        <img on:click={selectAssignmentType} id={assignment.title} class="grid-item" alt={assignment.title} src={assignment.icon_url}>
                         <h2 style="font-weight: 600;font-size:1.8em;margin:0;">{assignment.title}</h2>
                     </div>
                 {/each}
