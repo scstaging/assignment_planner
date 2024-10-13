@@ -362,10 +362,29 @@
             assignments = data;
             console.log("assigned successfully")
         }
+
+        assignments = sortByTitle(assignments);
     };
     //*********** END: FETCH DYNAMIC ASSIGNMENTS ***********//
 
     let altLayout = false;
+
+    // Alphabetical order
+    function sortByTitle(arr) {
+        return arr.sort((a, b) => {
+            const titleA = a.title.toUpperCase(); // Ignore case
+            const titleB = b.title.toUpperCase(); // Ignore case
+
+            if (titleA < titleB) {
+            return -1;
+            }
+            if (titleA > titleB) {
+            return 1;
+            }
+            return 0; // Titles are equal
+        });
+    }
+
 </script>
 
 <!-- WEB LAYOUT -->
