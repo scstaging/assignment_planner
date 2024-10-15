@@ -32,7 +32,7 @@
         "Poster Presentation": "17omHvESVC6-fAcPqH9Y23GiQlB8AzsgBG2qjHO2v1pU"
     };
 
-    let introBlurbContent = "test" + "<br>" + "test";
+    let introBlurbContent = null;
     let introBlurb;
     let unmountStorageIntroBlurb = "";
     let goals = [];
@@ -443,9 +443,8 @@ onMount(() => {
 
     function openFirstGoal()
     {
-        if (introBlurb)
+        if (introBlurbContent)
         {
-            console.log("intersecting")
             selectedGoal = goals[0];   
         }
     }
