@@ -362,9 +362,6 @@ const accessibilitySelectGoal = (goal) => {
 // Attach the event listener on mount
 onMount(() => {
   window.addEventListener('keydown', accessibilityHandleKeyPress);
-
-  // Selected goal
-  selectedGoal = goals[0];
   return () => {
     window.removeEventListener('keydown', accessibilityHandleKeyPress);
   };
