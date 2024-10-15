@@ -11,6 +11,7 @@
     import { onMount, onDestroy, afterUpdate } from 'svelte';
     import { tick } from 'svelte';
     import AddToCalendar from '$lib/AddToCalendar.svelte'
+    import IntersectionObserver from "svelte-intersection-observer";
     
     //******** DOCS INTEGRATION ********//
     const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
@@ -434,38 +435,11 @@ onMount(() => {
   }
     //*********** END: SAVING TOOLTIP ***********//
 
-        //*********** OBSERVE FOR SCROLL ***********//
-        let targetElement;
-        function handleIntersection(entries) {
-        entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            // Your custom code here
-            console.log('Element is in view');
-        } else {
-            console.log('Element is out of view');
-        }
-        });
-    }
+    //*********** OBSERVE FOR SCROLL ***********//
+    let observableElem;
+    let intersecting;
 
-    // Set up IntersectionObserver when the component mounts
-    onMount(() => {
-        const observer = new IntersectionObserver(handleIntersection, {
-        root: null,  // Observe relative to the viewport
-        rootMargin: '0px',
-        threshold: 0.1  // Adjust this to control when the callback triggers (10% in view)
-        });
-
-        if (targetElement) {
-        observer.observe(targetElement);
-        }
-
-        // Cleanup observer when the component is destroyed
-        return () => {
-        if (targetElement) {
-            observer.unobserve(targetElement);
-        }
-        };
-    });
+    $: intersecting ? console.log("intersecting") : null;
     //*********** END: OBSERVE FOR SCROLL ***********//
 
 </script>
@@ -576,7 +550,13 @@ onMount(() => {
                   </div>
                 {/if}
               </div>
-              <img bind:this={targetElement} class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
+              <!-- INTERSECTION STUFF -->
+               <IntersectionObserver
+               once
+               element={observableElem}
+               bind:intersecting>
+              <img bind:this={observableElem} class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
+                </IntersectionObserver>
             </div>
           </div>
         {/if}
