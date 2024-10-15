@@ -472,7 +472,7 @@
                 {/if}
                 <div style="width:50vw;display: flex;flex-direction:row;justify-content:space-between;">
                     <div>
-                        <SveltyPicker pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
+                        <SveltyPicker weekStart={0} pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
                         <p class="under-date-text">Start Date</p>
                     </div>
                     {#if selectedStartDate != undefined}
