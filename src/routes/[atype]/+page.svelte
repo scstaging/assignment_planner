@@ -439,7 +439,13 @@ onMount(() => {
     let observableElem;
     let intersecting;
 
-    $: intersecting ? console.log("intersecting") : null;
+    $: intersecting ? openFirstGoal() : null;
+
+    function openFirstGoal()
+    {
+        console.log("intersecting")
+        selectedGoal = goals[0];
+    }
     //*********** END: OBSERVE FOR SCROLL ***********//
 
 </script>
