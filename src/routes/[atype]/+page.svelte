@@ -362,6 +362,9 @@ const accessibilitySelectGoal = (goal) => {
 // Attach the event listener on mount
 onMount(() => {
   window.addEventListener('keydown', accessibilityHandleKeyPress);
+
+  // Selected goal
+  selectedGoal = goals[0];
   return () => {
     window.removeEventListener('keydown', accessibilityHandleKeyPress);
   };
@@ -433,6 +436,39 @@ onMount(() => {
     }, 3000);
   }
     //*********** END: SAVING TOOLTIP ***********//
+
+        //*********** OBSERVE FOR SCROLL ***********//
+        function handleIntersection(entries) {
+        entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Your custom code here
+            console.log('Element is in view');
+        } else {
+            console.log('Element is out of view');
+        }
+        });
+    }
+
+    // Set up IntersectionObserver when the component mounts
+    onMount(() => {
+        const observer = new IntersectionObserver(handleIntersection, {
+        root: null,  // Observe relative to the viewport
+        rootMargin: '0px',
+        threshold: 0.1  // Adjust this to control when the callback triggers (10% in view)
+        });
+
+        if (targetElement) {
+        observer.observe(targetElement);
+        }
+
+        // Cleanup observer when the component is destroyed
+        return () => {
+        if (targetElement) {
+            observer.unobserve(targetElement);
+        }
+        };
+    });
+    //*********** END: OBSERVE FOR SCROLL ***********//
 
 </script>
 

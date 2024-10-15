@@ -384,7 +384,6 @@
             return 0; // Titles are equal
         });
     }
-
 </script>
 
 <!-- WEB LAYOUT -->
