@@ -435,6 +435,7 @@ onMount(() => {
     //*********** END: SAVING TOOLTIP ***********//
 
         //*********** OBSERVE FOR SCROLL ***********//
+        let targetElement;
         function handleIntersection(entries) {
         entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -575,7 +576,7 @@ onMount(() => {
                   </div>
                 {/if}
               </div>
-              <img class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
+              <img bind:this={targetElement} class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
             </div>
           </div>
         {/if}
