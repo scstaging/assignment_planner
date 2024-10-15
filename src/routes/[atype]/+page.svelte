@@ -473,7 +473,11 @@ onMount(() => {
       
             <div class="goal-list-container" transition:fade>
               <h2 class="gp-goals-title" transition:fade>Plan</h2>
-              <div class="goal-list" transition:fade>
+              <IntersectionObserver
+              once
+              element={observableElem}
+              bind:intersecting>
+              <div bind:this={observableElem} class="goal-list" transition:fade>
                 {#each goals as goal, index}
                   <div 
                     bind:this={goalRefs[goal.id]}
@@ -529,6 +533,7 @@ onMount(() => {
                   {/if}
                 {/each}
               </div>
+            </IntersectionObserver>
             </div>
             
             <div style="width: 100%;display: flex;flex-direction:row;align-items:center;justify-content:space-between;margin-top:40px;">
@@ -550,13 +555,7 @@ onMount(() => {
                   </div>
                 {/if}
               </div>
-              <!-- INTERSECTION STUFF -->
-               <IntersectionObserver
-               once
-               element={observableElem}
-               bind:intersecting>
-              <img bind:this={observableElem} class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
-                </IntersectionObserver>
+              <img class="fp-student-success-logo" alt="fp-student-success-logo" src="/student_success_logo.webp">
             </div>
           </div>
         {/if}
