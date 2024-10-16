@@ -12,6 +12,7 @@
     import { tick } from 'svelte';
     import AddToCalendar from '$lib/AddToCalendar.svelte'
     import IntersectionObserver from "svelte-intersection-observer";
+    import { supabase } from '$lib/supabaseClient';
     
     //******** DOCS INTEGRATION ********//
     const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
@@ -65,6 +66,18 @@
     let formattedEndDate;
 
     async function fetchGoogleDoc() {
+        // Get associated doc_id
+        const { data, error } = await supabase
+        .from('assignments')
+        .select('doc_id')
+        .eq('title', atype);
+
+        if (error) {
+            console.error('Error fetching doc_ids:', error);
+        }
+
+        console.log(data);
+
         atype = $page.url.searchParams.get('atype');
         const response = await fetch(`/api/get-google-doc?docID=${docIDs[atype]}`);
         if (!response.ok) {
