@@ -34,7 +34,7 @@
 
     let introBlurbContent = "test" + "<br>" + "test";
     let introBlurb;
-    let unmountStorageIntroBlurb = null;
+    let unmountStorageIntroBlurb = "";
     let goals = [];
     let accessibility;
 
