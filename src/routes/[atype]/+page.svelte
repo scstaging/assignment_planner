@@ -66,6 +66,9 @@
     let formattedEndDate;
 
     async function fetchGoogleDoc() {
+        // Get assignment type
+        atype = $page.url.searchParams.get('atype');
+
         // Get associated doc_id
         const { data, error } = await supabase
         .from('assignments')
@@ -80,7 +83,6 @@
 
         console.log(data);
 
-        atype = $page.url.searchParams.get('atype');
         const response = await fetch(`/api/get-google-doc?docID=${docIDs[atype]}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
