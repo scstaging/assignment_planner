@@ -444,6 +444,7 @@ onMount(() => {
     function openFirstGoal()
     {
         console.log(intersecting);
+        console.log(unmountStorageIntroBlurb);
         if (unmountStorageIntroBlurb)
             selectedGoal = goals[0];
     }
