@@ -535,7 +535,7 @@ onMount(() => {
                     <div style="display: flex;flex-direction:column;width:100%;">
                         <div style="display: flex;flex-direction:row;justify-content:space-between;width:100%;align-items:center;">
                             <h2 style="font-size:1.6vw;">Step {goal.id+2}: {goal.title}</h2>
-                            {#if goal.title != "Review your graded work"}
+                            {#if goal.title != "Review your graded work" || goal.title != "Get speaking"}
                                 <h2 style="margin-right:40px;font-size:1.6vw;">Complete by {goal.dueDate}</h2>
                             {/if}
                         </div>
