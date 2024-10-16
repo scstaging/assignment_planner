@@ -93,6 +93,19 @@
         }
     });
 
+    // Helper function to apply text replacements
+    function applyTextReplacements(text) {
+        // Replace {Title~Link} with <a href="Link">Title</a>
+        text = text.replace(/{([^~}]+)~([^}]+)}/g, '<a href="$2">$1</a>');
+        // Replace $$some text$$ with <em>some text</em>
+        text = text.replace(/\$\$(.+?)\$\$/g, '<em>$1</em>');
+        // Replace [...] with styled <p> tags
+        text = text.replace(/\[([^\]]+)\]/g, '<p style="padding: 20px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">$1</p>');
+        // Replace '+' with '<br>'
+        text = text.replace(/\+/g, '<br>');
+        return text;
+    }
+
     // Split text into lines
     const lines = text.split('\n');
     let currentGoal = null;
@@ -104,16 +117,11 @@
     lines.forEach(line => {
         if (line.startsWith('&')) {
             introBlurbContent = line.slice(1).trim();
-            introBlurbContent = introBlurbContent.replace(/\+/g, '<br>');
-
-            // Updated regex to handle {Title~Link} pattern
-            introBlurbContent = introBlurbContent.replace(/{([^~}]+)~([^}]+)}/g, '<a href="$2">$1</a>');
-
-            introBlurbContent = introBlurbContent.replace(/\[([^\]]+)\]/g, '<p style="padding: 20px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">$1</p>');
+            introBlurbContent = applyTextReplacements(introBlurbContent);
         } else if (line.startsWith('#')) {
             if (currentGoal) {
-                // Apply the same replacement to goal descriptions before pushing
-                currentGoal.goalDescript = currentGoal.goalDescript.replace(/{([^~}]+)~([^}]+)}/g, '<a href="$2">$1</a>');
+                // Apply text replacements to goal descriptions before pushing
+                currentGoal.goalDescript = applyTextReplacements(currentGoal.goalDescript);
                 goals.push(currentGoal);
                 IDindex++;
             }
@@ -143,8 +151,8 @@
     });
 
     if (currentGoal) {
-        // Apply the replacement to the last goal description
-        currentGoal.goalDescript = currentGoal.goalDescript.replace(/{([^~}]+)~([^}]+)}/g, '<a href="$2">$1</a>');
+        // Apply text replacements to the last goal description
+        currentGoal.goalDescript = applyTextReplacements(currentGoal.goalDescript);
         goals.push(currentGoal);
     }
 
