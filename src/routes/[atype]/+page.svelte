@@ -32,9 +32,9 @@
         "Poster Presentation": "17omHvESVC6-fAcPqH9Y23GiQlB8AzsgBG2qjHO2v1pU"
     };
 
-    let introBlurbContent = null;
+    let introBlurbContent = "test" + "<br>" + "test";
     let introBlurb;
-    let unmountStorageIntroBlurb = "";
+    let unmountStorageIntroBlurb = null;
     let goals = [];
     let accessibility;
 
@@ -443,10 +443,8 @@ onMount(() => {
 
     function openFirstGoal()
     {
-        if (introBlurbContent)
-        {
-            selectedGoal = goals[0];   
-        }
+        if (unmountStorageIntroBlurb)
+            selectedGoal = goals[0];
     }
     //*********** END: OBSERVE FOR SCROLL ***********//
 
