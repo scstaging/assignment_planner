@@ -81,9 +81,7 @@
             return null;
         }
 
-        console.log(data);
-
-        const response = await fetch(`/api/get-google-doc?docID=${docIDs[atype]}`);
+        const response = await fetch(`/api/get-google-doc?docID=${data.doc_id}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
@@ -466,14 +464,18 @@ onMount(() => {
 
     //*********** OBSERVE FOR SCROLL ***********//
     let observableElem;
+    let scrollCounter = 0;
     let intersecting;
 
     $: intersecting ? openFirstGoal() : null;
 
     function openFirstGoal()
     {
-        if (openGoalScroll)
+        if (openGoalScroll && scrollCounter === 0)
+        {
             selectedGoal = goals[0];
+            scrollCounter++;   
+        }
     }
     //*********** END: OBSERVE FOR SCROLL ***********//
 
@@ -509,7 +511,6 @@ onMount(() => {
             <div class="goal-list-container" transition:fade>
               <h2 class="gp-goals-title" transition:fade>Plan</h2>
               <IntersectionObserver
-              once
               element={observableElem}
               bind:intersecting>
               <div bind:this={observableElem} class="goal-list" transition:fade>
