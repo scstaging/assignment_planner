@@ -33,7 +33,7 @@
 
     // Date picker selected date
     let selectedStartDate;
-    let selectedEndDate;
+    let selectedEndDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
 
     let plannerinfo = {
         startDate: null,
