@@ -181,7 +181,7 @@
     }, 500)
     setTimeout(() => {
         openGoalScroll = true;
-    })
+    }, 100)
   }
 
     function calculateDaysBetweenDates(date1, date2) {
