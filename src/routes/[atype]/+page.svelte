@@ -357,7 +357,7 @@ const accessibilitySelectGoal = (goal) => {
     goalRefs[goal.id].focus();
 
     // Speak Goal: goal due date, title, and description
-    let synth = new SpeechSynthesisUtterance(`By ${goal.dueDate} you should: ${goal.title}. ${goal.goalDescript}`);
+    let synth = new SpeechSynthesisUtterance(`Step: ${goal.dueDate} you should: ${goal.title}. ${goal.goalDescript}`);
                 
     const voices = speechSynthesis.getVoices();
     synth.voice = voices[0]; // Choose a specific voice
@@ -533,7 +533,7 @@ onMount(() => {
                     />
                     
                     <div style="display: flex;flex-direction:column;">
-                      <h2>By {goal.dueDate} you should: {goal.title}</h2>
+                      <h2>Step {goal.id+1}: {goal.title} &#9; {goal.dueDate}</h2>
                     </div>
                   </div>
       
