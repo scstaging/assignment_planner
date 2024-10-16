@@ -171,13 +171,17 @@
             .replace(/{[^}]+}/g, '') // Replace {link} with "link"
             .replace(/\[([^\]]+)\]/g, '$1'); // Remove square brackets but keep the content
     }
-
+    
+    openGoalScroll = false;
   function testFunction()
   {
     setTimeout(() => {
         setIntroBlurb();
         introBlurb = introBlurb;
     }, 500)
+    setTimeout(() => {
+        openGoalScroll = true;
+    })
   }
 
     function calculateDaysBetweenDates(date1, date2) {
@@ -443,9 +447,7 @@ onMount(() => {
 
     function openFirstGoal()
     {
-        console.log(intersecting);
-        console.log(unmountStorageIntroBlurb);
-        if (unmountStorageIntroBlurb)
+        if (openGoalScroll)
             selectedGoal = goals[0];
     }
     //*********** END: OBSERVE FOR SCROLL ***********//
