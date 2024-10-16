@@ -70,10 +70,12 @@
         const { data, error } = await supabase
         .from('assignments')
         .select('doc_id')
-        .eq('title', atype);
+        .eq('title', atype)
+        .single();
 
         if (error) {
             console.error('Error fetching doc_ids:', error);
+            return null;
         }
 
         console.log(data);
