@@ -343,7 +343,7 @@
             speechSynthesis.cancel(synth); // Bug override
             speechSynthesis.speak(synth);
 
-            plannerinfo.endDate = prompt("Enter an end date");
+            plannerinfo.endDate = prompt("Enter a due date");
 
             // Override conditional
             selectedStartDate = plannerinfo.startDate;
@@ -488,7 +488,7 @@
                     {#if selectedStartDate != undefined}
                         <div transition:fade>
                             <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
-                            <p class="under-date-text">End Date</p>
+                            <p class="under-date-text">Due Date</p>
                         </div>
                     {/if}
                 </div>
@@ -556,7 +556,7 @@
                     {#if selectedStartDate != undefined}
                         <div transition:fade>
                             <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
-                            <p class="under-date-text">End Date</p>
+                            <p class="under-date-text">Due Date</p>
                         </div>
                     {/if}
                     <div style="background: {startButtonColor};width:80%;" class="m-fp-confirm-button"
