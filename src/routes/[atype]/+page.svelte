@@ -172,7 +172,7 @@
             .replace(/\[([^\]]+)\]/g, '$1'); // Remove square brackets but keep the content
     }
     
-    openGoalScroll = false;
+    let openGoalScroll = false;
   function testFunction()
   {
     setTimeout(() => {
