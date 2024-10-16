@@ -533,9 +533,9 @@ onMount(() => {
                     />
                     
                     <div style="display: flex;flex-direction:column;width:100%;">
-                        <div style="display: flex;flex-direction:row;width:100%;align-items:center;">
-                            <h2 style="font-size:1.7vw;margin-right:40px;">Step {goal.id+2}: {goal.title}</h2>
-                            <h2 style="font-size:1.7vw;">Complete by {goal.dueDate}</h2>
+                        <div style="display: flex;flex-direction:row;justify-content:space-between;width:100%;align-items:center;">
+                            <h2 style="font-size:1.6vw;">Step {goal.id+2}: {goal.title}</h2>
+                            <h2 style="margin-right:40px;font-size:1.6vw;">Complete by {goal.dueDate}</h2>
                         </div>
                     </div>
                   </div>
