@@ -532,10 +532,10 @@ onMount(() => {
                       checked={isChecked(goal)}
                     />
                     
-                    <div style="display: flex;flex-direction:column;">
+                    <div style="display: flex;flex-direction:column;width:100%;">
                         <div style="display: flex;flex-direction:row;justify-content:space-between;width:100%;">
                             <h2>Step {goal.id+2}: {goal.title}</h2>
-                            <h2>{goal.dueDate}</h2>
+                            <h2 style="margin-right:40px;">Complete by: {goal.dueDate}</h2>
                         </div>
                     </div>
                   </div>
