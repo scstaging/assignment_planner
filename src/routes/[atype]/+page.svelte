@@ -546,7 +546,9 @@ onMount(() => {
                     <div transition:fade style="display: flex;flex-direction:column;margin-bottom:40px;">
                       <p style="margin-bottom:40px;" class="gp-descript" out:fade in:fade={{ delay: 1000 }}>{goal.goalDescript}</p>
                       
-                      <h2 class="gp-goals-title" transition:fade>Helpful Links</h2>
+                      {#if selectedGoal.links.length != 0}
+                        <h2 class="gp-goals-title" transition:fade>Helpful Links</h2>
+                      {/if}
       
                       {#each goal.links as link, linkIndex}
                         <div style="margin-top:40px;">
