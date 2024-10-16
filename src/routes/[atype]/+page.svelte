@@ -533,7 +533,7 @@ onMount(() => {
                     />
                     
                     <div style="display: flex;flex-direction:column;">
-                      <h2>Step {goal.id+1}: {goal.title} &#9; {goal.dueDate}</h2>
+                      <h2>Step {goal.id+2}: {goal.title} &emsp; {goal.dueDate}</h2>
                     </div>
                   </div>
       
