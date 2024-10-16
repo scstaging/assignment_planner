@@ -484,6 +484,7 @@ onMount(() => {
             <div class="goal-list-container" transition:fade>
               <h2 class="gp-goals-title" transition:fade>Plan</h2>
               <IntersectionObserver
+              once
               element={observableElem}
               bind:intersecting>
               <div bind:this={observableElem} class="goal-list" transition:fade>
