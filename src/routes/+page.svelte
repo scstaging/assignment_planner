@@ -371,7 +371,7 @@
 
     // Alphabetical order
     function sortByTitle(arr) {
-        return arr.sort((a, b) => {
+        arr.sort((a, b) => {
             const titleA = a.title.toUpperCase(); // Ignore case
             const titleB = b.title.toUpperCase(); // Ignore case
 
@@ -383,6 +383,16 @@
             }
             return 0; // Titles are equal
         });
+        for (let i = 0; i < arr.length; i++)
+        {
+            if (arr[i].title === "Research Paper or Analytical Essay")
+            {
+                let temp = arr[0];
+                arr[0] = arr[i];
+                arr[i] = temp;
+            }
+        }
+        return arr;
     }
 </script>
 
