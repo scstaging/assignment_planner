@@ -538,8 +538,8 @@ onMount(() => {
                                 <h2 style="font-size:1.5vw;">Step {goal.id+2}: {goal.title}</h2>
                             </div>
                             {#if goal.title != "Review your graded work" && goal.title != "Get speaking"}
-                            <div style="width: 50%;">
-                                <h2 style="margin-right:40px;font-size:1.5vw;">Complete by {goal.dueDate}</h2>
+                            <div style="width: 50%;display:flex;justify-content:flex-end;margin-right:40px;">
+                                <h2 style="font-size:1.5vw;">Complete by {goal.dueDate}</h2>
                             </div>
                             {/if}
                         </div>
