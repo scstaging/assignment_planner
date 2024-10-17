@@ -597,7 +597,7 @@ onMount(() => {
                   <div class="progress-container">
                     <div class="progress-bar" style="width: {totalPercent}%;"></div>
                   </div> -->
-                  <div style="width: 50%;" on:click={saveExpandedPageAsHtml} class="fp-start-button">
+                  <div style="width: 40%;" on:click={saveExpandedPageAsHtml} class="fp-start-button">
                     <h2 class="fp-start-date-text">Save Assignment Plan</h2>
                   </div>
                 {/if}
@@ -802,7 +802,7 @@ onMount(() => {
         transform: scale(1.1);
     }
     .fp-start-date-text {
-        font-size: 1em;
+        font-size: 1vw;
         color: white;
         font-weight: 300;
         font-family: "Montserrat", sans-serif;
