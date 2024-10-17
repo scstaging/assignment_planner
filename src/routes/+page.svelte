@@ -542,7 +542,7 @@
                     </div>
                     {#each assignments as assignment}
                         <div class="grid-assign">
-                            <img on:click={selectAssignmentType} id={assignment.title} class="m-grid-item" alt={assignment.title} src={assignment.icon}>
+                            <img on:click={selectAssignmentType} id={assignment.title} class="m-grid-item" alt={assignment.title} src={assignment.icon_url}>
                             <h2 style="font-weight: 600;font-size:4.0vmin;margin:0;margin-bottom:50px;">{assignment.title}</h2>
                         </div>
                     {/each}
