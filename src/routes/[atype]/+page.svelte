@@ -523,14 +523,14 @@ onMount(() => {
                     class="gp-goal"
                     on:click={() => accessibilitySelectGoal(goal)}>
       
-                    <!-- <input id={goal.id} type="checkbox" class="checkbox"
+                    <input id={goal.id} type="checkbox" class="checkbox"
                       on:click={(e) => e.stopPropagation()}
                       on:change={(e) => {
                         e.stopPropagation();  // Prevent change event from bubbling up
                         accessibilityToggleGoal(goal);
                       }}
                       checked={isChecked(goal)}
-                    /> -->
+                    />
                     
                     <div style="display: flex;flex-direction:column;width:100%;">
                         <div style="display: flex;flex-direction:row;justify-content:space-between;width:100%;align-items:center;">
@@ -586,7 +586,7 @@ onMount(() => {
             <div style="width: 100%;display: flex;flex-direction:row;align-items:center;justify-content:space-between;margin-top:40px;">
               {#each goals as goal}
                 {#if selectedGoal?.id === goal.id}
-                <div style="width: 30%;" on:click={saveExpandedPageAsHtml} class="fp-start-button">
+                <div style="width: 50%;" on:click={saveExpandedPageAsHtml} class="fp-start-button">
                   <h2 class="fp-start-date-text">Save Assignment Plan</h2>
                 </div>
                 {/if}
@@ -597,7 +597,7 @@ onMount(() => {
                   <div class="progress-container">
                     <div class="progress-bar" style="width: {totalPercent}%;"></div>
                   </div> -->
-                  <div style="width: 40%;" on:click={saveExpandedPageAsHtml} class="fp-start-button">
+                  <div style="width: 50%;" on:click={saveExpandedPageAsHtml} class="fp-start-button">
                     <h2 class="fp-start-date-text">Save Assignment Plan</h2>
                   </div>
                 {/if}
