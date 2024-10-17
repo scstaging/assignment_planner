@@ -586,7 +586,7 @@ onMount(() => {
             <div style="width: 100%;display: flex;flex-direction:row;align-items:center;justify-content:space-between;margin-top:40px;">
               {#each goals as goal}
                 {#if selectedGoal?.id === goal.id}
-                <div style="width: 50%;" on:click={saveExpandedPageAsHtml} class="fp-start-button">
+                <div style="width: 30%;" on:click={saveExpandedPageAsHtml} class="fp-start-button">
                   <h2 class="fp-start-date-text">Save Assignment Plan</h2>
                 </div>
                 {/if}
@@ -803,6 +803,7 @@ onMount(() => {
     }
     .fp-start-date-text {
         font-size: 1vw;
+        padding: 20px;
         color: white;
         font-weight: 300;
         font-family: "Montserrat", sans-serif;
