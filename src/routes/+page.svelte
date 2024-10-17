@@ -33,7 +33,7 @@
 
     // Date picker selected date
     let selectedStartDate;
-    let selectedEndDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+    let selectedEndDate;
 
     let plannerinfo = {
         startDate: null,
@@ -385,7 +385,7 @@
         });
         for (let i = 0; i < arr.length; i++)
         {
-            if (arr[i].title === "Research Paper or Analytical Essay")
+            if (arr[i].title === "Analytical Essay or Research Paper")
             {
                 let temp = arr[0];
                 arr[0] = arr[i];
@@ -394,6 +394,12 @@
         }
         return arr;
     }
+
+    // Get today's date
+    let today = new Date();
+
+    // Calculate the next month (0-indexed, so 11 is December)
+    let nextMonth = today.getMonth() + 1;
 </script>
 
 <!-- WEB LAYOUT -->
@@ -487,7 +493,7 @@
                     </div>
                     {#if selectedStartDate != undefined}
                         <div transition:fade>
-                            <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
+                            <SveltyPicker startView={1} pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
                             <p class="under-date-text">Due Date</p>
                         </div>
                     {/if}
