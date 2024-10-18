@@ -539,7 +539,9 @@ onMount(() => {
                             </div>
                             {#if goal.title != "Review your graded work" && goal.title != "Get speaking"}
                             <div style="width: 50%;display:flex;justify-content:flex-end;margin-right:40px;">
-                                <h2 style="font-size:1.6vw;">Complete by {goal.dueDate}</h2>
+                                <div style="display: flex;flex-direction:row;justify-content:flex-start;">
+                                    <h2 style="font-size:1.6vw;">Complete by {goal.dueDate}</h2>
+                                </div>
                             </div>
                             {/if}
                         </div>
