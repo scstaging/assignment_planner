@@ -31,8 +31,17 @@
     // Datepicker dropdown bool
     let startDatePickerVisible = false;
 
+    function getTodayDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const day = String(today.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+        return formattedDate;
+    }
+
     // Date picker selected date
-    let selectedStartDate;
+    let selectedStartDate = getTodayDate();
     let selectedEndDate;
 
     let plannerinfo = {
@@ -481,23 +490,21 @@
         {/if}
             <div style="display: flex;flex-direction: column;align-items:center;justify-content:center;" transition:fade>
                 {#if simpleEndDate != undefined}
-                    <h2 transition:fade style="color: black;font-size:2.2em;" class="fp-start-date-text">{simpleStartDate + " - " + simpleEndDate}</h2>
+                    <h2 transition:fade style="color: black;font-size:2.2em;font-weight:600;" class="fp-start-date-text">{simpleStartDate + " - " + simpleEndDate}</h2>
                 {/if}
                 {#if warningDateMessage && simpleEndDate === undefined}
                     <h2 in:fade style="color: black;font-size:2.2em;" class="fp-start-date-text">You must select a date to continue.</h2>
                 {/if}
-                <div style="width:50vw;display: flex;flex-direction:row;justify-content:space-between;">
-                    <div>
+                    <!-- <div>
                         <SveltyPicker weekStart={0} pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
                         <p class="under-date-text">Start Date</p>
-                    </div>
+                    </div> -->
                     {#if selectedStartDate != undefined}
-                        <div transition:fade>
+                        <div style="display: flex;flex-direction:column;align-items:center;" transition:fade>
                             <SveltyPicker startView={1} pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
-                            <p class="under-date-text">Due Date</p>
+                            <p class="under-date-text">Enter the due date of the assignment</p>
                         </div>
                     {/if}
-                </div>
                 <div style="background: {startButtonColor};" class="fp-start-button"
                     on:click={generateAssignment}>
                     <h2 class="fp-start-date-text">Press to confirm</h2>
