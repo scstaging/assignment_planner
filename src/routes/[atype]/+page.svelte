@@ -802,7 +802,8 @@ onMount(() => {
         transform: scale(1.1);
     }
     .fp-start-date-text {
-        font-size: 1vw;
+        font-size: 1.3vw;
+        font-weight: 500;
         padding: 20px;
         color: white;
         font-weight: 300;
