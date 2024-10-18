@@ -625,15 +625,15 @@ onMount(() => {
             <div class="goal-list" transition:fade>
                 {#each goals as goal}
                     <div style="{selectedGoal?.id === goal.id ? "background-color: rgb(145, 35, 56, 0.36)" : "white"};box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;" class="gp-goal" on:click={() => selectGoal(goal)}>
-                        <input style="background-color: white;" id={goal.id} type="checkbox" class="checkbox"
+                        <!-- <input style="background-color: white;" id={goal.id} type="checkbox" class="checkbox"
                         on:click={(e) => e.stopPropagation()}
                         on:change={(e) => {
                             e.stopPropagation(); // Prevent change event from bubbling up
                             toggleGoal(goal)
                         }}
                         checked={isChecked(goal)}
-                        />
-                        <div style="display: flex;flex-direction:column;">
+                        /> -->
+                        <div style="display: flex;flex-direction:column;margin-left:20px;">
                             <h2>By {goal.dueDate} you should: {goal.title}</h2>
                         </div>
                     </div>
@@ -853,7 +853,7 @@ onMount(() => {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    margin-top: 80px;
+    margin-top: 100px;
 }
 /* END: MOBILE STYLES */
 
