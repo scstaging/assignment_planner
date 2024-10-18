@@ -562,14 +562,14 @@
                     <div style="margin-bottom: 20px;" on:click={backButton} transition:fade class="m-back-button">
                         <h2 class="m-button-text">Back</h2>
                     </div>
-                    <div>
+                    <!-- <div>
                         <SveltyPicker pickerOnly startDate={new Date()} bind:value={selectedStartDate} />
                         <p class="under-date-text">Start Date</p>
-                    </div>
+                    </div> -->
                     {#if selectedStartDate != undefined}
-                        <div transition:fade>
-                            <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
-                            <p class="under-date-text">Due Date</p>
+                        <div style="display: flex;flex-direction:column;align-items:center;" transition:fade>
+                            <SveltyPicker startView={1} pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
+                            <p class="under-date-text">Enter the due date of the assignment</p>
                         </div>
                     {/if}
                     <div style="background: {startButtonColor};width:80%;" class="m-fp-confirm-button"
