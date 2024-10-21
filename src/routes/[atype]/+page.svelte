@@ -521,7 +521,6 @@ onMount(() => {
                     aria-live="polite"
                     style="{selectedGoal?.id === goal.id ? 'background-color: rgba(255,85,0,1)' : 'white'};box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;"
                     class="gp-goal"
-                    on:mouseover={console.log("over")}
                     on:click={() => accessibilitySelectGoal(goal)}>
       
                     <input id={goal.id} type="checkbox" class="checkbox"
