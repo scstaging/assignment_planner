@@ -109,7 +109,7 @@
     let warningDateMessage = false;
     function generateAssignment()
     {
-        if (selectedStartDate)
+        if (selectedEndDate)
         {
             closeStartDatePicker();
             let atype = assignmentChoice;
