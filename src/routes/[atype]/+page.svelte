@@ -111,7 +111,7 @@
     // Helper function to apply text replacements
     function applyTextReplacements(text) {
         // Replace {Title~Link} with <a href="Link">Title</a>
-        text = text.replace(/{([^~}]+)~([^}]+)}/g, '<a href="$2">$1</a>');
+        text = text.replace(/{([^~}]+)~([^}]+)}/g, '<a target="_blank" href="$2">$1</a>');
         // Replace $$some text$$ with <em>some text</em>
         text = text.replace(/\$\$(.+?)\$\$/g, '<em>$1</em>');
         // Replace [...] with styled <p> tags
