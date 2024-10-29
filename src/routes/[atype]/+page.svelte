@@ -13,6 +13,7 @@
     import AddToCalendar from '$lib/AddToCalendar.svelte'
     import IntersectionObserver from "svelte-intersection-observer";
     import { supabase } from '$lib/supabaseClient';
+    import { scrollElement } from 'svelte-scrolling';
     
     //******** DOCS INTEGRATION ********//
     const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
@@ -355,6 +356,9 @@ const accessibilitySelectGoal = (goal) => {
   if (goalRefs[goal.id] && accessibility) {
     // Set focus to selected goal for screen reader
     goalRefs[goal.id].focus();
+
+    // Scroll to selected
+    scrollElement(goalRefs[goal.id]);
 
     // Speak Goal: goal due date, title, and description
     let synth = new SpeechSynthesisUtterance(`Step: ${goal.dueDate} you should: ${goal.title}. ${goal.goalDescript}`);
