@@ -42,7 +42,7 @@
 
     async function getAccessibility()
     {
-        accessibility = $page.url.searchParams.get('accessiblity');
+        return $page.url.searchParams.get('accessiblity');
     }
 
     function setIntroBlurb()
@@ -91,9 +91,8 @@
     const content = data.body.content;
     let text = '';
 
-    await getAccessibility();
+    accessibility = await getAccessibility();
 
-    
     if (accessibility)
         {
           setTimeout(() => {
