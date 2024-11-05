@@ -483,14 +483,13 @@ onMount(() => {
     //*********** ARROW ON CLICK ***********//
     let isRotated = {}; // Track rotation for each goal by ID
 
-    function toggleRotation(goal) {
-        if (selectedGoal?.id !== goal.id) {
-        // Reset all rotations if a different goal is selected
-        isRotated = {};
-        selectedGoal = goal;
-        }
-        // Toggle rotation for the clicked goal
-        isRotated = { ...isRotated, [goal.id]: !isRotated[goal.id] };
+    function toggleRotation(goalId) {
+        isRotated = { ...isRotated, [goalId]: !isRotated[goalId] };
+    }
+
+    // Watch for changes to selectedGoal and reset rotations
+    $: if (selectedGoal) {
+        isRotated = {}; // Reset all rotations when selectedGoal changes
     }
     //*********** END: ARROW ON CLICK ***********//
 
