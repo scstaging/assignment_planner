@@ -62,7 +62,7 @@
     let voices;
     const getVoices = () => {
     return new Promise((resolve) => {
-        let voices = speechSynthesis.getVoices();
+        voices = speechSynthesis.getVoices();
         if (voices.length !== 0) {
             resolve(voices);
         } else {
@@ -375,8 +375,6 @@ const accessibilitySelectGoal = (goal) => {
         let synth = new SpeechSynthesisUtterance(`Step: ${goal.id + 2}: ${goal.title}. ${goal.goalDescript}`);
 
         // Select a British Female voice
-
-        console.log(voices)
         synth.voice = voices.find(voice => voice.lang === 'en-GB' && voice.name.includes('Female')) || voices[0];
 
         // Speak the goal first
