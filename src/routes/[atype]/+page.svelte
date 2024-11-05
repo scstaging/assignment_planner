@@ -363,6 +363,8 @@ const accessibilitySelectGoal = (goal) => {
 
         // Select a British Female voice
         const voices = speechSynthesis.getVoices();
+
+        console.log(voices)
         synth.voice = voices.find(voice => voice.lang === 'en-GB' && voice.name.includes('Female')) || voices[0];
 
         // Speak the goal first
