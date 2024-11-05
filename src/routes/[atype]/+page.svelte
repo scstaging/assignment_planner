@@ -353,6 +353,9 @@ const accessibilityHandleKeyPress = (event) => {
 const accessibilitySelectGoal = (goal) => {
     selectedGoal = goal;
 
+    // Smooth scroll to the selected goal
+    goalRefs[goal.id]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
   if (goalRefs[goal.id] && accessibility) {
     // Set focus to selected goal for screen reader
     goalRefs[goal.id].focus();
