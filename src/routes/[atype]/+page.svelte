@@ -58,6 +58,21 @@
     let startDate;
     let endDate;
     let formattedEndDate;
+    
+    let voices;
+    const getVoices = () => {
+    return new Promise((resolve) => {
+        let voices = speechSynthesis.getVoices();
+        if (voices.length !== 0) {
+            resolve(voices);
+        } else {
+            speechSynthesis.onvoiceschanged = () => {
+                voices = speechSynthesis.getVoices();
+                resolve(voices);
+            };
+        }
+    });
+};
 
     async function fetchGoogleDoc() {
         // Get assignment type
@@ -92,6 +107,8 @@
     let text = '';
 
     accessibility = await getAccessibility();
+
+    await getVoices();
 
     // if (accessibility)
     //     readIntro("This is the goal page for your " + atype + " assignment plan. You can navigate through the goals of the plan using 1 to 9 and finally 0, and for each goal, you can access it's helpful links using Alt + 1 to 9 and finally 0.");
@@ -178,10 +195,6 @@
   {
     // Speak Goal: goal due date, title, and description
     let synth = new SpeechSynthesisUtterance(text);
-                
-    // Select a voice
-    const voices = speechSynthesis.getVoices();
-    synth.voice = voices[0]; // Choose a specific voice
             
     // Speak the goal first
     speechSynthesis.speak(synth);
@@ -362,7 +375,6 @@ const accessibilitySelectGoal = (goal) => {
         let synth = new SpeechSynthesisUtterance(`Step: ${goal.id + 2}: ${goal.title}. ${goal.goalDescript}`);
 
         // Select a British Female voice
-        const voices = speechSynthesis.getVoices();
 
         console.log(voices)
         synth.voice = voices.find(voice => voice.lang === 'en-GB' && voice.name.includes('Female')) || voices[0];
