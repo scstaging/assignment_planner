@@ -44,21 +44,21 @@
     {
         introBlurb.innerHTML = introBlurbContent;
 
-        // // For voice reading
-        // let voiceIntroBlurb = introBlurbContent;
-        // voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
+        // For voice reading
+        let voiceIntroBlurb = introBlurbContent;
+        voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
 
         accessibility = $page.url.searchParams.get('accessiblity');
         console.log(accessibility);
 
-        accessibility = false;
+        // accessibility = false;
 
-        // if (accessibility)
-        // {
-        //   setTimeout(() => {
-        //     readIntro("This is the goal page for your " + atype + " assignment plan. You can navigate through the goals of the plan using 1 to 9 and finally 0, and for each goal, you can access it's helpful links using Alt + 1 to 9 and finally 0.");
-        //   }, 1000)
-        // }
+        if (accessibility)
+        {
+          setTimeout(() => {
+            readIntro("This is the goal page for your " + atype + " assignment plan. You can navigate through the goals of the plan using 1 to 9 and finally 0, and for each goal, you can access it's helpful links using Alt + 1 to 9 and finally 0.");
+          }, 1000)
+        }
     }
 
     let atype;
