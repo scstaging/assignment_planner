@@ -481,10 +481,10 @@ onMount(() => {
     //*********** END: OBSERVE FOR SCROLL ***********//
 
     //*********** ARROW ON CLICK ***********//
-    let isRotated = false;
+    let isRotated = {}; // Track rotation for each goal by ID
 
-    function toggleRotation() {
-        isRotated = !isRotated;
+    function toggleRotation(goalId) {
+    isRotated = { ...isRotated, [goalId]: !isRotated[goalId] };
     }
     //*********** END: ARROW ON CLICK ***********//
 
@@ -530,18 +530,12 @@ onMount(() => {
                     aria-live="polite"
                     style="{selectedGoal?.id === goal.id ? 'background-color: rgba(255,85,0,1)' : 'white'};box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;"
                     class="gp-goal"
-                    on:click={() => {toggleRotation();accessibilitySelectGoal(goal);}}>
-      
-                    <!-- <input id={goal.id} type="checkbox" class="checkbox"
-                      on:click={(e) => e.stopPropagation()}
-                      on:change={(e) => {
-                        e.stopPropagation();  // Prevent change event from bubbling up
-                        accessibilityToggleGoal(goal);
-                      }}
-                      checked={isChecked(goal)}
-                    /> -->
+                    on:click={() => {toggleRotation(goal.id);accessibilitySelectGoal(goal);}}>
 
-                    <img style="width: 30px;margin-right:20px;" class={isRotated ? 'rotated' : ''} src="arrow.png"/>
+                    <img 
+                    style="width: 30px;margin-right:20px;margin-left:10px;" 
+                    class={isRotated[goal.id] ? 'rotated' : ''} 
+                    src="arrow.png"/>
                     
                     <div style="display: flex;flex-direction:column;width:100%;">
                         <div style="display: flex;flex-direction:row;justify-content:space-between;width:100%;align-items:center;">
