@@ -93,8 +93,8 @@
 
     accessibility = await getAccessibility();
 
-    if (accessibility)
-        readIntro("This is the goal page for your " + atype + " assignment plan. You can navigate through the goals of the plan using 1 to 9 and finally 0, and for each goal, you can access it's helpful links using Alt + 1 to 9 and finally 0.");
+    // if (accessibility)
+    //     readIntro("This is the goal page for your " + atype + " assignment plan. You can navigate through the goals of the plan using 1 to 9 and finally 0, and for each goal, you can access it's helpful links using Alt + 1 to 9 and finally 0.");
 
     // Extract text from the content
     content.forEach(element => {
@@ -359,10 +359,10 @@ const accessibilitySelectGoal = (goal) => {
     goalRefs[goal.id].focus();
 
     // Speak Goal: goal due date, title, and description
-    let synth = new SpeechSynthesisUtterance(`Step: ${goal.dueDate} you should: ${goal.title}. ${goal.goalDescript}`);
+    let synth = new SpeechSynthesisUtterance(`Step: ${goal.goalId + 2}: ${goal.title}. ${goal.goalDescript}`);
                 
     const voices = speechSynthesis.getVoices();
-    synth.voice = voices[0]; // Choose a specific voice
+    synth.voice = voices[5]; // Choose a specific voice
 
     // Speak the goal first
     speechSynthesis.speak(synth);
@@ -372,7 +372,7 @@ const accessibilitySelectGoal = (goal) => {
       let linksSynth = new SpeechSynthesisUtterance("Helpful links: ");
 
       const voices = speechSynthesis.getVoices();
-      linksSynth.voice = voices[0]; // Choose a specific voice
+      linksSynth.voice = voices[5]; // Choose a specific voice
       speechSynthesis.speak(linksSynth);
 
       // Queue the links after "Helpful links" is spoken
