@@ -49,7 +49,7 @@
         voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
 
         accessibility = $page.url.searchParams.get('accessiblity');
-        console.log(accessibility);
+        console.log("This is accessibility: " + accessibility);
 
         // accessibility = false;
 
