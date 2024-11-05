@@ -40,6 +40,11 @@
     let goals = [];
     let accessibility;
 
+    async function getAccessibility()
+    {
+        accessibility = $page.url.searchParams.get('accessiblity');
+    }
+
     function setIntroBlurb()
     {
         introBlurb.innerHTML = introBlurbContent;
@@ -47,11 +52,6 @@
         // For voice reading
         let voiceIntroBlurb = introBlurbContent;
         voiceIntroBlurb = formatStringForVoice(voiceIntroBlurb);
-
-        accessibility = $page.url.searchParams.get('accessiblity');
-        console.log("This is accessibility: " + accessibility);
-
-        // accessibility = false;
 
         if (accessibility)
         {
@@ -97,6 +97,8 @@
     const data = await fetchGoogleDoc();
     const content = data.body.content;
     let text = '';
+
+    await getAccessibility();
 
     // Extract text from the content
     content.forEach(element => {
