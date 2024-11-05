@@ -358,53 +358,35 @@ const accessibilitySelectGoal = (goal) => {
         // Set focus to selected goal for screen reader
         goalRefs[goal.id].focus();
 
-        // Function to perform speech synthesis once voices are loaded
-        const speakGoal = () => {
-            // Speak Goal: goal due date, title, and description
-            let synth = new SpeechSynthesisUtterance(`Step: ${goal.id + 2}: ${goal.title}. ${goal.goalDescript}`);
+        // Speak Goal: goal due date, title, and description
+        let synth = new SpeechSynthesisUtterance(`Step: ${goal.id + 2}: ${goal.title}. ${goal.goalDescript}`);
 
-            // Select a British Female voice
-            const voices = speechSynthesis.getVoices();
+        // Select a British Female voice
+        const voices = speechSynthesis.getVoices();
+        synth.voice = voices.find(voice => voice.lang === 'en-GB' && voice.name.includes('Female')) || voices[0];
 
-            // Try to find a British Female voice
-            synth.voice = voices.find(voice => 
-                voice.lang === 'en-GB' && (
-                    voice.name.toLowerCase().includes('female') ||
-                    voice.name.toLowerCase().includes('woman') ||
-                    voice.name.toLowerCase().includes('girl')
-                )
-            ) || voices.find(voice => voice.lang === 'en-GB') || voices[0];
+        // Speak the goal first
+        speechSynthesis.speak(synth);
 
-            // Speak the goal first
-            speechSynthesis.speak(synth);
+        // After the first utterance ends, queue "Helpful links"
+        synth.onend = () => {
+            let linksSynth = new SpeechSynthesisUtterance("Helpful links:");
 
-            // After the first utterance ends, queue "Helpful links"
-            synth.onend = () => {
-                let linksSynth = new SpeechSynthesisUtterance("Helpful links:");
+            // Set the British Female voice for linksSynth
+            linksSynth.voice = synth.voice;
+            speechSynthesis.speak(linksSynth);
 
-                // Set the British Female voice for linksSynth
-                linksSynth.voice = synth.voice;
-                speechSynthesis.speak(linksSynth);
+            // Queue the links after "Helpful links" is spoken
+            linksSynth.onend = () => {
+                for (let i = 0; i < goal.links.length; i++) {
+                    let linkSynth = new SpeechSynthesisUtterance(`Alt, plus ${i + 1}: ${goal.links[i].title}`);
 
-                // Queue the links after "Helpful links" is spoken
-                linksSynth.onend = () => {
-                    for (let i = 0; i < goal.links.length; i++) {
-                        let linkSynth = new SpeechSynthesisUtterance(`Alt, plus ${i + 1}: ${goal.links[i].title}`);
-
-                        // Set the British Female voice for each link
-                        linkSynth.voice = synth.voice;
-                        speechSynthesis.speak(linkSynth);
-                    }
-                };
+                    // Set the British Female voice for each link
+                    linkSynth.voice = synth.voice;
+                    speechSynthesis.speak(linkSynth);
+                }
             };
         };
-
-        if (speechSynthesis.getVoices().length === 0) {
-            // Wait for voices to be loaded before speaking
-            speechSynthesis.onvoiceschanged = speakGoal;
-        } else {
-            speakGoal();
-        }
     }
 };
 
