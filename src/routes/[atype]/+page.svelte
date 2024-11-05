@@ -354,39 +354,37 @@ const accessibilitySelectGoal = (goal) => {
     // Smooth scroll to the selected goal
     goalRefs[goal.id]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-  if (goalRefs[goal.id] && accessibility) {
-    // Set focus to selected goal for screen reader
-    goalRefs[goal.id].focus();
+    if (goalRefs[goal.id] && accessibility) {
+        // Set focus to selected goal for screen reader
+        goalRefs[goal.id].focus();
 
-    // Speak Goal: goal due date, title, and description
-    let synth = new SpeechSynthesisUtterance(`Step: ${goal.id + 2}: ${goal.title}. ${goal.goalDescript}`);
-                
-    const voices = speechSynthesis.getVoices();
-    synth.voice = voices[5]; // Choose a specific voice
+        // Retrieve voices and find a British Female voice
+        const voices = speechSynthesis.getVoices();
+        const britishFemaleVoice = voices.find(voice => voice.lang === "en-GB" && voice.name.includes("Female"));
 
-    // Speak the goal first
-    speechSynthesis.speak(synth);
+        // Speak the goal's step, title, and description
+        let synth = new SpeechSynthesisUtterance(`Step: ${goal.id + 2}: ${goal.title}. ${goal.goalDescript}`);
+        synth.voice = britishFemaleVoice || voices[0]; // Fallback to default if not found
 
-    // After the first utterance ends, queue "Helpful links"
-    synth.onend = () => {
-      let linksSynth = new SpeechSynthesisUtterance("Helpful links: ");
+        // Speak the goal description
+        speechSynthesis.speak(synth);
 
-      const voices = speechSynthesis.getVoices();
-      linksSynth.voice = voices[5]; // Choose a specific voice
-      speechSynthesis.speak(linksSynth);
+        // After the goal description, speak "Helpful links"
+        synth.onend = () => {
+            let linksSynth = new SpeechSynthesisUtterance("Helpful links:");
+            linksSynth.voice = britishFemaleVoice || voices[0];
+            speechSynthesis.speak(linksSynth);
 
-      // Queue the links after "Helpful links" is spoken
-      linksSynth.onend = () => {
-        for (let i = 0; i < goal.links.length; i++) {
-          let linkSynth = new SpeechSynthesisUtterance(`Alt, plus ${i + 1}: ${goal.links[i].title}`);
-          
-          const voices = speechSynthesis.getVoices();
-          linksSynth.voice = voices[0]; // Choose a specific voice
-          speechSynthesis.speak(linkSynth);
-        }
-      };
-    };
-  }
+            // Queue each link after "Helpful links" is spoken
+            linksSynth.onend = () => {
+                goal.links.forEach((link, i) => {
+                    let linkSynth = new SpeechSynthesisUtterance(`Alt, plus ${i + 1}: ${link.title}`);
+                    linkSynth.voice = britishFemaleVoice || voices[0];
+                    speechSynthesis.speak(linkSynth);
+                });
+            };
+        };
+    }
 };
 
 // Attach the event listener on mount
