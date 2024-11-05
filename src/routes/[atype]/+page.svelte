@@ -524,14 +524,16 @@ onMount(() => {
                     class="gp-goal"
                     on:click={() => accessibilitySelectGoal(goal)}>
       
-                    <input id={goal.id} type="checkbox" class="checkbox"
+                    <!-- <input id={goal.id} type="checkbox" class="checkbox"
                       on:click={(e) => e.stopPropagation()}
                       on:change={(e) => {
                         e.stopPropagation();  // Prevent change event from bubbling up
                         accessibilityToggleGoal(goal);
                       }}
                       checked={isChecked(goal)}
-                    />
+                    /> -->
+
+                    <img src="arrow.png"/>
                     
                     <div style="display: flex;flex-direction:column;width:100%;">
                         <div style="display: flex;flex-direction:row;justify-content:space-between;width:100%;align-items:center;">
