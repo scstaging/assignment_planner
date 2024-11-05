@@ -487,9 +487,13 @@ onMount(() => {
         isRotated = { ...isRotated, [goalId]: !isRotated[goalId] };
     }
 
-    // Watch for changes to selectedGoal and reset rotations
+    // Watch for changes to selectedGoal and reset rotations selectively
     $: if (selectedGoal) {
-        isRotated = {}; // Reset all rotations when selectedGoal changes
+        // Reset rotation for all other goals except the selected one
+        isRotated = Object.keys(isRotated).reduce((acc, key) => {
+            acc[key] = key === selectedGoal.id.toString() ? isRotated[key] : false;
+            return acc;
+        }, {});
     }
     //*********** END: ARROW ON CLICK ***********//
 
