@@ -351,7 +351,10 @@ const accessibilityHandleKeyPress = (event) => {
 };
 
 const accessibilitySelectGoal = (goal) => {
-  selectedGoal = goal;
+    // Arrow rotation
+    toggleRotation()
+  
+    selectedGoal = goal;
 
   if (goalRefs[goal.id] && accessibility) {
     // Set focus to selected goal for screen reader
@@ -480,6 +483,14 @@ onMount(() => {
     }
     //*********** END: OBSERVE FOR SCROLL ***********//
 
+    //*********** ARROW ON CLICK ***********//
+    let isRotated = false;
+
+    function toggleRotation() {
+        isRotated = !isRotated;
+    }
+    //*********** END: ARROW ON CLICK ***********//
+
 </script>
 
 {#await parseGoogleDocContent()}
@@ -533,7 +544,7 @@ onMount(() => {
                       checked={isChecked(goal)}
                     /> -->
 
-                    <img src="arrow.png"/>
+                    <img style="width: 30px;margin-right:20px;" class:isRotated src="arrow.png"/>
                     
                     <div style="display: flex;flex-direction:column;width:100%;">
                         <div style="display: flex;flex-direction:row;justify-content:space-between;width:100%;align-items:center;">
@@ -874,4 +885,8 @@ onMount(() => {
     font-family: "Montserrat", sans-serif;
   }
 /* END: TOOLTIP */
+.rotated {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+  }
 </style>
