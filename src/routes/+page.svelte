@@ -254,7 +254,6 @@
                 openStartDatePicker();
                 break;
             default:
-                console.log("not assignment");
                 break;
         }
     }
@@ -369,7 +368,6 @@
             console.error(error);
         } else {
             assignments = data;
-            console.log("assigned successfully")
         }
 
         assignments = sortByTitle(assignments);
