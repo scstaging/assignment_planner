@@ -107,6 +107,7 @@
     let text = '';
 
     accessibility = await getAccessibility();
+    accessibility = false;
 
     await getVoices();
 
@@ -511,7 +512,6 @@ onMount(() => {
     }
     //*********** END: ARROW ON CLICK ***********//
 
-    accessibility = false;
 </script>
 
 {#await parseGoogleDocContent()}
