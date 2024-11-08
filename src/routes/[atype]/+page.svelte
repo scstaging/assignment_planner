@@ -511,6 +511,7 @@ onMount(() => {
     }
     //*********** END: ARROW ON CLICK ***********//
 
+    accessibility = false;
 </script>
 
 {#await parseGoogleDocContent()}
