@@ -666,7 +666,7 @@ onMount(() => {
                             <h2>By {goal.dueDate} you should: {goal.title}</h2>
                         </div>
                     </div>
-                    {#if selectedGoal?.id === goal.id}
+                    {#if selectedGoal?.id === goal.id || goal.id === -1 && selectedGoal === null}
                     <div transition:fade style="display: flex;flex-direction:column;margin-bottom:40px;">
                         <p style="margin-bottom:40px;" class="gp-descript" out:fade in:fade={{
                             delay: 1000

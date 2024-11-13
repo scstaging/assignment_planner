@@ -566,7 +566,7 @@
                     </div> -->
                     {#if selectedStartDate != undefined}
                         <div style="display: flex;flex-direction:column;align-items:center;" transition:fade>
-                            <SveltyPicker startView={1} pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
+                            <SveltyPicker pickerOnly startDate={selectedStartDate} bind:value={selectedEndDate} />
                             <p class="under-date-text">Enter the due date of the assignment</p>
                         </div>
                     {/if}
