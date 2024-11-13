@@ -5,35 +5,16 @@
 
 <script>
     import { page } from '$app/stores';
-    import { fade, fly } from 'svelte/transition';
+    import { fade } from 'svelte/transition';
     import { goto } from '$app/navigation';
     import MediaQuery from 'svelte-media-queries'
-    import { onMount, onDestroy, afterUpdate } from 'svelte';
+    import { onMount } from 'svelte';
     import { tick } from 'svelte';
     import AddToCalendar from '$lib/AddToCalendar.svelte'
     import IntersectionObserver from "svelte-intersection-observer";
     import { supabase } from '$lib/supabaseClient';
-    import { scrollElement } from 'svelte-scrolling';
     
     //******** DOCS INTEGRATION ********//
-    const CLIENT_ID = '1093500828689-201d9rctp6jb6hilh0mjuaj0ta8d4i5u.apps.googleusercontent.com';
-    const API_KEY = 'AIzaSyDHf06lXDDPVFoqdlfhGr3G7CcyHNwsZNw';
-    const DISCOVERY_DOC = 'https://docs.googleapis.com/$discovery/rest?version=v1';
-    const SCOPES = 'https://www.googleapis.com/auth/documents.readonly';
-
-    let docIDs = {
-        "Annotated Bibliography": "1V2J5TQd7VOw57OOTCiJR1ZO1ATeb4jqN4Ss1PZLfVjA",
-        "Artist's Statement": "15hNNEm_TcCQzjwV1w5hGWLeDvFGcJvrg86JUKB_oddc",
-        "Analytical Essay or Research Paper": "1gGwD5fEqQgll1SuAHNoxNyWa5TXZksinUd0Fhn25jmM",
-        "Math PS Assignment": "13h47l1l6w30VYLyRl3h2sHNr8LzFrm5gjJzPsDGjyJc",
-        "Discussion Post": "1s5gJaxbJGhxEacaWMJtOTYi5RymBuQIoEWFpDroAPoA",
-        "Grammar and Linguistics Assignment": "18K6mJ7hnElymb1mJU1cno3hy7XptxdSh0Gmh23uY3YQ",
-        "Reflection or Response Paper": "1vNMvoXP1k9yb4IZDNajriQwmkfNZtf6-A_I4fNLXD6Q",
-        "Business Report": "1bajwPw8FGidGIie-7ZO7Yrx-U8HW8vuG-kkygmf8ak0",
-        "Literature Review": "1PLXrrPtFy__ISXmkNhScPevdNfj28dg_XXkP7nOfDwA",
-        "Poster Presentation": "17omHvESVC6-fAcPqH9Y23GiQlB8AzsgBG2qjHO2v1pU"
-    };
-
     let introBlurbContent = "test" + "<br>" + "test";
     let introBlurb;
     let unmountStorageIntroBlurb = "";
@@ -653,7 +634,7 @@ onMount(() => {
 
             <div class="goal-list" transition:fade>
                 {#each goals as goal}
-                    <div style="{selectedGoal?.id === goal.id ? "background-color: rgba(255,85,0,1);" : "white"};box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;" class="gp-goal" on:click={() => selectGoal(goal)}>
+                    <div style="{(selectedGoal?.id === goal.id || goal.id === -1 && selectedGoal === null) ? "background-color: rgba(255,85,0,1);" : "white"};box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;margin-bottom:15px;" class="m-gp-goal" on:click={() => selectGoal(goal)}>
                         <!-- <input style="background-color: white;" id={goal.id} type="checkbox" class="checkbox"
                         on:click={(e) => e.stopPropagation()}
                         on:change={(e) => {
@@ -735,6 +716,17 @@ onMount(() => {
         line-height: 30px;
     }
     .gp-goal {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        transition: .4s ease-in-out;
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.2em;
+        padding: 20px 0px 20px 0px;
+        cursor: pointer;
+    }
+    .m-gp-goal {
         width: 100%;
         display: flex;
         flex-direction: row;
