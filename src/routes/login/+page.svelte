@@ -14,8 +14,8 @@
     if (error) {
       errorMessage = error.message;
     } else {
-      // Redirect to admin portal
-      window.location.href = '/admin';
+      // IMPORTANT: Append fromLogin=true to the admin route
+      window.location.href = '/admin?fromLogin=true';
     }
   };
 </script>

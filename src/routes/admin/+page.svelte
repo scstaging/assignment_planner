@@ -5,7 +5,6 @@
   let user = null;
   let errorMessage = '';
   let successMessage = '';
-
   let assignments = [];
 
   // Fields for adding a new assignment
@@ -13,6 +12,7 @@
   let newDocId = '';
   let newIconFile;
 
+  // Fetches all assignments from Supabase
   const fetchAssignments = async () => {
     const { data, error } = await supabase.from('assignments').select('*');
     if (error) {
@@ -22,22 +22,38 @@
     }
   };
 
+  // Only allow entry if the user arrived from the login page + has a valid session
   onMount(async () => {
-    const { data } = await supabase.auth.getSession();
-    user = data.session?.user;
-    if (!user) {
-      // Redirect to login page if not authenticated
+    // Check for "fromLogin" query param
+    const params = new URLSearchParams(window.location.search);
+    const fromLogin = params.get('fromLogin');
+
+    // If there's no fromLogin param, redirect to login immediately
+    if (!fromLogin) {
       window.location.href = '/login';
-    } else {
-      // Fetch assignments when authenticated
-      await fetchAssignments();
+      return;
     }
+
+    // Check the current session
+    const { data } = await supabase.auth.getSession();
+    user = data?.session?.user;
+
+    // If no valid user in the session, redirect to login
+    if (!user) {
+      window.location.href = '/login';
+      return;
+    }
+
+    // User is valid and came from login, now fetch assignments
+    await fetchAssignments();
   });
 
+  // Uploads an icon file to storage
   const uploadIconFile = async (iconFile) => {
     // Generate a unique filename to prevent conflicts
     const uniqueId = Date.now();
     const fileName = `${uniqueId}_${iconFile.name}`;
+
     const { data, error } = await supabase.storage
       .from('icons')
       .upload(fileName, iconFile, {
@@ -48,6 +64,7 @@
     if (error) {
       throw error;
     }
+
     // Get the public URL of the uploaded file
     const { data: publicUrlData, error: urlError } = supabase.storage
       .from('icons')
@@ -60,6 +77,7 @@
     return { path: data.path, url: publicUrlData.publicUrl };
   };
 
+  // Handles adding a new assignment
   const handleAddAssignment = async () => {
     try {
       let iconData = null;
@@ -90,15 +108,18 @@
     }
   };
 
+  // Handles updating an existing assignment
   const handleUpdateAssignment = async (assignment) => {
     try {
       let iconUrl = assignment.icon_url;
       if (assignment.newIconFile) {
         // Delete old icon if it exists
         if (assignment.icon_url) {
-          // Extract the relative path to the icon
           const url = new URL(assignment.icon_url);
-          const iconPath = url.pathname.replace('/storage/v1/object/public/icons/', '');
+          const iconPath = url.pathname.replace(
+            '/storage/v1/object/public/icons/',
+            ''
+          );
           await supabase.storage.from('icons').remove([iconPath]);
         }
         // Upload new icon
@@ -128,15 +149,17 @@
     }
   };
 
+  // Handles deleting an assignment
   const handleDeleteAssignment = async (assignment) => {
     try {
-      // Delete the assignment from the database
-      const { error } = await supabase.from('assignments').delete().eq('id', assignment.id);
+      const { error } = await supabase
+        .from('assignments')
+        .delete()
+        .eq('id', assignment.id);
       if (error) {
         throw error;
       }
 
-      // Delete the icon from storage if it exists
       if (assignment.icon_url) {
         let relativeIconPath = assignment.icon_url.substring(
           assignment.icon_url.lastIndexOf('/') + 1
