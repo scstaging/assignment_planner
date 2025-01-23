@@ -353,12 +353,14 @@ const accessibilitySelectGoal = (goal) => {
     // Update selected goal
     selectedGoal = goal;
 
+    console.log(selectedGoal)
+
     // Smooth scroll to the selected goal
     goalRefs[goal.id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     if (goalRefs[goal.id] && accessibility) {
         // Set focus to selected goal for screen reader
-        // goalRefs[goal.id].focus({preventScroll: true});
+        goalRefs[goal.id].focus({preventScroll: true});
 
         // Speak Goal: goal due date, title, and description
         let synth = new SpeechSynthesisUtterance(`Step: ${goal.id + 2}: ${goal.title}. ${goal.goalDescript}`);
