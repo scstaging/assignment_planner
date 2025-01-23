@@ -346,7 +346,7 @@ const accessibilityHandleKeyPress = (event) => {
 const accessibilitySelectGoal = (goal) => {
     if (goal === selectedGoal)
     {
-        selectedGoal === null;
+        selectedGoal = null;
         return;
     }
 
