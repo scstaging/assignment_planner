@@ -347,7 +347,7 @@ const accessibilitySelectGoal = (goal) => {
     selectedGoal = goal;
 
     // Smooth scroll to the selected goal
-    goalRefs[goal.id]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    goalRefs[goal.id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     if (goalRefs[goal.id] && accessibility) {
         // Set focus to selected goal for screen reader
