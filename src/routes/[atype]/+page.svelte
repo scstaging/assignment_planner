@@ -358,7 +358,7 @@ const accessibilitySelectGoal = (goal) => {
 
     if (goalRefs[goal.id] && accessibility) {
         // Set focus to selected goal for screen reader
-        goalRefs[goal.id].focus({preventScroll: true});
+        // goalRefs[goal.id].focus({preventScroll: true});
 
         // Speak Goal: goal due date, title, and description
         let synth = new SpeechSynthesisUtterance(`Step: ${goal.id + 2}: ${goal.title}. ${goal.goalDescript}`);
