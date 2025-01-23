@@ -350,7 +350,14 @@ const accessibilitySelectGoal = (goal) => {
         return;
     }
 
+    // Get scroll posiiton
+    let currentScrollPos = document.documentElement.scrollTop || document.body.scrollTop;
+
+    // Update selected goal
     selectedGoal = goal;
+
+    // Reset scroll after assigment
+    scrollTo(0, currentScrollPos);
 
     // Smooth scroll to the selected goal
     goalRefs[goal.id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
