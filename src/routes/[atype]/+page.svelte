@@ -350,10 +350,12 @@ const accessibilitySelectGoal = (goal) => {
         return;
     }
 
-    // Update selected goal
-    selectedGoal = goal;
+    selectedGoal = null;
 
-    console.log(selectedGoal)
+    setTimeout(() => {
+        // Update selected goal
+        selectedGoal = goal;
+    }, 500)
 
     // Smooth scroll to the selected goal
     goalRefs[goal.id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
